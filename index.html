@@ -1,599 +1,590 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MonitoringAccess - Compatibility & Pricing</title>
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- FontAwesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: #f1f5f9;
-    }
-    .custom-scrollbar::-webkit-scrollbar {
-      width: 6px;
-    }
-    .custom-scrollbar::-webkit-scrollbar-track {
-      background: #f1f5f9;
-    }
-    .custom-scrollbar::-webkit-scrollbar-thumb {
-      background: #cbd5e1;
-      border-radius: 4px;
-    }
-    .modal-backdrop {
-      background-color: rgba(15, 23, 42, 0.7);
-      backdrop-filter: blur(4px);
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital Access | Esther Merel</title>
+<style>
+:root {
+  --bg:#0a1020;
+  --panel:#111b2e;
+  --panel2:#17243a;
+  --line:#293750;
+  --text:#eef4ff;
+  --muted:#91a3bf;
+  --blue:#5b9cff;
+  --green:#43d9a3;
+  --orange:#ffbd69;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--bg);color:var(--text);
+  font:14px/1.5 system-ui,-apple-system,sans-serif;
+}
+button,input,select{font:inherit}
+button{cursor:pointer}
+.app{min-height:100vh;display:grid;grid-template-columns:245px minmax(0,1fr)}
+.sidebar{
+  background:#0d1628;border-right:1px solid var(--line);
+  padding:22px 15px;display:flex;flex-direction:column;gap:20px
+}
+.brand{display:flex;align-items:center;gap:11px;padding:0 7px}
+.brand-icon{
+  width:39px;height:39px;border-radius:12px;
+  background:linear-gradient(135deg,#438bff,#815cff);
+  display:grid;place-items:center;font-size:21px;font-weight:800
+}
+.brand strong{font-size:16px}
+.brand small{display:block;color:var(--muted);font-size:11px}
+.section-label{
+  color:#7185a5;font-size:10px;font-weight:800;
+  letter-spacing:1.5px;padding:0 10px;margin-bottom:6px
+}
+.nav{display:grid;gap:5px}
+.nav button{
+  display:flex;align-items:center;gap:11px;text-align:left;
+  width:100%;padding:11px;border:1px solid transparent;
+  color:#aebdd4;background:transparent;border-radius:10px
+}
+.nav button:hover,.nav button.active{
+  color:white;background:#192943;border-color:#304663
+}
+.nav button.active{box-shadow:inset 3px 0 var(--blue)}
+.nav .ico{width:20px;text-align:center;font-size:17px}
+.sidebar-bottom{margin-top:auto}
+.side-note{
+  border:1px solid var(--line);background:var(--panel);
+  border-radius:12px;padding:12px;color:var(--muted);font-size:12px
+}
+.main{min-width:0}
+.topbar{
+  min-height:72px;border-bottom:1px solid var(--line);
+  padding:15px 25px;display:flex;align-items:center;
+  justify-content:space-between;gap:15px
+}
+.topbar h1{font-size:19px;margin:0}
+.topbar p{margin:3px 0 0;color:var(--muted);font-size:12px}
+.top-right{display:flex;align-items:center;gap:10px}
+.status-pill{
+  border:1px solid #286c58;color:var(--green);
+  background:#103328;padding:6px 10px;border-radius:30px;font-size:11px
+}
+.content{padding:24px;max-width:1500px;margin:auto}
+.profile{
+  padding:20px;display:flex;align-items:center;gap:17px;
+  flex-wrap:wrap;margin-bottom:20px
+}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:15px}
+.avatar{
+  flex:none;width:67px;height:67px;border-radius:20px;
+  background:linear-gradient(140deg,#315b94,#7b65bd);
+  display:grid;place-items:center;font-size:24px;font-weight:800
+}
+.profile-info{flex:1;min-width:190px}
+.profile-info h2{margin:0;font-size:23px}
+.profile-info p{margin:4px 0;color:var(--muted)}
+.tag{font-size:11px;padding:4px 8px;border-radius:6px;background:#1c304b;color:#a9caff}
+.profile-actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn{
+  border:1px solid var(--line);background:var(--panel2);color:var(--text);
+  border-radius:9px;padding:9px 12px
+}
+.btn:hover{border-color:var(--blue)}
+.btn.primary{background:#377eea;border-color:#377eea;color:white}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:20px}
+.stat{padding:17px}
+.stat-top{display:flex;justify-content:space-between;gap:8px;color:var(--muted)}
+.stat-icon{font-size:19px}
+.stat h3{font-size:25px;margin:12px 0 3px}
+.stat p{color:var(--muted);font-size:11px;margin:0}
+.layout{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(280px,.75fr);gap:16px}
+.panel-head{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:10px;padding:17px 18px;border-bottom:1px solid var(--line)
+}
+.panel-head h3{font-size:15px;margin:0}
+.panel-head p{font-size:11px;color:var(--muted);margin:4px 0 0}
+.panel-body{padding:17px}
+.field{
+  width:100%;background:#0c1628;border:1px solid var(--line);
+  border-radius:9px;padding:10px 12px;color:var(--text);outline:none
+}
+.field:focus{border-color:var(--blue)}
+.search-row{display:flex;gap:8px;margin-bottom:12px}
+.search-row input{min-width:0}
+.list{display:grid;gap:8px}
+.list-item{
+  width:100%;display:flex;gap:12px;align-items:center;text-align:left;
+  background:#101b2d;border:1px solid #24334b;border-radius:11px;
+  padding:12px;color:var(--text)
+}
+.list-item:hover,.list-item.selected{border-color:#548ce1;background:#162741}
+.mini-avatar{
+  width:39px;height:39px;border-radius:12px;background:#273d5b;
+  display:grid;place-items:center;flex:none;font-weight:700
+}
+.item-main{flex:1;min-width:0}
+.item-main strong{display:block;font-size:13px}
+.item-main small{display:block;color:var(--muted);margin-top:3px}
+.item-end{font-size:10px;color:var(--muted);text-align:right}
+.preview{
+  position:relative;overflow:hidden;min-height:160px;
+  padding:17px;background:#0c1628;border:1px solid var(--line);border-radius:12px
+}
+.bubble{
+  max-width:86%;background:#1a2c45;padding:10px 12px;
+  border-radius:12px;margin:10px 0;font-size:12px
+}
+.bubble.out{margin-left:auto;background:#164b43}
+.blur{filter:blur(5px);user-select:none}
+.caution{
+  position:absolute;inset:0;background:rgba(6,13,27,.68);
+  display:flex;align-items:center;justify-content:center;padding:16px
+}
+.caution-inner{
+  max-width:310px;text-align:center;background:#111e32;
+  border:1px solid #3c506e;border-radius:13px;padding:17px
+}
+.caution-inner .lock{font-size:25px}
+.caution-inner h4{margin:6px 0;font-size:14px}
+.caution-inner p{margin:5px 0 12px;font-size:11px;color:var(--muted)}
+.location-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.info-box{background:#0c1628;border:1px solid var(--line);border-radius:10px;padding:12px;min-width:0}
+.info-box small{display:block;color:var(--muted);font-size:11px;margin-bottom:5px}
+.info-box strong{font-size:12px;overflow-wrap:anywhere}
+.map-placeholder{
+  margin-top:12px;min-height:125px;border:1px solid var(--line);
+  border-radius:12px;display:grid;place-items:center;text-align:center;
+  background:radial-gradient(ellipse at center,#203957,#101a2b 70%);
+  color:#a8c7ee;padding:15px
+}
+.full-width{margin-top:16px}
+.table-wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:520px}
+th,td{text-align:left;padding:12px;border-bottom:1px solid var(--line);font-size:12px}
+th{color:var(--muted);font-weight:600}
+td{color:#e1eaff}
+td small{display:block;color:var(--muted);margin-top:3px}
+.empty{padding:28px;text-align:center;color:var(--muted)}
+.hidden{display:none!important}
+.notice{font-size:11px;color:var(--muted);margin-top:12px}
+.toast{
+  position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
+  background:#243750;border:1px solid #496384;padding:11px 16px;
+  border-radius:10px;box-shadow:0 8px 30px #0007;z-index:10
+}
+footer{color:#657995;font-size:11px;text-align:center;padding:25px 10px}
+@media(max-width:1000px){
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .layout{grid-template-columns:1fr}
+}
+@media(max-width:650px){
+  .app{grid-template-columns:1fr}
+  .sidebar{padding:12px;border-right:0;border-bottom:1px solid var(--line)}
+  .brand{padding:3px}
+  .nav{display:flex;overflow-x:auto}
+  .nav button{width:auto;min-width:max-content;padding:9px}
+  .section-label,.sidebar-bottom{display:none}
+  .topbar{padding:13px 16px}
+  .content{padding:14px}
+  .profile{padding:15px}
+  .profile-info h2{font-size:20px}
+  .grid{gap:9px}
+  .stat{padding:12px}
+  .stat h3{font-size:21px}
+}
+</style>
 </head>
-<body class="text-slate-800 antialiased min-h-screen flex flex-col items-center justify-start py-4 px-2 sm:px-4">
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-icon">D</div>
+      <div><strong>Digital Access</strong><small>Account dashboard</small></div>
+    </div>
 
-  <!-- Main Container Mobile Wrapper (max-w-[420px] on mobile/tablet, responsive on larger screens) -->
-  <div class="w-full max-w-[430px] sm:max-w-2xl md:max-w-4xl lg:max-w-5xl bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200 my-2">
-    
-    <!-- Top Navigation Header -->
-    <header class="bg-slate-900 text-white px-4 py-4 flex items-center justify-between border-b border-slate-800">
-      <div class="flex items-center space-x-2">
-        <div class="bg-emerald-500 text-slate-900 font-extrabold px-2.5 py-1 rounded-lg text-lg tracking-wider">
-          MA
-        </div>
-        <div>
-          <h1 class="text-lg font-bold tracking-tight text-white leading-tight">MonitoringAccess</h1>
-          <p class="text-[10px] text-emerald-400 font-medium">PREMIUM MONITORING SOLUTION</p>
-        </div>
+    <div>
+      <div class="section-label">WORKSPACE</div>
+      <nav class="nav" id="navigation">
+        <button class="active" data-page="overview"><span class="ico">▦</span>Overview</button>
+        <button data-page="contacts"><span class="ico">♙</span>Contacts</button>
+        <button data-page="calls"><span class="ico">☎</span>Call logs</button>
+        <button data-page="sms"><span class="ico">✉</span>SMS inbox</button>
+        <button data-page="social"><span class="ico">◎</span>Social inbox</button>
+        <button data-page="location"><span class="ico">⌖</span>Location</button>
+        <button data-page="sessions"><span class="ico">◈</span>Sessions</button>
+      </nav>
+    </div>
+
+    <div class="sidebar-bottom">
+      <div class="section-label">INFORMATION</div>
+      <div class="side-note">
+        <strong>Local dashboard</strong><br>
+        This page displays user-entered and sample data. No phone is connected.
       </div>
-      <div class="text-xs bg-slate-800 text-slate-300 px-3 py-1.5 rounded-full border border-slate-700 flex items-center space-x-1">
-        <i class="fa-solid me-1 fa-shield-halved text-emerald-400"></i> 100% Secure
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div>
+        <h1 id="pageTitle">Overview</h1>
+        <p id="pageSubtitle">Profile, activity and account information</p>
       </div>
+      <div class="top-right"><span class="status-pill">● Offline data</span></div>
     </header>
 
-    <!-- Main Content Area -->
-    <main class="p-4 sm:p-6 space-y-6">
+    <div class="content">
+      <section class="profile panel">
+        <div class="avatar">EM</div>
+        <div class="profile-info">
+          <h2>Esther Merel</h2>
+          <p>Primary phone: <span id="primaryPhone">+1 917 536 4180</span></p>
+          <span class="tag">Profile details supplied by user</span>
+        </div>
+        <div class="profile-actions">
+          <button class="btn" id="copyPhone">Copy phone</button>
+          <button class="btn primary" data-go="contacts">View contacts</button>
+        </div>
+      </section>
 
-      <!-- Section 1: Device Compatibility Check -->
-      <section class="bg-slate-50 p-4 sm:p-5 rounded-xl border border-slate-200 shadow-sm">
-        <div class="text-center mb-4">
-          <h2 class="text-lg font-bold text-slate-900">Device Compatibility Check</h2>
-          <p class="text-xs text-slate-500 mt-0.5">Select target device specifications to verify support</p>
+      <section id="overviewPage">
+        <div class="grid">
+          <div class="panel stat">
+            <div class="stat-top"><span>Associated contacts</span><span class="stat-icon">♙</span></div>
+            <h3 id="contactCount">5</h3><p>Contacts supplied for this page</p>
+          </div>
+          <div class="panel stat">
+            <div class="stat-top"><span>Sample call records</span><span class="stat-icon">☎</span></div>
+            <h3 id="callCount">4</h3><p>Illustrative records, not phone history</p>
+          </div>
+          <div class="panel stat">
+            <div class="stat-top"><span>Sample conversations</span><span class="stat-icon">✉</span></div>
+            <h3 id="messageCount">4</h3><p>Example content only</p>
+          </div>
+          <div class="panel stat">
+            <div class="stat-top"><span>Device connection</span><span class="stat-icon">◈</span></div>
+            <h3 style="font-size:20px">Not connected</h3><p>No live device data available</p>
+          </div>
         </div>
 
-        <!-- OS Tabs -->
-        <div class="grid grid-cols-4 gap-1 sm:gap-2 mb-4 bg-slate-200 p-1 rounded-xl" id="osTabs">
-          <button onclick="selectOS('android')" id="tab-android" class="os-tab active flex flex-col sm:flex-row items-center justify-center py-2 px-1 rounded-lg text-xs font-semibold bg-white text-slate-900 shadow-sm transition-all">
-            <i class="fa-brands fa-android text-base sm:me-1.5 text-emerald-600 mb-1 sm:mb-0"></i>
-            <span>Android</span>
-          </button>
-          <button onclick="selectOS('iphone')" id="tab-iphone" class="os-tab flex flex-col sm:flex-row items-center justify-center py-2 px-1 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition-all">
-            <i class="fa-brands fa-apple text-base sm:me-1.5 mb-1 sm:mb-0"></i>
-            <span>iPhone</span>
-          </button>
-          <button onclick="selectOS('ipad')" id="tab-ipad" class="os-tab flex flex-col sm:flex-row items-center justify-center py-2 px-1 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition-all">
-            <i class="fa-solid fa-tablet-screen-button text-base sm:me-1.5 mb-1 sm:mb-0"></i>
-            <span>iPad</span>
-          </button>
-          <button onclick="selectOS('computer')" id="tab-computer" class="os-tab flex flex-col sm:flex-row items-center justify-center py-2 px-1 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition-all">
-            <i class="fa-solid fa-laptop text-base sm:me-1.5 mb-1 sm:mb-0"></i>
-            <span>Computer</span>
-          </button>
+        <div class="layout">
+          <section class="panel">
+            <div class="panel-head">
+              <div><h3>Associated contacts</h3><p>Select a contact to view their supplied details</p></div>
+              <button class="btn" data-go="contacts">All contacts →</button>
+            </div>
+            <div class="panel-body"><div class="list" id="recentContacts"></div></div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-head">
+              <div><h3>Message inbox</h3><p>Illustrative message previews</p></div>
+              <button class="btn" data-go="social">Open inbox →</button>
+            </div>
+            <div class="panel-body">
+              <div class="preview">
+                <div class="blur">
+                  <div class="bubble">Hi, just checking in. Hope everything is going well!</div>
+                  <div class="bubble out">Thanks for the message. Talk soon.</div>
+                  <div class="bubble">Let me know when you're available.</div>
+                </div>
+                <div class="caution">
+                  <div class="caution-inner">
+                    <div class="lock">🔒</div>
+                    <h4>Unlock Full Message Functionality</h4>
+                    <p>Preview uses sample content. Real messages require authorized data access.</p>
+                    <button class="btn primary" data-go="sms">View sample inbox</button>
+                  </div>
+                </div>
+              </div>
+              <p class="notice">The overlay is a visual preview, not a real account lock or unlock process.</p>
+            </div>
+          </section>
         </div>
 
-        <!-- Select Dropdowns -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
-          <div>
-            <label class="block text-xs font-medium text-slate-600 mb-1" id="modelLabel">Device Model</label>
-            <select id="deviceModelSelect" class="w-full text-xs font-medium bg-white border border-slate-300 rounded-lg px-3 py-2.5 text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500">
-              <!-- Options populated dynamically -->
+        <section class="panel full-width">
+          <div class="panel-head"><div><h3>Location & connection</h3><p>Location provided as a reference; live status is unverified</p></div><span class="tag">Unverified</span></div>
+          <div class="panel-body" id="locationSummary"></div>
+        </section>
+      </section>
+
+      <section id="contactsPage" class="panel hidden">
+        <div class="panel-head"><div><h3>Contacts</h3><p>Search and select a supplied contact</p></div></div>
+        <div class="panel-body">
+          <div class="search-row"><input class="field" id="contactSearch" placeholder="Search name, relationship or phone number..."></div>
+          <div class="list" id="contactList"></div>
+          <div id="contactDetail" class="info-box hidden" style="margin-top:14px"></div>
+        </div>
+      </section>
+
+      <section id="callsPage" class="panel hidden">
+        <div class="panel-head"><div><h3>Call logs</h3><p>Example records; not retrieved from a device</p></div><span class="tag">Sample data</span></div>
+        <div class="panel-body">
+          <div class="search-row"><input class="field" id="callSearch" placeholder="Search sample call records..."></div>
+          <div class="table-wrap"><table><thead><tr><th>Contact</th><th>Direction</th><th>Date</th><th>Duration</th></tr></thead><tbody id="callTable"></tbody></table></div>
+        </div>
+      </section>
+
+      <section id="smsPage" class="panel hidden">
+        <div class="panel-head"><div><h3>SMS inbox</h3><p>Search and view example conversations</p></div><span class="tag">Sample data</span></div>
+        <div class="panel-body">
+          <div class="search-row"><input class="field" id="smsSearch" placeholder="Search sample conversations..."></div>
+          <div class="list" id="smsList"></div>
+          <div id="smsDetail" class="preview hidden" style="margin-top:14px"></div>
+        </div>
+      </section>
+
+      <section id="socialPage" class="panel hidden">
+        <div class="panel-head"><div><h3>Social inbox</h3><p>Illustrative app categories and sample previews</p></div></div>
+        <div class="panel-body">
+          <div class="search-row">
+            <select class="field" id="socialFilter">
+              <option value="All">All platforms</option>
+              <option>WhatsApp</option><option>Instagram</option>
+              <option>Messenger</option><option>Telegram</option>
             </select>
+            <input class="field" id="socialSearch" placeholder="Search...">
           </div>
-          <div>
-            <label class="block text-xs font-medium text-slate-600 mb-1" id="versionLabel">OS Version</label>
-            <select id="deviceVersionSelect" class="w-full text-xs font-medium bg-white border border-slate-300 rounded-lg px-3 py-2.5 text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500">
-              <!-- Options populated dynamically -->
-            </select>
-          </div>
-        </div>
-
-        <!-- Show Me / Check Button -->
-        <button onclick="checkCompatibility()" class="w-full bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-bold py-2.5 px-4 rounded-xl shadow transition-all duration-200 flex items-center justify-center space-x-2 text-sm tracking-wide">
-          <i class="fa-solid fa-magnifying-glass text-xs"></i>
-          <span>SHOW ME COMPATIBILITY</span>
-        </button>
-      </section>
-
-      <!-- Section 2: Pricing Cards -->
-      <section class="space-y-4">
-        <div class="text-center">
-          <h2 class="text-xl font-extrabold text-slate-900">Choose Your Plan</h2>
-          <p class="text-xs text-slate-500">Full features unlocked immediately upon activation</p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-
-          <!-- CARD 1: LITE -->
-          <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden hover:shadow-md transition-shadow flex flex-col justify-between">
-            <div>
-              <div class="bg-slate-100 p-4 border-b border-slate-200 text-center relative">
-                <span class="text-xs font-bold text-slate-500 uppercase tracking-widest">Basic Access</span>
-                <h3 class="text-xl font-extrabold text-slate-800 mt-1">LITE</h3>
-                <div class="mt-2 flex items-baseline justify-center text-slate-900">
-                  <span class="text-sm font-semibold">$</span>
-                  <span class="text-3xl font-black tracking-tight" id="lite-price-display">135.95</span>
-                </div>
-              </div>
-
-              <div class="p-4 space-y-3">
-                <div class="text-xs text-slate-500 font-medium text-center">Select Duration:</div>
-                <div class="space-y-2">
-                  <label class="flex items-center justify-between p-2.5 rounded-lg border border-emerald-500 bg-emerald-50/40 cursor-pointer">
-                    <div class="flex items-center space-x-2">
-                      <input type="radio" name="lite-plan" value="135.95" checked onchange="updateCardPrice('lite', 135.95, '3 Months')" class="text-emerald-600 focus:ring-emerald-500">
-                      <span class="text-xs font-bold text-slate-800">3 Months</span>
-                    </div>
-                    <span class="text-xs font-bold text-slate-900">$135.95</span>
-                  </label>
-                </div>
-
-                <div class="pt-2 border-t border-slate-100 text-xs space-y-2">
-                  <div class="flex items-center text-slate-700">
-                    <i class="fa-solid fa-check text-emerald-500 me-2 text-xs"></i> Call Logs & Contacts
-                  </div>
-                  <div class="flex items-center text-slate-700">
-                    <i class="fa-solid fa-check text-emerald-500 me-2 text-xs"></i> SMS & iMessage Tracking
-                  </div>
-                  <div class="flex items-center text-slate-700">
-                    <i class="fa-solid fa-check text-emerald-500 me-2 text-xs"></i> GPS Location Tracking
-                  </div>
-                  <div class="flex items-center text-slate-700">
-                    <i class="fa-solid fa-check text-emerald-500 me-2 text-xs"></i> Browser History
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="p-4 pt-0">
-              <button onclick="openPaymentModal('LITE', currentLitePrice, currentLiteDuration)" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-2.5 px-4 rounded-xl shadow text-xs uppercase tracking-wider transition-all">
-                BUY NOW
-              </button>
-            </div>
-          </div>
-
-          <!-- CARD 2: PREMIUM (Featured) -->
-          <div class="bg-white rounded-2xl border-2 border-emerald-500 shadow-md overflow-hidden relative flex flex-col justify-between">
-            <div class="absolute top-0 right-0 bg-emerald-500 text-white text-[10px] font-extrabold uppercase px-3 py-1 rounded-bl-lg tracking-wider">
-              Popular
-            </div>
-            <div>
-              <div class="bg-emerald-50/50 p-4 border-b border-slate-200 text-center">
-                <span class="text-xs font-bold text-emerald-600 uppercase tracking-widest">Advanced Suite</span>
-                <h3 class="text-xl font-extrabold text-slate-800 mt-1">PREMIUM</h3>
-                <div class="mt-2 flex items-baseline justify-center text-slate-900">
-                  <span class="text-sm font-semibold">$</span>
-                  <span class="text-3xl font-black tracking-tight" id="premium-price-display">170.11</span>
-                </div>
-              </div>
-
-              <div class="p-4 space-y-3">
-                <div class="text-xs text-slate-500 font-medium text-center">Select Duration:</div>
-                <div class="space-y-2">
-                  <label id="prem-opt-1" class="flex items-center justify-between p-2.5 rounded-lg border border-emerald-500 bg-emerald-50/40 cursor-pointer">
-                    <div class="flex items-center space-x-2">
-                      <input type="radio" name="premium-plan" value="170.11" checked onchange="updateCardPrice('premium', 170.11, '3 Months')" class="text-emerald-600 focus:ring-emerald-500">
-                      <span class="text-xs font-bold text-slate-800">3 Months</span>
-                    </div>
-                    <span class="text-xs font-bold text-slate-900">$170.11</span>
-                  </label>
-                  <label id="prem-opt-2" class="flex items-center justify-between p-2.5 rounded-lg border border-slate-200 hover:border-slate-300 cursor-pointer">
-                    <div class="flex items-center space-x-2">
-                      <input type="radio" name="premium-plan" value="230.85" onchange="updateCardPrice('premium', 230.85, '6 Months')" class="text-emerald-600 focus:ring-emerald-500">
-                      <span class="text-xs font-bold text-slate-800">6 Months</span>
-                    </div>
-                    <span class="text-xs font-bold text-slate-900">$230.85</span>
-                  </label>
-                </div>
-
-                <div class="pt-2 border-t border-slate-100 text-xs space-y-2">
-                  <div class="flex items-center text-slate-700">
-                    <i class="fa-solid fa-check text-emerald-500 me-2 text-xs"></i> All Lite Features Included
-                  </div>
-                  <div class="flex items-center text-slate-700">
-                    <i class="fa-solid fa-check text-emerald-500 me-2 text-xs"></i> WhatsApp, Facebook, IG Direct
-                  </div>
-                  <div class="flex items-center text-slate-700">
-                    <i class="fa-solid fa-check text-emerald-500 me-2 text-xs"></i> Photos & Video Access
-                  </div>
-                  <div class="flex items-center text-slate-700">
-                    <i class="fa-solid fa-check text-emerald-500 me-2 text-xs"></i> Keylogger & App Usage
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="p-4 pt-0">
-              <button onclick="openPaymentModal('PREMIUM', currentPremiumPrice, currentPremiumDuration)" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 px-4 rounded-xl shadow text-xs uppercase tracking-wider transition-all">
-                BUY NOW
-              </button>
-            </div>
-          </div>
-
-          <!-- CARD 3: EXTREME -->
-          <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden hover:shadow-md transition-shadow flex flex-col justify-between">
-            <div>
-              <div class="bg-slate-100 p-4 border-b border-slate-200 text-center">
-                <span class="text-xs font-bold text-purple-600 uppercase tracking-widest">Ultimate Power</span>
-                <h3 class="text-xl font-extrabold text-slate-800 mt-1">EXTREME</h3>
-                <div class="mt-2 flex items-baseline justify-center text-slate-900">
-                  <span class="text-sm font-semibold">$</span>
-                  <span class="text-3xl font-black tracking-tight" id="extreme-price-display">225.00</span>
-                </div>
-              </div>
-
-              <div class="p-4 space-y-3">
-                <div class="text-xs text-slate-500 font-medium text-center">Select Duration:</div>
-                <div class="space-y-2">
-                  <label id="ext-opt-1" class="flex items-center justify-between p-2.5 rounded-lg border border-emerald-500 bg-emerald-50/40 cursor-pointer">
-                    <div class="flex items-center space-x-2">
-                      <input type="radio" name="extreme-plan" value="225.00" checked onchange="updateCardPrice('extreme', 225.00, '6 Months')" class="text-emerald-600 focus:ring-emerald-500">
-                      <span class="text-xs font-bold text-slate-800">6 Months</span>
-                    </div>
-                    <span class="text-xs font-bold text-slate-900">$225.00</span>
-                  </label>
-                  <label id="ext-opt-2" class="flex items-center justify-between p-2.5 rounded-lg border border-slate-200 hover:border-slate-300 cursor-pointer">
-                    <div class="flex items-center space-x-2">
-                      <input type="radio" name="extreme-plan" value="380.00" onchange="updateCardPrice('extreme', 380.00, '12 Months')" class="text-emerald-600 focus:ring-emerald-500">
-                      <span class="text-xs font-bold text-slate-800">12 Months</span>
-                    </div>
-                    <span class="text-xs font-bold text-slate-900">$380.00</span>
-                  </label>
-                </div>
-
-                <div class="pt-2 border-t border-slate-100 text-xs space-y-2">
-                  <div class="flex items-center text-slate-700">
-                    <i class="fa-solid fa-check text-emerald-500 me-2 text-xs"></i> All Premium Features Included
-                  </div>
-                  <div class="flex items-center text-slate-700">
-                    <i class="fa-solid fa-check text-emerald-500 me-2 text-xs"></i> Live Call Intercept & Recording
-                  </div>
-                  <div class="flex items-center text-slate-700">
-                    <i class="fa-solid fa-check text-emerald-500 me-2 text-xs"></i> Ambient Mic Recording
-                  </div>
-                  <div class="flex items-center text-slate-700">
-                    <i class="fa-solid fa-check text-emerald-500 me-2 text-xs"></i> Remote Camera Capture
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="p-4 pt-0">
-              <button onclick="openPaymentModal('EXTREME', currentExtremePrice, currentExtremeDuration)" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-2.5 px-4 rounded-xl shadow text-xs uppercase tracking-wider transition-all">
-                BUY NOW
-              </button>
-            </div>
-          </div>
-
+          <div class="list" id="socialList"></div>
+          <div id="socialDetail" class="preview hidden" style="margin-top:14px"></div>
+          <p class="notice">This page does not connect to any social media account or display actual private inboxes.</p>
         </div>
       </section>
 
-      <!-- Section 3: Feature Expansion Accordion -->
-      <section class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
-        <button onclick="toggleAccordion()" class="w-full p-4 text-left flex items-center justify-between bg-slate-50 hover:bg-slate-100 transition-colors">
-          <div class="flex items-center space-x-2">
-            <i class="fa-solid fa-layer-group text-emerald-600"></i>
-            <span class="font-bold text-slate-800 text-sm">Expand Full Feature Matrix</span>
-          </div>
-          <i id="accordionIcon" class="fa-solid fa-chevron-down text-slate-500 text-xs transition-transform duration-200"></i>
-        </button>
+      <section id="locationPage" class="panel hidden">
+        <div class="panel-head"><div><h3>Location & connection</h3><p>Supplied location reference and verification status</p></div><span class="tag">Unverified</span></div>
+        <div class="panel-body" id="locationFull"></div>
+      </section>
 
-        <div id="accordionContent" class="hidden p-4 border-t border-slate-200 text-xs space-y-4">
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div class="space-y-2">
-              <h4 class="font-bold text-slate-900 border-b pb-1 text-xs uppercase tracking-wider text-emerald-600">Communication Tracking</h4>
-              <ul class="space-y-1.5 text-slate-600">
-                <li class="flex items-center"><i class="fa-solid fa-angle-right text-emerald-500 me-2"></i> WhatsApp, LINE, Viber, Skype</li>
-                <li class="flex items-center"><i class="fa-solid fa-angle-right text-emerald-500 me-2"></i> Facebook Messenger, Instagram Direct</li>
-                <li class="flex items-center"><i class="fa-solid fa-angle-right text-emerald-500 me-2"></i> Snapchat, Telegram, Tinder Messages</li>
-                <li class="flex items-center"><i class="fa-solid fa-angle-right text-emerald-500 me-2"></i> SMS, MMS & Email Log Capture</li>
-              </ul>
-            </div>
-
-            <div class="space-y-2">
-              <h4 class="font-bold text-slate-900 border-b pb-1 text-xs uppercase tracking-wider text-emerald-600">Remote Controls & Media</h4>
-              <ul class="space-y-1.5 text-slate-600">
-                <li class="flex items-center"><i class="fa-solid fa-angle-right text-emerald-500 me-2"></i> Hidden Camera Photo Triggering</li>
-                <li class="flex items-center"><i class="fa-solid fa-angle-right text-emerald-500 me-2"></i> Surroundings Sound Recording</li>
-                <li class="flex items-center"><i class="fa-solid fa-angle-right text-emerald-500 me-2"></i> Photo & Video Gallery Downloader</li>
-                <li class="flex items-center"><i class="fa-solid fa-angle-right text-emerald-500 me-2"></i> Real-time GPS Location & Geofencing</li>
-              </ul>
-            </div>
+      <section id="sessionsPage" class="panel hidden">
+        <div class="panel-head"><div><h3>Active sessions</h3><p>Account sessions have not been connected or verified</p></div></div>
+        <div class="panel-body">
+          <div class="info-box">
+            <small>Connection status</small><strong>No live account or device connection</strong>
           </div>
+          <div class="empty">No verified active sessions are available to display.</div>
+          <p class="notice">Network type, carrier, device activity and session status cannot be confirmed by this standalone HTML page.</p>
         </div>
       </section>
 
-      <!-- Footer Info -->
-      <footer class="text-center pt-2 pb-1 text-[11px] text-slate-400 space-y-1 border-t border-slate-100">
-        <p>© 2026 MonitoringAccess. All rights reserved.</p>
-        <p class="text-[10px]">Discrete, secure, and instant service provisioning.</p>
-      </footer>
-
-    </main>
-  </div>
-
-  <!-- MODAL 1: Compatibility Result Modal -->
-  <div id="compatModal" class="fixed inset-0 modal-backdrop hidden z-50 flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl max-w-sm w-full p-5 shadow-2xl border border-slate-100 text-center space-y-4">
-      <div id="compatIconContainer" class="w-12 h-12 rounded-full flex items-center justify-center mx-auto text-xl">
-        <!-- Icon inserted by JS -->
-      </div>
-      <div>
-        <h3 id="compatTitle" class="text-base font-bold text-slate-900"></h3>
-        <p id="compatMessage" class="text-xs text-slate-600 mt-2 leading-relaxed"></p>
-      </div>
-      <button onclick="closeModal('compatModal')" class="w-full bg-slate-900 text-white font-bold py-2 rounded-xl text-xs uppercase tracking-wider hover:bg-slate-800 transition-colors">
-        Close
-      </button>
+      <footer>Digital Access · Local dashboard · No live device access</footer>
     </div>
+  </main>
+</div>
+<div id="toast" class="toast hidden" role="status"></div>
+
+<script>
+const contacts = [
+  {name:"Esther Merel", phone:"+1 917 536 4180", type:"Primary contact"},
+  {name:"Benjamin Merel", phone:"+1 718 645 5740", type:"Family"},
+  {name:"Abigail Merel Tamir", phone:"+1 561 409 4134", type:"Other"},
+  {name:"Abigail Merel-Tamir", phone:"+1 718 382 1404", type:"Other"},
+  {name:"Leah Scharf", phone:"+1 800 793 1111", type:"Other"},
+  {name:"Bryan Charles", phone:"+1 718 253 4941", type:"Friendly relationship"}
+];
+
+const calls = [
+  {name:"Benjamin Merel",direction:"Incoming",date:"Example · Oct 18",duration:"04:12"},
+  {name:"Abigail Merel Tamir",direction:"Outgoing",date:"Example · Oct 17",duration:"02:38"},
+  {name:"Leah Scharf",direction:"Missed",date:"Example · Oct 16",duration:"—"},
+  {name:"Bryan Charles",direction:"Incoming",date:"Example · Oct 15",duration:"01:54"}
+];
+
+const messages = [
+  {name:"Benjamin Merel",phone:"+1 718 645 5740",text:"Hi, hope your day is going well.",reply:"Thanks! Hope yours is going well too.",platform:"SMS"},
+  {name:"Abigail Merel Tamir",phone:"+1 561 409 4134",text:"Just checking whether you received my note.",reply:"Yes, thank you for checking in.",platform:"SMS"},
+  {name:"Leah Scharf",phone:"+1 800 793 1111",text:"Please let me know a good time to talk.",reply:"I'll get back to you soon.",platform:"SMS"},
+  {name:"Bryan Charles",phone:"+1 718 253 4941",text:"Are we still on for later?",reply:"Let's confirm the details soon.",platform:"SMS"}
+];
+
+const socials = [
+  {name:"Benjamin Merel",platform:"WhatsApp",text:"Hey, just wanted to check in.",reply:"Thanks for reaching out."},
+  {name:"Abigail Merel Tamir",platform:"Instagram",text:"Shared a post with you.",reply:"I'll take a look later."},
+  {name:"Leah Scharf",platform:"Messenger",text:"Hi, are you available this week?",reply:"I'll let you know."},
+  {name:"Bryan Charles",platform:"Telegram",text:"Sent you an update.",reply:"Thanks for the update."}
+];
+
+const $ = id => document.getElementById(id);
+let toastTimer;
+function toast(message){
+  $("toast").textContent=message;
+  $("toast").classList.remove("hidden");
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>$("toast").classList.add("hidden"),2400);
+}
+function esc(value){
+  return String(value).replace(/[&<>"']/g,c=>({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  }[c]));
+}
+function initials(name){
+  return name.split(/\s+/).slice(0,2).map(n=>n[0]).join("").toUpperCase();
+}
+function empty(message){return `<div class="empty">${esc(message)}</div>`;}
+
+const pages = {
+  overview:["Overview","Profile, activity and account information"],
+  contacts:["Contacts","Associated contact directory"],
+  calls:["Call logs","Illustrative call records"],
+  sms:["SMS inbox","Example text message conversations"],
+  social:["Social inbox","Example social platform previews"],
+  location:["Location","Location and connection information"],
+  sessions:["Sessions","Account session status"]
+};
+function go(page){
+  if(!pages[page]) return;
+  Object.keys(pages).forEach(key=>{
+    $(key+"Page").classList.toggle("hidden",key!==page);
+  });
+  document.querySelectorAll("#navigation button").forEach(button=>{
+    button.classList.toggle("active",button.dataset.page===page);
+  });
+  $("pageTitle").textContent=pages[page][0];
+  $("pageSubtitle").textContent=pages[page][1];
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+document.querySelectorAll("[data-page]").forEach(button=>{
+  button.addEventListener("click",()=>go(button.dataset.page));
+});
+document.querySelectorAll("[data-go]").forEach(button=>{
+  button.addEventListener("click",()=>go(button.dataset.go));
+});
+
+function contactCard(contact){
+  return `<button class="list-item" data-contact="${esc(contact.phone)}">
+    <div class="mini-avatar">${esc(initials(contact.name))}</div>
+    <div class="item-main"><strong>${esc(contact.name)}</strong>
+      <small>${esc(contact.phone)}</small></div>
+    <div class="item-end">${esc(contact.type)}</div>
+  </button>`;
+}
+function renderRecentContacts(){
+  $("recentContacts").innerHTML=contacts.slice(1,5).map(contactCard).join("");
+}
+function renderContacts(){
+  const query=$("contactSearch").value.toLowerCase().trim();
+  const found=contacts.filter(c=>(c.name+" "+c.phone+" "+c.type).toLowerCase().includes(query));
+  $("contactList").innerHTML=found.length?found.map(contactCard).join(""):empty("No matching contacts.");
+}
+function showContact(phone){
+  const contact=contacts.find(c=>c.phone===phone);
+  if(!contact)return;
+  $("contactDetail").classList.remove("hidden");
+  $("contactDetail").innerHTML=`<strong>${esc(contact.name)}</strong>
+    <p>${esc(contact.phone)}</p><p>${esc(contact.type)}</p>
+    <button class="btn" id="detailCopy">Copy phone number</button>`;
+  $("detailCopy").onclick=()=>copyText(contact.phone);
+}
+function renderCalls(){
+  const query=$("callSearch").value.toLowerCase().trim();
+  const found=calls.filter(c=>(c.name+" "+c.direction+" "+c.date).toLowerCase().includes(query));
+  $("callTable").innerHTML=found.map(c=>`<tr>
+    <td>${esc(c.name)}<small>Sample record</small></td>
+    <td>${esc(c.direction)}</td><td>${esc(c.date)}</td><td>${esc(c.duration)}</td>
+  </tr>`).join("")||`<tr><td colspan="4">${empty("No matching sample call records.")}</td></tr>`;
+}
+function renderMessages(){
+  const query=$("smsSearch").value.toLowerCase().trim();
+  const found=messages.filter(m=>(m.name+" "+m.phone+" "+m.text).toLowerCase().includes(query));
+  $("smsList").innerHTML=found.map((m,i)=>`<button class="list-item" data-sms="${esc(m.phone)}">
+    <div class="mini-avatar">${esc(initials(m.name))}</div>
+    <div class="item-main"><strong>${esc(m.name)}</strong><small>${esc(m.text)}</small></div>
+    <div class="item-end">Sample<br>SMS</div>
+  </button>`).join("")||empty("No matching sample conversations.");
+}
+function showMessage(phone,containerId){
+  const m=messages.find(item=>item.phone===phone);
+  if(!m)return;
+  const box=$(containerId);
+  box.classList.remove("hidden");
+  box.innerHTML=`<strong>${esc(m.name)} · ${esc(m.platform)}</strong>
+    <p class="notice">Example conversation — not a real message history.</p>
+    <div class="bubble">${esc(m.text)}</div>
+    <div class="bubble out">${esc(m.reply)}</div>`;
+}
+function renderSocial(){
+  const platform=$("socialFilter").value;
+  const query=$("socialSearch").value.toLowerCase().trim();
+  const found=socials.filter(m=>(platform==="All"||m.platform===platform)&&
+    (m.name+" "+m.platform+" "+m.text).toLowerCase().includes(query));
+  $("socialList").innerHTML=found.map(m=>`<button class="list-item" data-social="${esc(m.name)}" data-platform="${esc(m.platform)}">
+    <div class="mini-avatar">${esc(initials(m.name))}</div>
+    <div class="item-main"><strong>${esc(m.name)}</strong><small>${esc(m.text)}</small></div>
+    <div class="item-end">${esc(m.platform)}</div>
+  </button>`).join("")||empty("No matching sample conversations.");
+}
+function showSocial(name,platform){
+  const m=socials.find(item=>item.name===name&&item.platform===platform);
+  if(!m)return;
+  $("socialDetail").classList.remove("hidden");
+  $("socialDetail").innerHTML=`<strong>${esc(m.platform)} · ${esc(m.name)}</strong>
+    <p class="notice">Sample preview only; no social account is connected.</p>
+    <div class="bubble">${esc(m.text)}</div><div class="bubble out">${esc(m.reply)}</div>`;
+}
+const locationHTML=`
+  <div class="location-grid">
+    <div class="info-box"><small>Reported area</small><strong>New York City, New York, United States</strong></div>
+    <div class="info-box"><small>Street / coordinates</small><strong>Not verified</strong></div>
+    <div class="info-box"><small>Location accuracy</small><strong>Unavailable</strong></div>
+    <div class="info-box"><small>Last update</small><strong>No live update available</strong></div>
+    <div class="info-box"><small>Connection type</small><strong>Unverified — 5G NSA not confirmed</strong></div>
+    <div class="info-box"><small>Carrier / online status</small><strong>Not connected or verified</strong></div>
+    <div class="info-box"><small>Active sessions</small><strong>Unavailable</strong></div>
+    <div class="info-box"><small>Data source</small><strong>User-supplied location reference</strong></div>
   </div>
+  <div class="map-placeholder"><div><div style="font-size:28px">⌖</div>
+    <strong>Location not verified</strong><br>
+    <small>A live location requires authorized location sharing.</small></div></div>
+  <p class="notice">The city is displayed as a supplied reference, not as a confirmed current location. No GPS, carrier, or device connection is available to this page.</p>`;
+$("locationSummary").innerHTML=locationHTML;
+$("locationFull").innerHTML=locationHTML;
 
-  <!-- MODAL 2: BUY NOW Bitcoin Payment Modal -->
-  <div id="paymentModal" class="fixed inset-0 modal-backdrop hidden z-50 flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl max-w-md w-full p-5 shadow-2xl border border-slate-100 space-y-4 relative">
-      
-      <!-- Modal Header -->
-      <div class="flex items-center justify-between border-b pb-3 border-slate-100">
-        <div class="flex items-center space-x-2">
-          <i class="fa-brands fa-bitcoin text-amber-500 text-xl"></i>
-          <h3 class="text-base font-bold text-slate-900">Bitcoin Checkout</h3>
-        </div>
-        <button onclick="closeModal('paymentModal')" class="text-slate-400 hover:text-slate-600 p-1">
-          <i class="fa-solid fa-xmark text-lg"></i>
-        </button>
-      </div>
+document.addEventListener("click",event=>{
+  const contactButton=event.target.closest("[data-contact]");
+  if(contactButton){
+    showContact(contactButton.dataset.contact);
+    return;
+  }
+  const smsButton=event.target.closest("[data-sms]");
+  if(smsButton){showMessage(smsButton.dataset.sms,"smsDetail");return;}
+  const socialButton=event.target.closest("[data-social]");
+  if(socialButton){
+    showSocial(socialButton.dataset.social,socialButton.dataset.platform);
+  }
+});
 
-      <!-- Instruction Banner -->
-      <div class="bg-amber-50 border border-amber-200 rounded-xl p-3 text-center">
-        <p class="text-xs font-semibold text-amber-900">Make payment to view access now.</p>
-      </div>
+$("contactSearch").addEventListener("input",renderContacts);
+$("callSearch").addEventListener("input",renderCalls);
+$("smsSearch").addEventListener("input",renderMessages);
+$("socialSearch").addEventListener("input",renderSocial);
+$("socialFilter").addEventListener("change",renderSocial);
 
-      <!-- Live Order Summary Box -->
-      <div class="bg-slate-50 rounded-xl p-3 border border-slate-200 space-y-1.5 text-xs">
-        <div class="flex justify-between text-slate-600">
-          <span>Selected Package:</span>
-          <span id="summaryPackage" class="font-bold text-slate-800">PREMIUM</span>
-        </div>
-        <div class="flex justify-between text-slate-600">
-          <span>Duration:</span>
-          <span id="summaryDuration" class="font-bold text-slate-800">3 Months</span>
-        </div>
-        <div class="flex justify-between text-slate-900 text-sm font-extrabold pt-1 border-t border-slate-200">
-          <span>Total Amount Due:</span>
-          <span id="summaryPrice" class="text-emerald-600">$170.11</span>
-        </div>
-      </div>
+async function copyText(value){
+  try{
+    await navigator.clipboard.writeText(value);
+    toast("Copied to clipboard.");
+  }catch{
+    const input=document.createElement("textarea");
+    input.value=value;document.body.appendChild(input);
+    input.select();
+    const ok=document.execCommand("copy");
+    input.remove();
+    toast(ok?"Copied to clipboard.":"Unable to copy automatically.");
+  }
+}
+$("copyPhone").addEventListener("click",()=>copyText("+1 917 536 4180"));
 
-      <!-- Bitcoin Address Box -->
-      <div class="space-y-2">
-        <label class="block text-xs font-semibold text-slate-700">Send Payment to BTC Address:</label>
-        <div class="bg-slate-900 text-emerald-400 p-3 rounded-xl flex items-center justify-between font-mono text-xs break-all shadow-inner border border-slate-800">
-          <span id="btcAddressText" class="select-all tracking-tight">1ByFg5V1jNdq8GDtHmhDjEVkxDv1CPu6oN</span>
-        </div>
-        <button onclick="copyBtcAddress()" id="copyBtn" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold py-2 px-3 rounded-xl border border-slate-300 text-xs flex items-center justify-center space-x-2 transition-colors">
-          <i class="fa-solid fa-copy text-slate-600"></i>
-          <span id="copyBtnText">Copy Address</span>
-        </button>
-      </div>
-
-      <!-- Verification Note -->
-      <div class="text-[11px] text-slate-500 text-center space-y-1">
-        <p><i class="fa-solid fa-clock text-amber-500 me-1"></i> Access link and dashboard login will be activated automatically upon 1 network confirmation.</p>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- JavaScript Logic -->
-  <script>
-    // State management for pricing
-    let currentLitePrice = 135.95;
-    let currentLiteDuration = '3 Months';
-
-    let currentPremiumPrice = 170.11;
-    let currentPremiumDuration = '3 Months';
-
-    let currentExtremePrice = 225.00;
-    let currentExtremeDuration = '6 Months';
-
-    // Device Options Map
-    const deviceData = {
-      android: {
-        models: ['Samsung Galaxy S24 / S23', 'Google Pixel 8 / 7', 'Xiaomi / Redmi Series', 'OnePlus 12 / 11', 'Motorola Edge / Moto G', 'Other Android Phone'],
-        versions: ['Android 14', 'Android 13', 'Android 12', 'Android 11', 'Android 10 & older']
-      },
-      iphone: {
-        models: ['iPhone 17 / Pro Max', 'iPhone 16 / 15 Series', 'iPhone 14 / 13 Series', 'iPhone 12 / 11 Series', 'iPhone SE / XS / XR'],
-        versions: ['iOS 26 (Beta/Unreleased)', 'iOS 17.x', 'iOS 16.x', 'iOS 15.x', 'iOS 14 & older']
-      },
-      ipad: {
-        models: ['iPad Pro 12.9" / 11"', 'iPad Air (5th/4th Gen)', 'iPad Mini (6th Gen)', 'Standard iPad (10th/9th Gen)'],
-        versions: ['iPadOS 17.x', 'iPadOS 16.x', 'iPadOS 15.x', 'iPadOS 14 & older']
-      },
-      computer: {
-        models: ['Windows 11 PC / Laptop', 'Windows 10 PC / Laptop', 'MacBook Air / Pro (M1/M2/M3)', 'iMac / Mac Studio'],
-        versions: ['Windows 11 23H2/22H2', 'Windows 10 22H2', 'macOS Sonoma (14.x)', 'macOS Ventura (13.x)', 'macOS Monterey (12.x)']
-      }
-    };
-
-    let activeOS = 'android';
-
-    // Initialize Options on DOM Load
-    document.addEventListener('DOMContentLoaded', () => {
-      populateDeviceDropdowns('android');
-    });
-
-    // Select OS Tab
-    function selectOS(os) {
-      activeOS = os;
-      // Update tab styles
-      document.querySelectorAll('.os-tab').forEach(tab => {
-        tab.classList.remove('bg-white', 'text-slate-900', 'shadow-sm');
-        tab.classList.add('text-slate-600');
-        const icon = tab.querySelector('i');
-        if (icon) icon.classList.remove('text-emerald-600');
-      });
-
-      const activeTab = document.getElementById(`tab-${os}`);
-      activeTab.classList.add('bg-white', 'text-slate-900', 'shadow-sm');
-      activeTab.classList.remove('text-slate-600');
-      const activeIcon = activeTab.querySelector('i');
-      if (activeIcon) activeIcon.classList.add('text-emerald-600');
-
-      populateDeviceDropdowns(os);
-    }
-
-    // Populate dropdowns based on selected OS
-    function populateDeviceDropdowns(os) {
-      const modelSelect = document.getElementById('deviceModelSelect');
-      const versionSelect = document.getElementById('deviceVersionSelect');
-
-      modelSelect.innerHTML = '';
-      versionSelect.innerHTML = '';
-
-      deviceData[os].models.forEach(model => {
-        const opt = document.createElement('option');
-        opt.value = model;
-        opt.textContent = model;
-        modelSelect.appendChild(opt);
-      });
-
-      deviceData[os].versions.forEach(ver => {
-        const opt = document.createElement('option');
-        opt.value = ver;
-        opt.textContent = ver;
-        versionSelect.appendChild(opt);
-      });
-    }
-
-    // Check Compatibility Trigger
-    function checkCompatibility() {
-      const model = document.getElementById('deviceModelSelect').value;
-      const version = document.getElementById('deviceVersionSelect').value;
-
-      const iconContainer = document.getElementById('compatIconContainer');
-      const title = document.getElementById('compatTitle');
-      const msg = document.getElementById('compatMessage');
-
-      // Check for specifically requested incompatible combo (e.g. iPhone 17 or iOS 26)
-      if (model.includes('iPhone 17') || version.includes('iOS 26')) {
-        iconContainer.className = 'w-12 h-12 rounded-full flex items-center justify-center mx-auto text-xl bg-red-100 text-red-600';
-        iconContainer.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i>';
-        title.textContent = 'Compatibility Warning';
-        title.className = 'text-base font-bold text-red-600';
-        msg.textContent = `Selected configuration (${model} running ${version}) is currently unreleased or unsupported by standard installation modules. Please select a supported release version.`;
-      } else {
-        iconContainer.className = 'w-12 h-12 rounded-full flex items-center justify-center mx-auto text-xl bg-emerald-100 text-emerald-600';
-        iconContainer.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
-        title.textContent = '100% Fully Compatible!';
-        title.className = 'text-base font-bold text-slate-900';
-        msg.textContent = `MonitoringAccess is fully operational on ${model} (${version}). All features including call recording, keylogger, and instant messengers are supported.`;
-      }
-
-      openModal('compatModal');
-    }
-
-    // Dynamic Price Updating for Plan Cards
-    function updateCardPrice(card, price, duration) {
-      if (card === 'lite') {
-        currentLitePrice = price;
-        currentLiteDuration = duration;
-        document.getElementById('lite-price-display').textContent = price.toFixed(2);
-      } else if (card === 'premium') {
-        currentPremiumPrice = price;
-        currentPremiumDuration = duration;
-        document.getElementById('premium-price-display').textContent = price.toFixed(2);
-        
-        // Update selection UI styles
-        const opt1 = document.getElementById('prem-opt-1');
-        const opt2 = document.getElementById('prem-opt-2');
-        if (price === 170.11) {
-          opt1.className = 'flex items-center justify-between p-2.5 rounded-lg border border-emerald-500 bg-emerald-50/40 cursor-pointer';
-          opt2.className = 'flex items-center justify-between p-2.5 rounded-lg border border-slate-200 hover:border-slate-300 cursor-pointer';
-        } else {
-          opt2.className = 'flex items-center justify-between p-2.5 rounded-lg border border-emerald-500 bg-emerald-50/40 cursor-pointer';
-          opt1.className = 'flex items-center justify-between p-2.5 rounded-lg border border-slate-200 hover:border-slate-300 cursor-pointer';
-        }
-      } else if (card === 'extreme') {
-        currentExtremePrice = price;
-        currentExtremeDuration = duration;
-        document.getElementById('extreme-price-display').textContent = price.toFixed(2);
-
-        // Update selection UI styles
-        const opt1 = document.getElementById('ext-opt-1');
-        const opt2 = document.getElementById('ext-opt-2');
-        if (price === 225.00) {
-          opt1.className = 'flex items-center justify-between p-2.5 rounded-lg border border-emerald-500 bg-emerald-50/40 cursor-pointer';
-          opt2.className = 'flex items-center justify-between p-2.5 rounded-lg border border-slate-200 hover:border-slate-300 cursor-pointer';
-        } else {
-          opt2.className = 'flex items-center justify-between p-2.5 rounded-lg border border-emerald-500 bg-emerald-50/40 cursor-pointer';
-          opt1.className = 'flex items-center justify-between p-2.5 rounded-lg border border-slate-200 hover:border-slate-300 cursor-pointer';
-        }
-      }
-    }
-
-    // Toggle Accordion
-    function toggleAccordion() {
-      const content = document.getElementById('accordionContent');
-      const icon = document.getElementById('accordionIcon');
-      if (content.classList.contains('hidden')) {
-        content.classList.remove('hidden');
-        icon.classList.add('rotate-180');
-      } else {
-        content.classList.add('hidden');
-        icon.classList.remove('rotate-180');
-      }
-    }
-
-    // Open Payment Modal
-    function openPaymentModal(pkg, price, duration) {
-      document.getElementById('summaryPackage').textContent = pkg;
-      document.getElementById('summaryDuration').textContent = duration;
-      document.getElementById('summaryPrice').textContent = `$${parseFloat(price).toFixed(2)}`;
-      
-      // Reset Copy Button State
-      const copyBtnText = document.getElementById('copyBtnText');
-      copyBtnText.textContent = 'Copy Address';
-      
-      openModal('paymentModal');
-    }
-
-    // Copy Bitcoin Address Utility
-    function copyBtcAddress() {
-      const address = document.getElementById('btcAddressText').innerText;
-      
-      // Fallback copy implementation
-      const tempInput = document.createElement('textarea');
-      tempInput.value = address;
-      document.body.appendChild(tempInput);
-      tempInput.select();
-      document.execCommand('copy');
-      document.body.removeChild(tempInput);
-
-      const copyBtnText = document.getElementById('copyBtnText');
-      copyBtnText.textContent = 'Copied!';
-      setTimeout(() => {
-        copyBtnText.textContent = 'Copy Address';
-      }, 2500);
-    }
-
-    // Modal Helpers
-    function openModal(id) {
-      document.getElementById(id).classList.remove('hidden');
-    }
-
-    function closeModal(id) {
-      document.getElementById(id).classList.add('hidden');
-    }
-  </script>
+renderRecentContacts();
+renderContacts();
+renderCalls();
+renderMessages();
+renderSocial();
+$("contactCount").textContent=contacts.length-1;
+$("callCount").textContent=calls.length;
+$("messageCount").textContent=messages.length;
+</script>
 </body>
 </html>
