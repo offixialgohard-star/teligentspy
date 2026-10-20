@@ -1,590 +1,216 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Digital Access | Esther Merel</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Esther Merel | Profile Record</title>
 <style>
 :root {
-  --bg:#0a1020;
-  --panel:#111b2e;
-  --panel2:#17243a;
-  --line:#293750;
-  --text:#eef4ff;
-  --muted:#91a3bf;
-  --blue:#5b9cff;
-  --green:#43d9a3;
-  --orange:#ffbd69;
+  --bg:#0b1020;
+  --panel:#131b2d;
+  --panel2:#19243a;
+  --line:#293751;
+  --text:#f2f5fb;
+  --muted:#9aa9c0;
+  --accent:#86b4ff;
 }
 *{box-sizing:border-box}
 body{
   margin:0;background:var(--bg);color:var(--text);
-  font:14px/1.5 system-ui,-apple-system,sans-serif;
+  font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif
 }
-button,input,select{font:inherit}
-button{cursor:pointer}
-.app{min-height:100vh;display:grid;grid-template-columns:245px minmax(0,1fr)}
-.sidebar{
-  background:#0d1628;border-right:1px solid var(--line);
-  padding:22px 15px;display:flex;flex-direction:column;gap:20px
-}
-.brand{display:flex;align-items:center;gap:11px;padding:0 7px}
-.brand-icon{
-  width:39px;height:39px;border-radius:12px;
-  background:linear-gradient(135deg,#438bff,#815cff);
-  display:grid;place-items:center;font-size:21px;font-weight:800
-}
-.brand strong{font-size:16px}
-.brand small{display:block;color:var(--muted);font-size:11px}
-.section-label{
-  color:#7185a5;font-size:10px;font-weight:800;
-  letter-spacing:1.5px;padding:0 10px;margin-bottom:6px
-}
-.nav{display:grid;gap:5px}
-.nav button{
-  display:flex;align-items:center;gap:11px;text-align:left;
-  width:100%;padding:11px;border:1px solid transparent;
-  color:#aebdd4;background:transparent;border-radius:10px
-}
-.nav button:hover,.nav button.active{
-  color:white;background:#192943;border-color:#304663
-}
-.nav button.active{box-shadow:inset 3px 0 var(--blue)}
-.nav .ico{width:20px;text-align:center;font-size:17px}
-.sidebar-bottom{margin-top:auto}
-.side-note{
-  border:1px solid var(--line);background:var(--panel);
-  border-radius:12px;padding:12px;color:var(--muted);font-size:12px
-}
-.main{min-width:0}
-.topbar{
-  min-height:72px;border-bottom:1px solid var(--line);
-  padding:15px 25px;display:flex;align-items:center;
-  justify-content:space-between;gap:15px
-}
-.topbar h1{font-size:19px;margin:0}
-.topbar p{margin:3px 0 0;color:var(--muted);font-size:12px}
-.top-right{display:flex;align-items:center;gap:10px}
-.status-pill{
-  border:1px solid #286c58;color:var(--green);
-  background:#103328;padding:6px 10px;border-radius:30px;font-size:11px
-}
-.content{padding:24px;max-width:1500px;margin:auto}
-.profile{
-  padding:20px;display:flex;align-items:center;gap:17px;
-  flex-wrap:wrap;margin-bottom:20px
-}
-.panel{background:var(--panel);border:1px solid var(--line);border-radius:15px}
+main{max-width:850px;margin:auto;padding:24px 16px 50px}
+header{padding:28px 0 20px}
 .avatar{
-  flex:none;width:67px;height:67px;border-radius:20px;
-  background:linear-gradient(140deg,#315b94,#7b65bd);
-  display:grid;place-items:center;font-size:24px;font-weight:800
+  width:76px;height:76px;border-radius:50%;display:grid;
+  place-items:center;background:#253b60;border:1px solid #496a9b;
+  color:#d8e7ff;font-size:25px;font-weight:700;flex-shrink:0
 }
-.profile-info{flex:1;min-width:190px}
-.profile-info h2{margin:0;font-size:23px}
-.profile-info p{margin:4px 0;color:var(--muted)}
-.tag{font-size:11px;padding:4px 8px;border-radius:6px;background:#1c304b;color:#a9caff}
-.profile-actions{display:flex;gap:8px;flex-wrap:wrap}
-.btn{
-  border:1px solid var(--line);background:var(--panel2);color:var(--text);
-  border-radius:9px;padding:9px 12px
-}
-.btn:hover{border-color:var(--blue)}
-.btn.primary{background:#377eea;border-color:#377eea;color:white}
-.btn:disabled{opacity:.45;cursor:not-allowed}
-.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:20px}
-.stat{padding:17px}
-.stat-top{display:flex;justify-content:space-between;gap:8px;color:var(--muted)}
-.stat-icon{font-size:19px}
-.stat h3{font-size:25px;margin:12px 0 3px}
-.stat p{color:var(--muted);font-size:11px;margin:0}
-.layout{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(280px,.75fr);gap:16px}
-.panel-head{
-  display:flex;align-items:center;justify-content:space-between;
-  gap:10px;padding:17px 18px;border-bottom:1px solid var(--line)
-}
-.panel-head h3{font-size:15px;margin:0}
-.panel-head p{font-size:11px;color:var(--muted);margin:4px 0 0}
-.panel-body{padding:17px}
-.field{
-  width:100%;background:#0c1628;border:1px solid var(--line);
-  border-radius:9px;padding:10px 12px;color:var(--text);outline:none
-}
-.field:focus{border-color:var(--blue)}
-.search-row{display:flex;gap:8px;margin-bottom:12px}
-.search-row input{min-width:0}
-.list{display:grid;gap:8px}
-.list-item{
-  width:100%;display:flex;gap:12px;align-items:center;text-align:left;
-  background:#101b2d;border:1px solid #24334b;border-radius:11px;
-  padding:12px;color:var(--text)
-}
-.list-item:hover,.list-item.selected{border-color:#548ce1;background:#162741}
-.mini-avatar{
-  width:39px;height:39px;border-radius:12px;background:#273d5b;
-  display:grid;place-items:center;flex:none;font-weight:700
-}
-.item-main{flex:1;min-width:0}
-.item-main strong{display:block;font-size:13px}
-.item-main small{display:block;color:var(--muted);margin-top:3px}
-.item-end{font-size:10px;color:var(--muted);text-align:right}
-.preview{
-  position:relative;overflow:hidden;min-height:160px;
-  padding:17px;background:#0c1628;border:1px solid var(--line);border-radius:12px
-}
-.bubble{
-  max-width:86%;background:#1a2c45;padding:10px 12px;
-  border-radius:12px;margin:10px 0;font-size:12px
-}
-.bubble.out{margin-left:auto;background:#164b43}
-.blur{filter:blur(5px);user-select:none}
-.caution{
-  position:absolute;inset:0;background:rgba(6,13,27,.68);
-  display:flex;align-items:center;justify-content:center;padding:16px
-}
-.caution-inner{
-  max-width:310px;text-align:center;background:#111e32;
-  border:1px solid #3c506e;border-radius:13px;padding:17px
-}
-.caution-inner .lock{font-size:25px}
-.caution-inner h4{margin:6px 0;font-size:14px}
-.caution-inner p{margin:5px 0 12px;font-size:11px;color:var(--muted)}
-.location-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.info-box{background:#0c1628;border:1px solid var(--line);border-radius:10px;padding:12px;min-width:0}
-.info-box small{display:block;color:var(--muted);font-size:11px;margin-bottom:5px}
-.info-box strong{font-size:12px;overflow-wrap:anywhere}
-.map-placeholder{
-  margin-top:12px;min-height:125px;border:1px solid var(--line);
-  border-radius:12px;display:grid;place-items:center;text-align:center;
-  background:radial-gradient(ellipse at center,#203957,#101a2b 70%);
-  color:#a8c7ee;padding:15px
-}
-.full-width{margin-top:16px}
-.table-wrap{overflow-x:auto}
-table{border-collapse:collapse;width:100%;min-width:520px}
-th,td{text-align:left;padding:12px;border-bottom:1px solid var(--line);font-size:12px}
-th{color:var(--muted);font-weight:600}
-td{color:#e1eaff}
-td small{display:block;color:var(--muted);margin-top:3px}
-.empty{padding:28px;text-align:center;color:var(--muted)}
-.hidden{display:none!important}
-.notice{font-size:11px;color:var(--muted);margin-top:12px}
-.toast{
-  position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
-  background:#243750;border:1px solid #496384;padding:11px 16px;
-  border-radius:10px;box-shadow:0 8px 30px #0007;z-index:10
-}
-footer{color:#657995;font-size:11px;text-align:center;padding:25px 10px}
-@media(max-width:1000px){
-  .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .layout{grid-template-columns:1fr}
-}
-@media(max-width:650px){
-  .app{grid-template-columns:1fr}
-  .sidebar{padding:12px;border-right:0;border-bottom:1px solid var(--line)}
-  .brand{padding:3px}
-  .nav{display:flex;overflow-x:auto}
-  .nav button{width:auto;min-width:max-content;padding:9px}
-  .section-label,.sidebar-bottom{display:none}
-  .topbar{padding:13px 16px}
-  .content{padding:14px}
-  .profile{padding:15px}
-  .profile-info h2{font-size:20px}
-  .grid{gap:9px}
-  .stat{padding:12px}
-  .stat h3{font-size:21px}
+.profile{display:flex;align-items:center;gap:18px}
+.eyebrow{color:var(--accent);font-size:11px;letter-spacing:1.7px;text-transform:uppercase}
+h1{font-size:30px;line-height:1.2;margin:5px 0}
+.muted{color:var(--muted);font-size:13px}
+.pill{display:inline-block;border:1px solid var(--line);border-radius:20px;padding:3px 9px;font-size:11px;color:#c5d8f5}
+nav{display:flex;gap:8px;overflow-x:auto;padding:14px 0 20px}
+nav a{white-space:nowrap;text-decoration:none;color:#dce7f8;background:var(--panel);border:1px solid var(--line);padding:8px 12px;border-radius:9px;font-size:12px}
+section{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:22px;margin-bottom:15px;scroll-margin-top:15px}
+h2{font-size:17px;margin:0 0 17px}
+h3{font-size:14px;margin:0 0 6px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:19px}
+.label{font-size:12px;color:var(--muted);margin-bottom:3px}
+.value{overflow-wrap:anywhere}
+.item{padding:13px 14px;background:var(--panel2);border:1px solid var(--line);border-radius:10px;margin-top:9px}
+.item p{margin:5px 0 0}
+.row{display:flex;justify-content:space-between;gap:12px;align-items:center}
+button{background:#263d61;border:1px solid #3a5680;color:white;border-radius:8px;padding:7px 11px;cursor:pointer}
+input{width:100%;background:#0d1526;border:1px solid var(--line);border-radius:9px;padding:12px;color:white;margin-bottom:10px}
+.badge{font-size:10px;color:#c5d8f5;border:1px solid #3b5274;border-radius:5px;padding:3px 6px;white-space:nowrap}
+.notice{font-size:12px;color:#cbbf9e;background:#211f1a;border:1px solid #51472f;padding:13px;border-radius:10px;margin-top:14px}
+footer{text-align:center;color:var(--muted);font-size:11px;padding:12px}
+@media(max-width:540px){
+ main{padding:14px 10px 35px}
+ section{padding:17px 14px}
+ .grid{grid-template-columns:1fr}
+ h1{font-size:25px}
 }
 </style>
 </head>
 <body>
-<div class="app">
-  <aside class="sidebar">
-    <div class="brand">
-      <div class="brand-icon">D</div>
-      <div><strong>Digital Access</strong><small>Account dashboard</small></div>
-    </div>
-
+<main>
+<header>
+  <div class="profile">
+    <div class="avatar">EM</div>
     <div>
-      <div class="section-label">WORKSPACE</div>
-      <nav class="nav" id="navigation">
-        <button class="active" data-page="overview"><span class="ico">▦</span>Overview</button>
-        <button data-page="contacts"><span class="ico">♙</span>Contacts</button>
-        <button data-page="calls"><span class="ico">☎</span>Call logs</button>
-        <button data-page="sms"><span class="ico">✉</span>SMS inbox</button>
-        <button data-page="social"><span class="ico">◎</span>Social inbox</button>
-        <button data-page="location"><span class="ico">⌖</span>Location</button>
-        <button data-page="sessions"><span class="ico">◈</span>Sessions</button>
-      </nav>
+      <div class="eyebrow">Personal Information Record</div>
+      <h1>Esther Merel</h1>
+      <div class="muted">Primary number: +1 917 ••• •180</div>
+      <span class="pill">Information not independently verified</span>
     </div>
+  </div>
+</header>
 
-    <div class="sidebar-bottom">
-      <div class="section-label">INFORMATION</div>
-      <div class="side-note">
-        <strong>Local dashboard</strong><br>
-        This page displays user-entered and sample data. No phone is connected.
-      </div>
-    </div>
-  </aside>
+<nav aria-label="Profile sections">
+  <a href="#profile">Profile</a>
+  <a href="#locations">Locations</a>
+  <a href="#contacts">Contacts</a>
+  <a href="#messages">Messages</a>
+  <a href="#calls">Call history</a>
+  <a href="#social">Social media</a>
+  <a href="#apps">Messaging apps</a>
+</nav>
 
-  <main class="main">
-    <header class="topbar">
-      <div>
-        <h1 id="pageTitle">Overview</h1>
-        <p id="pageSubtitle">Profile, activity and account information</p>
-      </div>
-      <div class="top-right"><span class="status-pill">● Offline data</span></div>
-    </header>
+<section id="profile">
+  <h2>Profile information</h2>
+  <div class="grid">
+    <div><div class="label">Full name</div><div class="value">Esther Merel</div></div>
+    <div><div class="label">Primary number</div><div class="value">+1 917 536 4180</div></div>
+    <div><div class="label">Potential date of birth</div><div class="value">August 11, 1976</div></div>
+    <div><div class="label">Reported carrier</div><div class="value">T-Mobile USA, Inc.</div></div>
+    <div><div class="label">Country reference</div><div class="value">United States</div></div>
+    <div><div class="label">Record status</div><div class="value">Unverified</div></div>
+  </div>
+</section>
 
-    <div class="content">
-      <section class="profile panel">
-        <div class="avatar">EM</div>
-        <div class="profile-info">
-          <h2>Esther Merel</h2>
-          <p>Primary phone: <span id="primaryPhone">+1 917 536 4180</span></p>
-          <span class="tag">Profile details supplied by user</span>
-        </div>
-        <div class="profile-actions">
-          <button class="btn" id="copyPhone">Copy phone</button>
-          <button class="btn primary" data-go="contacts">View contacts</button>
-        </div>
-      </section>
+<section id="locations">
+  <h2>Associated location records</h2>
+  <div class="item"><h3>Albuquerque, New Mexico</h3><p class="muted">ZIP code 87114</p></div>
+  <div class="item"><h3>Boca Raton, Florida</h3><p class="muted">ZIP code 33433</p></div>
+  <div class="item"><h3>Chicago, Illinois</h3><p class="muted">ZIP code 60661</p></div>
+  <div class="item"><h3>Richmond, Virginia</h3><p class="muted">ZIP code 23226</p></div>
+  <div class="item"><h3>Brooklyn, New York</h3><p class="muted">ZIP code 11229</p></div>
+  <p class="muted">These are supplied location references, not verified residences or live location data.</p>
+</section>
 
-      <section id="overviewPage">
-        <div class="grid">
-          <div class="panel stat">
-            <div class="stat-top"><span>Associated contacts</span><span class="stat-icon">♙</span></div>
-            <h3 id="contactCount">5</h3><p>Contacts supplied for this page</p>
-          </div>
-          <div class="panel stat">
-            <div class="stat-top"><span>Sample call records</span><span class="stat-icon">☎</span></div>
-            <h3 id="callCount">4</h3><p>Illustrative records, not phone history</p>
-          </div>
-          <div class="panel stat">
-            <div class="stat-top"><span>Sample conversations</span><span class="stat-icon">✉</span></div>
-            <h3 id="messageCount">4</h3><p>Example content only</p>
-          </div>
-          <div class="panel stat">
-            <div class="stat-top"><span>Device connection</span><span class="stat-icon">◈</span></div>
-            <h3 style="font-size:20px">Not connected</h3><p>No live device data available</p>
-          </div>
-        </div>
+<section id="contacts">
+  <h2>Associated contacts</h2>
+  <input id="contactSearch" placeholder="Search contact names or numbers..." aria-label="Search contacts">
+  <div id="contactList"></div>
+</section>
 
-        <div class="layout">
-          <section class="panel">
-            <div class="panel-head">
-              <div><h3>Associated contacts</h3><p>Select a contact to view their supplied details</p></div>
-              <button class="btn" data-go="contacts">All contacts →</button>
-            </div>
-            <div class="panel-body"><div class="list" id="recentContacts"></div></div>
-          </section>
+<section id="messages">
+  <h2>Text message records</h2>
+  <p class="muted">Imported or authorized message records can be listed here. No private messages have been retrieved by this page.</p>
+  <div class="item">
+    <div class="row"><h3>Message records</h3><span class="badge">Not connected</span></div>
+    <p class="muted">Connect an authorized export to display actual message content, timestamps, and participants.</p>
+  </div>
+</section>
 
-          <section class="panel">
-            <div class="panel-head">
-              <div><h3>Message inbox</h3><p>Illustrative message previews</p></div>
-              <button class="btn" data-go="social">Open inbox →</button>
-            </div>
-            <div class="panel-body">
-              <div class="preview">
-                <div class="blur">
-                  <div class="bubble">Hi, just checking in. Hope everything is going well!</div>
-                  <div class="bubble out">Thanks for the message. Talk soon.</div>
-                  <div class="bubble">Let me know when you're available.</div>
-                </div>
-                <div class="caution">
-                  <div class="caution-inner">
-                    <div class="lock">🔒</div>
-                    <h4>Unlock Full Message Functionality</h4>
-                    <p>Preview uses sample content. Real messages require authorized data access.</p>
-                    <button class="btn primary" data-go="sms">View sample inbox</button>
-                  </div>
-                </div>
-              </div>
-              <p class="notice">The overlay is a visual preview, not a real account lock or unlock process.</p>
-            </div>
-          </section>
-        </div>
+<section id="calls">
+  <h2>Call history</h2>
+  <div class="item">
+    <div class="row"><h3>Call records</h3><span class="badge">No source connected</span></div>
+    <p class="muted">No call times, durations, or incoming/outgoing activity are available in the supplied information.</p>
+  </div>
+</section>
 
-        <section class="panel full-width">
-          <div class="panel-head"><div><h3>Location & connection</h3><p>Location provided as a reference; live status is unverified</p></div><span class="tag">Unverified</span></div>
-          <div class="panel-body" id="locationSummary"></div>
-        </section>
-      </section>
+<section id="social">
+  <h2>Associated social media usernames</h2>
+  <div class="item"><div class="row"><span>esther-merel-19277271</span><span class="badge">Unverified</span></div></div>
+  <div class="item"><div class="row"><span>emerel2</span><span class="badge">Unverified</span></div></div>
+  <div class="item"><div class="row"><span>esthermerel</span><span class="badge">Unverified</span></div></div>
+  <p class="muted">These usernames have not been confirmed as belonging to the same person.</p>
+</section>
 
-      <section id="contactsPage" class="panel hidden">
-        <div class="panel-head"><div><h3>Contacts</h3><p>Search and select a supplied contact</p></div></div>
-        <div class="panel-body">
-          <div class="search-row"><input class="field" id="contactSearch" placeholder="Search name, relationship or phone number..."></div>
-          <div class="list" id="contactList"></div>
-          <div id="contactDetail" class="info-box hidden" style="margin-top:14px"></div>
-        </div>
-      </section>
+<section id="apps">
+  <h2>Messaging applications</h2>
+  <div class="item"><div class="row"><h3>SMS / Text messages</h3><span class="badge">No import</span></div></div>
+  <div class="item"><div class="row"><h3>WhatsApp</h3><span class="badge">Not connected</span></div></div>
+  <div class="item"><div class="row"><h3>Other social inboxes</h3><span class="badge">Not connected</span></div></div>
+  <p class="muted">This page cannot access private inboxes or retrieve conversations simply from a phone number or username.</p>
+</section>
 
-      <section id="callsPage" class="panel hidden">
-        <div class="panel-head"><div><h3>Call logs</h3><p>Example records; not retrieved from a device</p></div><span class="tag">Sample data</span></div>
-        <div class="panel-body">
-          <div class="search-row"><input class="field" id="callSearch" placeholder="Search sample call records..."></div>
-          <div class="table-wrap"><table><thead><tr><th>Contact</th><th>Direction</th><th>Date</th><th>Duration</th></tr></thead><tbody id="callTable"></tbody></table></div>
-        </div>
-      </section>
-
-      <section id="smsPage" class="panel hidden">
-        <div class="panel-head"><div><h3>SMS inbox</h3><p>Search and view example conversations</p></div><span class="tag">Sample data</span></div>
-        <div class="panel-body">
-          <div class="search-row"><input class="field" id="smsSearch" placeholder="Search sample conversations..."></div>
-          <div class="list" id="smsList"></div>
-          <div id="smsDetail" class="preview hidden" style="margin-top:14px"></div>
-        </div>
-      </section>
-
-      <section id="socialPage" class="panel hidden">
-        <div class="panel-head"><div><h3>Social inbox</h3><p>Illustrative app categories and sample previews</p></div></div>
-        <div class="panel-body">
-          <div class="search-row">
-            <select class="field" id="socialFilter">
-              <option value="All">All platforms</option>
-              <option>WhatsApp</option><option>Instagram</option>
-              <option>Messenger</option><option>Telegram</option>
-            </select>
-            <input class="field" id="socialSearch" placeholder="Search...">
-          </div>
-          <div class="list" id="socialList"></div>
-          <div id="socialDetail" class="preview hidden" style="margin-top:14px"></div>
-          <p class="notice">This page does not connect to any social media account or display actual private inboxes.</p>
-        </div>
-      </section>
-
-      <section id="locationPage" class="panel hidden">
-        <div class="panel-head"><div><h3>Location & connection</h3><p>Supplied location reference and verification status</p></div><span class="tag">Unverified</span></div>
-        <div class="panel-body" id="locationFull"></div>
-      </section>
-
-      <section id="sessionsPage" class="panel hidden">
-        <div class="panel-head"><div><h3>Active sessions</h3><p>Account sessions have not been connected or verified</p></div></div>
-        <div class="panel-body">
-          <div class="info-box">
-            <small>Connection status</small><strong>No live account or device connection</strong>
-          </div>
-          <div class="empty">No verified active sessions are available to display.</div>
-          <p class="notice">Network type, carrier, device activity and session status cannot be confirmed by this standalone HTML page.</p>
-        </div>
-      </section>
-
-      <footer>Digital Access · Local dashboard · No live device access</footer>
-    </div>
-  </main>
+<div class="notice">
+  <strong>Data source notice</strong><br>
+  This is a standalone profile page. Supplied details are not independently verified, and no live carrier, social-media, messaging, or location service is connected.
 </div>
-<div id="toast" class="toast hidden" role="status"></div>
+
+<footer>Esther Merel · Personal Information Record</footer>
+</main>
 
 <script>
 const contacts = [
-  {name:"Esther Merel", phone:"+1 917 536 4180", type:"Primary contact"},
-  {name:"Benjamin Merel", phone:"+1 718 645 5740", type:"Family"},
-  {name:"Abigail Merel Tamir", phone:"+1 561 409 4134", type:"Other"},
-  {name:"Abigail Merel-Tamir", phone:"+1 718 382 1404", type:"Other"},
-  {name:"Leah Scharf", phone:"+1 800 793 1111", type:"Other"},
-  {name:"Bryan Charles", phone:"+1 718 253 4941", type:"Friendly relationship"}
+  {name:"Benjamin Merel", number:"+1 718 645 5740"},
+  {name:"Abigail Merel Tamir", number:"+1 561 409 4134"},
+  {name:"Abigail Merel-Tamir", number:"+1 718 382 1404"},
+  {name:"Leah Scharf", number:"+1 800 793 1111"},
+  {name:"Bryan Charles", number:"+1 718 253 4941"}
 ];
 
-const calls = [
-  {name:"Benjamin Merel",direction:"Incoming",date:"Example · Oct 18",duration:"04:12"},
-  {name:"Abigail Merel Tamir",direction:"Outgoing",date:"Example · Oct 17",duration:"02:38"},
-  {name:"Leah Scharf",direction:"Missed",date:"Example · Oct 16",duration:"—"},
-  {name:"Bryan Charles",direction:"Incoming",date:"Example · Oct 15",duration:"01:54"}
-];
+const list = document.getElementById("contactList");
+const search = document.getElementById("contactSearch");
 
-const messages = [
-  {name:"Benjamin Merel",phone:"+1 718 645 5740",text:"Hi, hope your day is going well.",reply:"Thanks! Hope yours is going well too.",platform:"SMS"},
-  {name:"Abigail Merel Tamir",phone:"+1 561 409 4134",text:"Just checking whether you received my note.",reply:"Yes, thank you for checking in.",platform:"SMS"},
-  {name:"Leah Scharf",phone:"+1 800 793 1111",text:"Please let me know a good time to talk.",reply:"I'll get back to you soon.",platform:"SMS"},
-  {name:"Bryan Charles",phone:"+1 718 253 4941",text:"Are we still on for later?",reply:"Let's confirm the details soon.",platform:"SMS"}
-];
+function renderContacts() {
+  const term = search.value.toLowerCase().trim();
+  const filtered = contacts.filter(c =>
+    c.name.toLowerCase().includes(term) || c.number.includes(term)
+  );
 
-const socials = [
-  {name:"Benjamin Merel",platform:"WhatsApp",text:"Hey, just wanted to check in.",reply:"Thanks for reaching out."},
-  {name:"Abigail Merel Tamir",platform:"Instagram",text:"Shared a post with you.",reply:"I'll take a look later."},
-  {name:"Leah Scharf",platform:"Messenger",text:"Hi, are you available this week?",reply:"I'll let you know."},
-  {name:"Bryan Charles",platform:"Telegram",text:"Sent you an update.",reply:"Thanks for the update."}
-];
+  list.replaceChildren();
 
-const $ = id => document.getElementById(id);
-let toastTimer;
-function toast(message){
-  $("toast").textContent=message;
-  $("toast").classList.remove("hidden");
-  clearTimeout(toastTimer);
-  toastTimer=setTimeout(()=>$("toast").classList.add("hidden"),2400);
-}
-function esc(value){
-  return String(value).replace(/[&<>"']/g,c=>({
-    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-  }[c]));
-}
-function initials(name){
-  return name.split(/\s+/).slice(0,2).map(n=>n[0]).join("").toUpperCase();
-}
-function empty(message){return `<div class="empty">${esc(message)}</div>`;}
-
-const pages = {
-  overview:["Overview","Profile, activity and account information"],
-  contacts:["Contacts","Associated contact directory"],
-  calls:["Call logs","Illustrative call records"],
-  sms:["SMS inbox","Example text message conversations"],
-  social:["Social inbox","Example social platform previews"],
-  location:["Location","Location and connection information"],
-  sessions:["Sessions","Account session status"]
-};
-function go(page){
-  if(!pages[page]) return;
-  Object.keys(pages).forEach(key=>{
-    $(key+"Page").classList.toggle("hidden",key!==page);
-  });
-  document.querySelectorAll("#navigation button").forEach(button=>{
-    button.classList.toggle("active",button.dataset.page===page);
-  });
-  $("pageTitle").textContent=pages[page][0];
-  $("pageSubtitle").textContent=pages[page][1];
-  window.scrollTo({top:0,behavior:"smooth"});
-}
-document.querySelectorAll("[data-page]").forEach(button=>{
-  button.addEventListener("click",()=>go(button.dataset.page));
-});
-document.querySelectorAll("[data-go]").forEach(button=>{
-  button.addEventListener("click",()=>go(button.dataset.go));
-});
-
-function contactCard(contact){
-  return `<button class="list-item" data-contact="${esc(contact.phone)}">
-    <div class="mini-avatar">${esc(initials(contact.name))}</div>
-    <div class="item-main"><strong>${esc(contact.name)}</strong>
-      <small>${esc(contact.phone)}</small></div>
-    <div class="item-end">${esc(contact.type)}</div>
-  </button>`;
-}
-function renderRecentContacts(){
-  $("recentContacts").innerHTML=contacts.slice(1,5).map(contactCard).join("");
-}
-function renderContacts(){
-  const query=$("contactSearch").value.toLowerCase().trim();
-  const found=contacts.filter(c=>(c.name+" "+c.phone+" "+c.type).toLowerCase().includes(query));
-  $("contactList").innerHTML=found.length?found.map(contactCard).join(""):empty("No matching contacts.");
-}
-function showContact(phone){
-  const contact=contacts.find(c=>c.phone===phone);
-  if(!contact)return;
-  $("contactDetail").classList.remove("hidden");
-  $("contactDetail").innerHTML=`<strong>${esc(contact.name)}</strong>
-    <p>${esc(contact.phone)}</p><p>${esc(contact.type)}</p>
-    <button class="btn" id="detailCopy">Copy phone number</button>`;
-  $("detailCopy").onclick=()=>copyText(contact.phone);
-}
-function renderCalls(){
-  const query=$("callSearch").value.toLowerCase().trim();
-  const found=calls.filter(c=>(c.name+" "+c.direction+" "+c.date).toLowerCase().includes(query));
-  $("callTable").innerHTML=found.map(c=>`<tr>
-    <td>${esc(c.name)}<small>Sample record</small></td>
-    <td>${esc(c.direction)}</td><td>${esc(c.date)}</td><td>${esc(c.duration)}</td>
-  </tr>`).join("")||`<tr><td colspan="4">${empty("No matching sample call records.")}</td></tr>`;
-}
-function renderMessages(){
-  const query=$("smsSearch").value.toLowerCase().trim();
-  const found=messages.filter(m=>(m.name+" "+m.phone+" "+m.text).toLowerCase().includes(query));
-  $("smsList").innerHTML=found.map((m,i)=>`<button class="list-item" data-sms="${esc(m.phone)}">
-    <div class="mini-avatar">${esc(initials(m.name))}</div>
-    <div class="item-main"><strong>${esc(m.name)}</strong><small>${esc(m.text)}</small></div>
-    <div class="item-end">Sample<br>SMS</div>
-  </button>`).join("")||empty("No matching sample conversations.");
-}
-function showMessage(phone,containerId){
-  const m=messages.find(item=>item.phone===phone);
-  if(!m)return;
-  const box=$(containerId);
-  box.classList.remove("hidden");
-  box.innerHTML=`<strong>${esc(m.name)} · ${esc(m.platform)}</strong>
-    <p class="notice">Example conversation — not a real message history.</p>
-    <div class="bubble">${esc(m.text)}</div>
-    <div class="bubble out">${esc(m.reply)}</div>`;
-}
-function renderSocial(){
-  const platform=$("socialFilter").value;
-  const query=$("socialSearch").value.toLowerCase().trim();
-  const found=socials.filter(m=>(platform==="All"||m.platform===platform)&&
-    (m.name+" "+m.platform+" "+m.text).toLowerCase().includes(query));
-  $("socialList").innerHTML=found.map(m=>`<button class="list-item" data-social="${esc(m.name)}" data-platform="${esc(m.platform)}">
-    <div class="mini-avatar">${esc(initials(m.name))}</div>
-    <div class="item-main"><strong>${esc(m.name)}</strong><small>${esc(m.text)}</small></div>
-    <div class="item-end">${esc(m.platform)}</div>
-  </button>`).join("")||empty("No matching sample conversations.");
-}
-function showSocial(name,platform){
-  const m=socials.find(item=>item.name===name&&item.platform===platform);
-  if(!m)return;
-  $("socialDetail").classList.remove("hidden");
-  $("socialDetail").innerHTML=`<strong>${esc(m.platform)} · ${esc(m.name)}</strong>
-    <p class="notice">Sample preview only; no social account is connected.</p>
-    <div class="bubble">${esc(m.text)}</div><div class="bubble out">${esc(m.reply)}</div>`;
-}
-const locationHTML=`
-  <div class="location-grid">
-    <div class="info-box"><small>Reported area</small><strong>New York City, New York, United States</strong></div>
-    <div class="info-box"><small>Street / coordinates</small><strong>Not verified</strong></div>
-    <div class="info-box"><small>Location accuracy</small><strong>Unavailable</strong></div>
-    <div class="info-box"><small>Last update</small><strong>No live update available</strong></div>
-    <div class="info-box"><small>Connection type</small><strong>Unverified — 5G NSA not confirmed</strong></div>
-    <div class="info-box"><small>Carrier / online status</small><strong>Not connected or verified</strong></div>
-    <div class="info-box"><small>Active sessions</small><strong>Unavailable</strong></div>
-    <div class="info-box"><small>Data source</small><strong>User-supplied location reference</strong></div>
-  </div>
-  <div class="map-placeholder"><div><div style="font-size:28px">⌖</div>
-    <strong>Location not verified</strong><br>
-    <small>A live location requires authorized location sharing.</small></div></div>
-  <p class="notice">The city is displayed as a supplied reference, not as a confirmed current location. No GPS, carrier, or device connection is available to this page.</p>`;
-$("locationSummary").innerHTML=locationHTML;
-$("locationFull").innerHTML=locationHTML;
-
-document.addEventListener("click",event=>{
-  const contactButton=event.target.closest("[data-contact]");
-  if(contactButton){
-    showContact(contactButton.dataset.contact);
+  if (!filtered.length) {
+    const empty = document.createElement("p");
+    empty.className = "muted";
+    empty.textContent = "No matching contacts.";
+    list.appendChild(empty);
     return;
   }
-  const smsButton=event.target.closest("[data-sms]");
-  if(smsButton){showMessage(smsButton.dataset.sms,"smsDetail");return;}
-  const socialButton=event.target.closest("[data-social]");
-  if(socialButton){
-    showSocial(socialButton.dataset.social,socialButton.dataset.platform);
-  }
-});
 
-$("contactSearch").addEventListener("input",renderContacts);
-$("callSearch").addEventListener("input",renderCalls);
-$("smsSearch").addEventListener("input",renderMessages);
-$("socialSearch").addEventListener("input",renderSocial);
-$("socialFilter").addEventListener("change",renderSocial);
+  filtered.forEach(contact => {
+    const item = document.createElement("div");
+    item.className = "item";
 
-async function copyText(value){
-  try{
-    await navigator.clipboard.writeText(value);
-    toast("Copied to clipboard.");
-  }catch{
-    const input=document.createElement("textarea");
-    input.value=value;document.body.appendChild(input);
-    input.select();
-    const ok=document.execCommand("copy");
-    input.remove();
-    toast(ok?"Copied to clipboard.":"Unable to copy automatically.");
-  }
+    const row = document.createElement("div");
+    row.className = "row";
+
+    const details = document.createElement("div");
+    const name = document.createElement("h3");
+    name.textContent = contact.name;
+    const number = document.createElement("p");
+    number.className = "muted";
+    number.textContent = contact.number;
+
+    const copy = document.createElement("button");
+    copy.textContent = "Copy number";
+    copy.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(contact.number);
+        copy.textContent = "Copied";
+        setTimeout(() => copy.textContent = "Copy number", 1200);
+      } catch {
+        copy.textContent = contact.number;
+      }
+    });
+
+    details.append(name, number);
+    row.append(details, copy);
+    item.appendChild(row);
+    list.appendChild(item);
+  });
 }
-$("copyPhone").addEventListener("click",()=>copyText("+1 917 536 4180"));
 
-renderRecentContacts();
+search.addEventListener("input", renderContacts);
 renderContacts();
-renderCalls();
-renderMessages();
-renderSocial();
-$("contactCount").textContent=contacts.length-1;
-$("callCount").textContent=calls.length;
-$("messageCount").textContent=messages.length;
 </script>
 </body>
 </html>
