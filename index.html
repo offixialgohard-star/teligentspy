@@ -3,58 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Compatibility & Pricing Page</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: Arial, Helvetica, sans-serif;
+    <title>MonitoringAccess Compatibility & Pricing</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#263238',
+                            slate: '#5d676e',
+                            green: '#4caf50',
+                            greenDark: '#388e3c',
+                            orange: '#ff9800',
+                            orangeHover: '#e68a00',
+                            blue: '#64b5f6',
+                            blueHover: '#42a5f5',
+                            lite: '#16a085',
+                            premium: '#2980b9',
+                            extreme: '#8e44ad',
+                        }
+                    }
+                }
+            }
         }
-
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
         body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: #f4f6f8;
             color: #333;
-            display: flex;
-            justify-content: center;
-            padding: 20px 0;
         }
 
-        .container {
-            width: 100%;
-            max-width: 420px;
-            background: #ffffff;
-            border: 1px solid #ddd;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        }
-
-        /* Top Navigation Tabs */
-        .tabs {
-            display: flex;
-            background-color: #5d676e;
-        }
-
-        .tab {
-            flex: 1;
-            padding: 12px 0;
-            text-align: center;
-            color: #ffffff;
-            font-size: 13px;
-            font-weight: bold;
-            cursor: pointer;
-            border-right: 1px solid #6c777e;
-        }
-
-        .tab:last-child {
-            border-right: none;
-        }
-
-        .tab.active {
-            background-color: #4caf50;
-            position: relative;
-        }
-
-        .tab.active::after {
+        /* Custom tab triangle indicator */
+        .tab-active::after {
             content: '';
             position: absolute;
             bottom: -6px;
@@ -65,219 +50,10 @@
             border-color: #4caf50 transparent transparent transparent;
         }
 
-        /* Banner Header */
-        .header-banner {
-            background-color: #263238;
-            color: #ffffff;
-            text-align: center;
-            padding: 25px 20px;
-        }
-
-        .header-banner h2 {
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-
-        .header-banner p {
-            font-size: 12px;
-            color: #b0bec5;
-            margin-bottom: 15px;
-        }
-
-        .btn-orange {
-            background-color: #ff9800;
-            color: #ffffff;
-            border: none;
-            padding: 10px 30px;
-            font-size: 14px;
-            font-weight: bold;
-            border-radius: 3px;
-            cursor: pointer;
-            display: inline-block;
-            text-transform: uppercase;
-        }
-
-        .btn-orange:hover {
-            background-color: #e68a00;
-        }
-
-        /* Compatibility Selection Form */
-        .selector-section {
-            padding: 25px 20px;
-            text-align: center;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        .selector-section h3 {
-            font-size: 18px;
-            color: #444;
-            margin-bottom: 15px;
-        }
-
-        .form-group {
-            margin-bottom: 12px;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 14px;
-            font-weight: bold;
-            margin-bottom: 6px;
-            color: #333;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 8px 12px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-            font-size: 13px;
-            background-color: #fff;
-        }
-
-        .btn-blue {
-            width: 100%;
-            background-color: #64b5f6;
-            color: #ffffff;
-            border: none;
-            padding: 10px;
-            font-size: 13px;
-            font-weight: bold;
-            border-radius: 3px;
-            cursor: pointer;
-            margin-top: 10px;
-            text-transform: uppercase;
-        }
-
-        /* Pricing Card Base */
-        .pricing-card {
-            margin: 20px;
-            border-radius: 12px;
-            overflow: hidden;
-            background-color: #f8f9fa;
-            border: 1px solid #e0e0e0;
-            position: relative;
-        }
-
-        .card-header {
-            padding: 12px 15px;
-            color: #ffffff;
-            font-weight: bold;
-            font-size: 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .price-badge {
-            background: #ffffff;
-            color: #333;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        .card-body {
-            padding: 20px 15px;
-            text-align: center;
-        }
-
-        .card-desc {
-            font-size: 12px;
-            line-height: 1.5;
-            color: #555;
-            margin-bottom: 15px;
-            border-bottom: 1px solid #e0e0e0;
-            padding-bottom: 15px;
-        }
-
-        .options-list {
-            text-align: left;
-            font-size: 12px;
-            margin-bottom: 20px;
-        }
-
-        .option-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
-        }
-
-        .option-item label {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-        }
-
-        .card-footer-expand {
-            background-color: #d6d6d6;
-            color: #555;
-            text-align: center;
-            padding: 8px;
-            font-size: 12px;
-            cursor: pointer;
-        }
-
-        /* Card Specific Colors */
-        .card-lite .card-header { background-color: #16a085; }
-        .card-lite .price-badge { color: #16a085; }
-
-        .card-premium .card-header { background-color: #2980b9; }
-        .card-premium .price-badge { color: #2980b9; }
-
-        .card-extreme .card-header { background-color: #8e44ad; }
-        .card-extreme .price-badge { color: #8e44ad; }
-
-        /* Before You Buy Section */
-        .before-buy {
-            margin: 25px 20px;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        .bb-header {
-            background-color: #8bc34a;
-            color: #fff;
-            text-align: center;
-            padding: 12px;
-            font-weight: bold;
-            font-size: 16px;
-        }
-
-        .bb-step {
-            background-color: #78909c;
-            color: #fff;
-            text-align: center;
-            padding: 15px;
-            border-bottom: 1px solid #90a4ae;
-        }
-
-        .bb-step h4 {
-            font-size: 20px;
-            margin-bottom: 5px;
-        }
-
-        .bb-step p {
-            font-size: 11px;
-            color: #eceff1;
-        }
-
-        .bb-or {
-            background-color: #29b6f6;
-            color: #fff;
-            text-align: center;
-            padding: 15px;
-            position: relative;
-        }
-
+        /* OR badge overlay */
         .or-badge {
-            width: 40px;
-            height: 40px;
+            width: 44px;
+            height: 44px;
             background: #ffffff;
             color: #29b6f6;
             border-radius: 50%;
@@ -285,204 +61,553 @@
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            margin: -25px auto 10px auto;
-            border: 2px solid #29b6f6;
+            margin: -22px auto 10px auto;
+            border: 3px solid #29b6f6;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
-        .bb-or p {
-            font-size: 11px;
-            margin-top: 5px;
+        /* Custom scrollbar for chat */
+        .chat-scroll::-webkit-scrollbar {
+            width: 5px;
         }
-
-        /* Payment Icons Footer */
-        .payment-methods {
-            text-align: center;
-            padding: 15px 10px;
-            font-size: 11px;
-            color: #777;
-            background: #fff;
-        }
-
-        .payment-icons {
-            display: flex;
-            justify-content: center;
-            gap: 6px;
-            margin-top: 8px;
-            flex-wrap: wrap;
-        }
-
-        .pay-card {
-            background: #eee;
-            padding: 3px 6px;
-            border-radius: 3px;
-            font-size: 10px;
-            font-weight: bold;
-            color: #333;
+        .chat-scroll::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
         }
     </style>
 </head>
-<body>
+<body class="min-h-screen flex flex-col items-center justify-start py-0 md:py-6 px-0 md:px-4">
 
-<div class="container">
+    <!-- Main Container -->
+    <div class="w-full max-w-md bg-white border border-gray-200 shadow-xl rounded-none md:rounded-xl overflow-hidden relative pb-10">
 
-    <!-- Device Tabs -->
-    <div class="tabs">
-        <div class="tab">Android</div>
-        <div class="tab active">iPhone</div>
-        <div class="tab">iPad</div>
-        <div class="tab">Computers</div>
-    </div>
-
-    <!-- Header Banner -->
-    <div class="header-banner">
-        <h2>Check If My iPhone Is Compatible</h2>
-        <p>(FlexiSPY supports most iPhones)</p>
-        <button class="btn-orange">Buy Now</button>
-    </div>
-
-    <!-- Selector Section -->
-    <div class="selector-section">
-        <h3>Select Your iPhone</h3>
-        
-        <div class="form-group">
-            <label>I have a</label>
-            <select class="form-control">
-                <option>iPhone 16 Pro</option>
-                <option>iPhone 15 Pro</option>
-                <option>iPhone 14</option>
-            </select>
+        <!-- Top Navigation / Device Tabs -->
+        <div class="flex bg-[#5d676e]" id="device-tabs">
+            <button onclick="switchTab('android')" id="tab-android" class="flex-1 py-3 text-center text-white text-xs font-bold border-r border-[#6c777e] relative hover:bg-[#6c777e] transition">Android</button>
+            <button onclick="switchTab('iphone')" id="tab-iphone" class="flex-1 py-3 text-center text-white text-xs font-bold border-r border-[#6c777e] relative bg-[#4caf50] tab-active hover:bg-[#43a047] transition">iPhone</button>
+            <button onclick="switchTab('ipad')" id="tab-ipad" class="flex-1 py-3 text-center text-white text-xs font-bold border-r border-[#6c777e] relative hover:bg-[#6c777e] transition">iPad</button>
+            <button onclick="switchTab('computers')" id="tab-computers" class="flex-1 py-3 text-center text-white text-xs font-bold relative hover:bg-[#6c777e] transition">Computers</button>
         </div>
 
-        <div class="form-group">
-            <label>running</label>
-            <select class="form-control">
-                <option>iOS 16</option>
-                <option>iOS 17</option>
-                <option>iOS 18</option>
-            </select>
+        <!-- Banner Header -->
+        <div class="bg-[#263238] text-white text-center py-6 px-4">
+            <h1 id="banner-title" class="text-xl font-bold mb-1">Check If My iPhone Is Compatible</h1>
+            <p id="banner-subtitle" class="text-xs text-gray-300 mb-4">(MonitoringAccess supports most iPhones)</p>
+            <button onclick="openPaymentModal('Header Quick Buy')" class="bg-[#ff9800] hover:bg-[#e68a00] text-white px-8 py-2.5 rounded font-bold text-sm tracking-wide shadow-md uppercase transition active:scale-95">
+                Buy Now
+            </button>
         </div>
 
-        <button class="btn-blue">SHOW ME</button>
-    </div>
+        <!-- Compatibility Selector Section -->
+        <div id="compatibility-section" class="p-6 text-center border-b border-gray-200 bg-white">
+            <h2 id="selector-title" class="text-lg font-bold text-gray-700 mb-4">Select Your iPhone</h2>
+            
+            <div class="space-y-4 text-left">
+                <div>
+                    <label id="model-label" class="block text-xs font-bold text-gray-600 mb-1 text-center">I have a</label>
+                    <select id="device-model" class="w-full p-2.5 border border-gray-300 rounded text-sm bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-400 transition">
+                        <!-- Dynamic Options loaded by JS -->
+                    </select>
+                </div>
 
-    <!-- LITE Card -->
-    <div class="pricing-card card-lite">
-        <div class="card-header">
-            <span>LITE</span>
-            <span class="price-badge">$49.95</span>
-        </div>
-        <div class="card-body">
-            <p class="card-desc">
-                LITE offers an essential set of monitoring features at an unbeatable price. Perfect for those who are on a budget.
-            </p>
-            <div class="options-list">
-                <div class="option-item">
-                    <label><input type="radio" name="lite" checked> 1 month</label>
-                    <span>$49.95</span>
+                <div>
+                    <label id="os-label" class="block text-xs font-bold text-gray-600 mb-1 text-center">running</label>
+                    <select id="os-version" class="w-full p-2.5 border border-gray-300 rounded text-sm bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-400 transition">
+                        <!-- Dynamic Options loaded by JS -->
+                    </select>
                 </div>
             </div>
-            <button class="btn-orange">BUY NOW</button>
-        </div>
-        <div class="card-footer-expand">Expand Features &#9660;</div>
-    </div>
 
-    <!-- PREMIUM Card -->
-    <div class="pricing-card card-premium">
-        <div class="card-header">
-            <span>PREMIUM</span>
-            <span class="price-badge">$79</span>
+            <button onclick="checkCompatibility()" class="w-full mt-5 bg-[#64b5f6] hover:bg-[#42a5f5] text-white font-bold py-3 px-4 rounded text-sm tracking-wide uppercase transition shadow active:scale-95">
+                SHOW ME
+            </button>
+
+            <!-- Compatible Green Success Banner -->
+            <div id="compatible-banner" class="hidden mt-4 p-3 bg-green-100 border border-green-300 text-green-800 rounded text-xs text-left">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-circle-check text-green-600 text-base"></i>
+                    <span class="font-bold">Device Fully Compatible!</span>
+                </div>
+                <p id="compatible-banner-msg" class="mt-1 text-green-700">Your selected device is 100% supported by MonitoringAccess.</p>
+            </div>
         </div>
-        <div class="card-body">
-            <p class="card-desc">
-                Choose PREMIUM for <strong>all around monitoring</strong> of mobile activities. Gives you more features than any of our competitors.
-            </p>
-            <div class="options-list">
-                <div class="option-item">
-                    <label><input type="radio" name="premium" checked> 1 month</label>
-                    <span>$79</span>
+
+        <!-- Pricing Cards Section -->
+        <div class="p-4 space-y-6 bg-gray-50">
+
+            <!-- LITE Card -->
+            <div class="rounded-xl overflow-hidden bg-white border border-gray-200 shadow-sm transition hover:shadow-md">
+                <div class="bg-[#16a085] text-white p-3 px-4 flex justify-between items-center">
+                    <span class="font-extrabold text-lg tracking-wider">LITE</span>
+                    <span id="lite-price-badge" class="bg-white text-[#16a085] px-3 py-1 rounded-full font-bold text-lg shadow-inner">$49.95</span>
                 </div>
-                <div class="option-item">
-                    <label><input type="radio" name="premium"> 3 months</label>
-                    <span>$119</span>
+                <div class="p-4 text-center">
+                    <p class="text-xs text-gray-600 pb-3 border-b border-gray-100 leading-relaxed">
+                        LITE offers an essential set of monitoring features at an unbeatable price. Perfect for those who are on a budget.
+                    </p>
+                    <div class="my-4 text-xs space-y-2 text-left px-2">
+                        <label class="flex justify-between items-center cursor-pointer p-1 rounded hover:bg-gray-50">
+                            <span class="flex items-center gap-2">
+                                <input type="radio" name="lite_plan" value="49.95" checked onclick="updatePrice('lite', '49.95')" class="accent-[#16a085]">
+                                <span>1 month</span>
+                            </span>
+                            <span class="font-semibold">$49.95</span>
+                        </label>
+                    </div>
+                    <button onclick="openPaymentModal('LITE ($' + document.getElementById('lite-price-badge').innerText + ')')" class="w-full bg-[#ff9800] hover:bg-[#e68a00] text-white font-bold py-3 rounded text-sm uppercase shadow transition active:scale-95">
+                        BUY NOW
+                    </button>
                 </div>
-                <div class="option-item">
-                    <label><input type="radio" name="premium"> 12 months</label>
-                    <span>$179</span>
+                <!-- Collapsible List -->
+                <div id="lite-features" class="hidden bg-gray-50 p-4 border-t border-dashed border-gray-200 text-xs text-gray-700">
+                    <p class="font-bold mb-2 text-gray-800">Included LITE Features:</p>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li>Call Logs & Contact List</li>
+                        <li>SMS & Text Messages</li>
+                        <li>GPS Location Tracking</li>
+                        <li>Browser History & Bookmarks</li>
+                        <li>Photos & Video Files</li>
+                    </ul>
+                </div>
+                <button onclick="toggleFeatures('lite-features', this)" class="w-full bg-[#d6d6d6] hover:bg-gray-300 text-gray-700 text-xs font-bold py-2 text-center border-t border-gray-200 transition">
+                    Expand Features ▼
+                </button>
+            </div>
+
+            <!-- PREMIUM Card -->
+            <div class="rounded-xl overflow-hidden bg-white border border-gray-200 shadow-sm transition hover:shadow-md">
+                <div class="bg-[#2980b9] text-white p-3 px-4 flex justify-between items-center">
+                    <span class="font-extrabold text-lg tracking-wider">PREMIUM</span>
+                    <span id="premium-price-badge" class="bg-white text-[#2980b9] px-3 py-1 rounded-full font-bold text-lg shadow-inner">$79</span>
+                </div>
+                <div class="p-4 text-center">
+                    <p class="text-xs text-gray-600 pb-3 border-b border-gray-100 leading-relaxed">
+                        Choose PREMIUM for <strong class="text-gray-800">all around monitoring</strong> of mobile activities. Gives you more features than any of our competitors.
+                    </p>
+                    <div class="my-4 text-xs space-y-2 text-left px-2">
+                        <label class="flex justify-between items-center cursor-pointer p-1 rounded hover:bg-gray-50">
+                            <span class="flex items-center gap-2">
+                                <input type="radio" name="premium_plan" value="79" checked onclick="updatePrice('premium', '79')" class="accent-[#2980b9]">
+                                <span>1 month</span>
+                            </span>
+                            <span class="font-semibold">$79</span>
+                        </label>
+                        <label class="flex justify-between items-center cursor-pointer p-1 rounded hover:bg-gray-50">
+                            <span class="flex items-center gap-2">
+                                <input type="radio" name="premium_plan" value="119" onclick="updatePrice('premium', '119')" class="accent-[#2980b9]">
+                                <span>3 months</span>
+                            </span>
+                            <span class="font-semibold">$119</span>
+                        </label>
+                        <label class="flex justify-between items-center cursor-pointer p-1 rounded hover:bg-gray-50">
+                            <span class="flex items-center gap-2">
+                                <input type="radio" name="premium_plan" value="179" onclick="updatePrice('premium', '179')" class="accent-[#2980b9]">
+                                <span>12 months</span>
+                            </span>
+                            <span class="font-semibold">$179</span>
+                        </label>
+                    </div>
+                    <button onclick="openPaymentModal('PREMIUM ($' + document.getElementById('premium-price-badge').innerText + ')')" class="w-full bg-[#ff9800] hover:bg-[#e68a00] text-white font-bold py-3 rounded text-sm uppercase shadow transition active:scale-95">
+                        BUY NOW
+                    </button>
+                </div>
+                <!-- Collapsible List -->
+                <div id="premium-features" class="hidden bg-gray-50 p-4 border-t border-dashed border-gray-200 text-xs text-gray-700">
+                    <p class="font-bold mb-2 text-gray-800">Included PREMIUM Features:</p>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li>All LITE Features Included</li>
+                        <li>WhatsApp, Facebook, Instagram Chats</li>
+                        <li>Snapchat, Tinder, Skype & Telegram</li>
+                        <li>Keylogger & Application Usage</li>
+                        <li>Email Monitoring & Calendar</li>
+                    </ul>
+                </div>
+                <button onclick="toggleFeatures('premium-features', this)" class="w-full bg-[#d6d6d6] hover:bg-gray-300 text-gray-700 text-xs font-bold py-2 text-center border-t border-gray-200 transition">
+                    Expand Features ▼
+                </button>
+            </div>
+
+            <!-- EXTREME Card -->
+            <div class="rounded-xl overflow-hidden bg-white border border-gray-200 shadow-sm transition hover:shadow-md">
+                <div class="bg-[#8e44ad] text-white p-3 px-4 flex justify-between items-center">
+                    <span class="font-extrabold text-lg tracking-wider">EXTREME</span>
+                    <span id="extreme-price-badge" class="bg-white text-[#8e44ad] px-3 py-1 rounded-full font-bold text-lg shadow-inner">$119</span>
+                </div>
+                <div class="p-4 text-center">
+                    <p class="text-xs text-gray-600 pb-3 border-b border-gray-100 leading-relaxed">
+                        Only for <strong class="text-gray-800">the most demanding detectives</strong>, EXTREME adds monitoring and recording of all audio streams and other amazing discovery tools.
+                    </p>
+                    <div class="my-4 text-xs space-y-2 text-left px-2">
+                        <label class="flex justify-between items-center cursor-pointer p-1 rounded hover:bg-gray-50">
+                            <span class="flex items-center gap-2">
+                                <input type="radio" name="extreme_plan" value="119" checked onclick="updatePrice('extreme', '119')" class="accent-[#8e44ad]">
+                                <span>1 month</span>
+                            </span>
+                            <span class="font-semibold">$119</span>
+                        </label>
+                        <label class="flex justify-between items-center cursor-pointer p-1 rounded hover:bg-gray-50">
+                            <span class="flex items-center gap-2">
+                                <input type="radio" name="extreme_plan" value="239" onclick="updatePrice('extreme', '239')" class="accent-[#8e44ad]">
+                                <span>3 months</span>
+                            </span>
+                            <span class="font-semibold">$239</span>
+                        </label>
+                        <label class="flex justify-between items-center cursor-pointer p-1 rounded hover:bg-gray-50">
+                            <span class="flex items-center gap-2">
+                                <input type="radio" name="extreme_plan" value="419" onclick="updatePrice('extreme', '419')" class="accent-[#8e44ad]">
+                                <span>12 months</span>
+                            </span>
+                            <span class="font-semibold">$419</span>
+                        </label>
+                    </div>
+                    <button onclick="openPaymentModal('EXTREME ($' + document.getElementById('extreme-price-badge').innerText + ')')" class="w-full bg-[#ff9800] hover:bg-[#e68a00] text-white font-bold py-3 rounded text-sm uppercase shadow transition active:scale-95">
+                        BUY NOW
+                    </button>
+                </div>
+                <!-- Collapsible List -->
+                <div id="extreme-features" class="hidden bg-gray-50 p-4 border-t border-dashed border-gray-200 text-xs text-gray-700">
+                    <p class="font-bold mb-2 text-gray-800">Included EXTREME Features:</p>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li>All PREMIUM Features Included</li>
+                        <li>Phone Call Recording & Live Interception</li>
+                        <li>Ambient Surroundings Recording</li>
+                        <li>Remotely Take Secret Photos & Videos</li>
+                        <li>VOIP Call Recording (WhatsApp, Skype)</li>
+                    </ul>
+                </div>
+                <button onclick="toggleFeatures('extreme-features', this)" class="w-full bg-[#d6d6d6] hover:bg-gray-300 text-gray-700 text-xs font-bold py-2 text-center border-t border-gray-200 transition">
+                    Expand Features ▼
+                </button>
+            </div>
+
+        </div>
+
+        <!-- Before You Buy Informational Stepper -->
+        <div class="mx-4 my-6 rounded-lg overflow-hidden shadow border border-gray-200 bg-white">
+            <div class="bg-[#8bc34a] text-white text-center py-3 font-bold text-base uppercase tracking-wide">
+                Before You Buy
+            </div>
+
+            <div onclick="showStepDetail(1)" class="bg-[#78909c] hover:bg-[#607d8b] text-white text-center py-4 px-4 border-b border-[#90a4ae] cursor-pointer transition">
+                <h3 class="text-xl font-extrabold mb-1">1.</h3>
+                <p class="text-xs text-gray-100">You will need physical access to the device.</p>
+            </div>
+
+            <div onclick="scrollToSelector()" class="bg-[#78909c] hover:bg-[#607d8b] text-white text-center py-4 px-4 border-b border-[#90a4ae] cursor-pointer transition">
+                <h3 class="text-xl font-extrabold mb-1">2.</h3>
+                <p class="text-xs text-gray-100 underline underline-offset-2">Click here to see if your device is compatible.</p>
+            </div>
+
+            <div onclick="openRefundModal()" class="bg-[#78909c] hover:bg-[#607d8b] text-white text-center py-4 px-4 cursor-pointer transition">
+                <h3 class="text-xl font-extrabold mb-1">3.</h3>
+                <p class="text-xs text-gray-100 underline underline-offset-2">View our refund policy.</p>
+            </div>
+
+            <div class="bg-[#29b6f6] text-white text-center p-4 relative pt-6">
+                <div class="or-badge">OR</div>
+                <div onclick="openInstallationServiceModal()" class="cursor-pointer hover:opacity-90 transition">
+                    <i class="fa-solid fa-screwdriver-wrench text-2xl mb-1"></i>
+                    <p class="text-xs font-semibold">Use our worry-free installation service.</p>
                 </div>
             </div>
-            <button class="btn-orange">BUY NOW</button>
         </div>
-        <div class="card-footer-expand">Expand Features &#9660;</div>
+
+        <!-- Interactive Payment Gateways Footer -->
+        <div class="text-center py-4 px-2 bg-white">
+            <p class="text-xs text-gray-500 font-semibold mb-2">Supported Payment Methods</p>
+            <div class="flex flex-wrap justify-center gap-1.5 text-xs font-bold text-gray-700">
+                <span onclick="showPayMethodInfo('Visa')" class="bg-gray-100 hover:bg-blue-50 border border-gray-200 px-2.5 py-1 rounded cursor-pointer transition hover:text-blue-600">VISA</span>
+                <span onclick="showPayMethodInfo('MasterCard')" class="bg-gray-100 hover:bg-red-50 border border-gray-200 px-2.5 py-1 rounded cursor-pointer transition hover:text-red-600">MasterCard</span>
+                <span onclick="showPayMethodInfo('PayPal')" class="bg-gray-100 hover:bg-sky-50 border border-gray-200 px-2.5 py-1 rounded cursor-pointer transition hover:text-sky-600">PayPal</span>
+                <span onclick="showPayMethodInfo('AMEX')" class="bg-gray-100 hover:bg-blue-50 border border-gray-200 px-2.5 py-1 rounded cursor-pointer transition hover:text-blue-700">AMEX</span>
+                <span onclick="showPayMethodInfo('Discover')" class="bg-gray-100 hover:bg-orange-50 border border-gray-200 px-2.5 py-1 rounded cursor-pointer transition hover:text-orange-600">Discover</span>
+                <span onclick="showPayMethodInfo('Bitcoin')" class="bg-gray-100 hover:bg-amber-50 border border-gray-200 px-2.5 py-1 rounded cursor-pointer transition hover:text-amber-600"><i class="fa-brands fa-bitcoin text-amber-500 mr-1"></i>BTC</span>
+            </div>
+        </div>
+
     </div>
 
-    <!-- EXTREME Card -->
-    <div class="pricing-card card-extreme">
-        <div class="card-header">
-            <span>EXTREME</span>
-            <span class="price-badge">$119</span>
+    <!-- Floating Support Icon -->
+    <div class="fixed bottom-4 right-4 z-40">
+        <button onclick="toggleChatWidget()" class="bg-[#4caf50] hover:bg-[#43a047] text-white p-3.5 rounded-full shadow-2xl flex items-center justify-center transition transform active:scale-95 focus:outline-none ring-4 ring-green-200">
+            <i class="fa-solid fa-headset text-2xl"></i>
+        </button>
+    </div>
+
+    <!-- Live Support Chat Widget Popup -->
+    <div id="chat-widget" class="hidden fixed bottom-20 right-4 w-80 bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden z-50 flex flex-col">
+        <div class="bg-[#263238] text-white p-3 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                <span class="font-bold text-sm">MonitoringAccess Support</span>
+            </div>
+            <button onclick="toggleChatWidget()" class="text-gray-300 hover:text-white text-base"><i class="fa-solid fa-xmark"></i></button>
         </div>
-        <div class="card-body">
-            <p class="card-desc">
-                Only for <strong>the most demanding detectives</strong>, EXTREME adds monitoring and recording of all audio streams and other amazing discovery tools.
-            </p>
-            <div class="options-list">
-                <div class="option-item">
-                    <label><input type="radio" name="extreme" checked> 1 month</label>
-                    <span>$119</span>
+        <div class="p-3 bg-gray-50 h-52 overflow-y-auto space-y-2 text-xs chat-scroll" id="chat-box">
+            <div class="bg-white p-2.5 rounded-lg border border-gray-200 text-gray-700 max-w-[85%]">
+                Hello! Need help checking if your target device is compatible with MonitoringAccess?
+            </div>
+        </div>
+        <div class="p-2 border-t border-gray-200 bg-white flex gap-1">
+            <input type="text" id="chat-input" placeholder="Type a message..." class="flex-1 p-2 text-xs border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-blue-400" onkeypress="if(event.key==='Enter') sendChatMessage()">
+            <button onclick="sendChatMessage()" class="bg-[#64b5f6] hover:bg-[#42a5f5] text-white px-3 py-1.5 rounded text-xs font-bold"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <!-- MODAL 1: Incompatible Device Modal (Pixel-Perfect Replica) -->
+    <div id="incompatible-modal" class="hidden fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-xs sm:max-w-sm rounded-lg p-6 text-center shadow-2xl relative">
+            <!-- Red Blocked Icon -->
+            <div class="w-12 h-12 rounded-full border-4 border-[#f4511e] text-[#f4511e] text-2xl flex items-center justify-center mx-auto mb-4 font-bold">
+                <i class="fa-solid fa-ban"></i>
+            </div>
+            <h3 class="text-xl font-bold text-[#1a237e] mb-1 leading-tight">Sorry, Your Phone Is<br>Not Compatible</h3>
+            <p id="modal-device-text" class="text-xs text-gray-600 mb-4">(iPhone 17 running iOS 26)</p>
+
+            <div class="bg-[#dcedc8] text-[#33691e] p-3 rounded text-xs leading-snug mb-4 text-left border border-[#c5e1a5]">
+                There is no jailbreak currently available for your device, but they become available regularly
+            </div>
+
+            <div class="text-left text-xs text-gray-700 mb-5">
+                <p class="font-bold text-gray-800 mb-1">Recommended Action</p>
+                <ul class="list-disc pl-4 space-y-1">
+                    <li>Purchase a phone pre-installed with MonitoringAccess delivered direct to your door. <a href="javascript:void(0)" onclick="openInstallationServiceModal()" class="text-[#64b5f6] underline">See here</a></li>
+                    <li><a href="javascript:void(0)" onclick="closeModal('incompatible-modal'); alert('Thank you! You will be notified when jailbreak becomes available.');" class="text-[#64b5f6] underline">Sign up to our newsletter</a> to be notified when your device is supported</li>
+                </ul>
+            </div>
+
+            <div class="space-y-2">
+                <button onclick="closeModal('incompatible-modal')" class="w-full bg-[#64b5f6] hover:bg-[#42a5f5] text-white font-bold py-3 rounded text-sm uppercase transition shadow">
+                    CANCEL
+                </button>
+                <button onclick="closeModal('incompatible-modal'); openPaymentModal('Direct Order');" class="w-full bg-[#ff9800] hover:bg-[#e68a00] text-white font-bold py-3 rounded text-sm uppercase transition shadow">
+                    BUY NOW
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 2: "Access Required" Payment Checkout Modal -->
+    <div id="payment-modal" class="hidden fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-sm rounded-lg p-6 text-center shadow-2xl relative">
+            <button onclick="closeModal('payment-modal')" class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-lg">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            
+            <div class="w-12 h-12 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-3 text-xl">
+                <i class="fa-solid fa-lock"></i>
+            </div>
+
+            <h3 class="text-xl font-bold text-gray-800 mb-1">Access Required</h3>
+            <p class="text-sm font-bold text-gray-700 mb-3">Make payment to view access now.</p>
+            <p id="payment-selected-item" class="text-xs text-blue-600 font-semibold mb-4">Selected Plan: PREMIUM ($79)</p>
+
+            <div class="bg-gray-50 p-3.5 rounded text-xs text-left space-y-2 border border-gray-200 mb-5">
+                <div class="flex justify-between border-b pb-1">
+                    <span class="text-gray-500">License Key Delivery:</span>
+                    <span class="font-bold text-gray-700">Instant via Email</span>
                 </div>
-                <div class="option-item">
-                    <label><input type="radio" name="extreme"> 3 months</label>
-                    <span>$239</span>
+                <div class="flex justify-between border-b pb-1">
+                    <span class="text-gray-500">Customer Support:</span>
+                    <span class="font-bold text-gray-700">24/7 Included</span>
                 </div>
-                <div class="option-item">
-                    <label><input type="radio" name="extreme"> 12 months</label>
-                    <span>$419</span>
+                <div class="flex justify-between">
+                    <span class="text-gray-500">Discreet Billing:</span>
+                    <span class="font-bold text-gray-700">Yes (100% Confidential)</span>
                 </div>
             </div>
-            <button class="btn-orange">BUY NOW</button>
-        </div>
-        <div class="card-footer-expand">Expand Features &#9660;</div>
-    </div>
 
-    <!-- Before You Buy Section -->
-    <div class="before-buy">
-        <div class="bb-header">Before You Buy</div>
-        
-        <div class="bb-step">
-            <h4>1.</h4>
-            <p>You will need physical access to the device.</p>
-        </div>
-
-        <div class="bb-step">
-            <h4>2.</h4>
-            <p>Click here to see if your device is compatible.</p>
-        </div>
-
-        <div class="bb-step">
-            <h4>3.</h4>
-            <p>View our refund policy.</p>
-        </div>
-
-        <div class="bb-or">
-            <div class="or-badge">OR</div>
-            <div style="font-size: 20px;">&#9881;</div>
-            <p>Use our worry-free installation service.</p>
+            <div class="space-y-2">
+                <button onclick="processCheckout()" class="w-full bg-[#ff9800] hover:bg-[#e68a00] text-white font-bold py-3 rounded text-sm uppercase shadow transition active:scale-95">
+                    PROCEED TO PAYMENT
+                </button>
+                <button onclick="closeModal('payment-modal')" class="w-full bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2.5 rounded text-xs uppercase transition">
+                    CANCEL
+                </button>
+            </div>
         </div>
     </div>
 
-    <!-- Payment Gateways Footer -->
-    <div class="payment-methods">
-        <div class="payment-icons">
-            <span class="pay-card">VISA</span>
-            <span class="pay-card">MasterCard</span>
-            <span class="pay-card">PayPal</span>
-            <span class="pay-card">AMEX</span>
-            <span class="pay-card">Discover</span>
-            <span class="pay-card">&#8383; BTC</span>
+    <!-- MODAL 3: Generic Informational Popup -->
+    <div id="info-modal" class="hidden fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-sm rounded-lg p-6 text-left shadow-2xl relative">
+            <button onclick="closeModal('info-modal')" class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-lg">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3 id="info-modal-title" class="text-base font-bold text-gray-800 mb-2">Information</h3>
+            <div id="info-modal-content" class="text-xs text-gray-600 leading-relaxed space-y-2">
+                <!-- Dynamic Content -->
+            </div>
+            <button onclick="closeModal('info-modal')" class="w-full mt-4 bg-[#64b5f6] hover:bg-[#42a5f5] text-white font-bold py-2 rounded text-xs uppercase">
+                Got It
+            </button>
         </div>
     </div>
 
-</div>
+    <!-- JavaScript Actions & Dynamic Logic -->
+    <script>
+        // Device Options Data Store
+        const deviceData = {
+            iphone: {
+                title: "iPhone",
+                models: ["iPhone 16 Pro", "iPhone 16", "iPhone 15 Pro", "iPhone 15", "iPhone 14 Pro", "iPhone 14", "iPhone 13", "iPhone 12 / SE", "iPhone 17"],
+                os: ["iOS 18", "iOS 17", "iOS 16", "iOS 15", "iOS 26"]
+            },
+            android: {
+                title: "Android Device",
+                models: ["Samsung Galaxy S24 / S23", "Samsung Galaxy A Series", "Google Pixel 8 / 7", "Xiaomi / Redmi", "OnePlus / Oppo / Vivo", "Motorola / Sony"],
+                os: ["Android 14", "Android 13", "Android 12", "Android 11", "Android 10", "Android 15 (Beta)"]
+            },
+            ipad: {
+                title: "iPad",
+                models: ["iPad Pro 11 / 12.9", "iPad Air 5 / 4", "iPad Mini 6", "iPad 10th Gen"],
+                os: ["iPadOS 18", "iPadOS 17", "iPadOS 16", "iPadOS 26"]
+            },
+            computers: {
+                title: "Computer",
+                models: ["Windows PC / Laptop", "Apple Mac / MacBook Pro", "macOS Air Series"],
+                os: ["Windows 11", "Windows 10", "macOS Sonoma", "macOS Ventura", "macOS Monterey"]
+            }
+        };
 
+        let currentCategory = 'iphone';
+
+        // Switch Active Tab
+        function switchTab(category) {
+            currentCategory = category;
+            const data = deviceData[category];
+
+            const tabs = ['android', 'iphone', 'ipad', 'computers'];
+            tabs.forEach(t => {
+                const btn = document.getElementById(`tab-${t}`);
+                if (t === category) {
+                    btn.className = "flex-1 py-3 text-center text-white text-xs font-bold border-r border-[#6c777e] relative bg-[#4caf50] tab-active transition";
+                } else {
+                    btn.className = "flex-1 py-3 text-center text-white text-xs font-bold border-r border-[#6c777e] relative hover:bg-[#6c777e] transition";
+                }
+            });
+
+            // Update Banner & Headers
+            document.getElementById('banner-title').innerText = `Check If My ${data.title} Is Compatible`;
+            document.getElementById('banner-subtitle').innerText = `(MonitoringAccess supports most ${data.title}s)`;
+            document.getElementById('selector-title').innerText = `Select Your ${data.title}`;
+
+            // Populate Dropdowns
+            const modelSelect = document.getElementById('device-model');
+            const osSelect = document.getElementById('os-version');
+
+            modelSelect.innerHTML = data.models.map(m => `<option value="${m}">${m}</option>`).join('');
+            osSelect.innerHTML = data.os.map(o => `<option value="${o}">${o}</option>`).join('');
+
+            document.getElementById('compatible-banner').classList.add('hidden');
+        }
+
+        // Initialize default tab (iPhone)
+        switchTab('iphone');
+
+        // Dynamic Pricing Radio Selection
+        function updatePrice(cardType, price) {
+            document.getElementById(`${cardType}-price-badge`).innerText = `$${price}`;
+        }
+
+        // Accordion Feature Toggle
+        function toggleFeatures(featureId, btn) {
+            const featDiv = document.getElementById(featureId);
+            if (featDiv.classList.contains('hidden')) {
+                featDiv.classList.remove('hidden');
+                btn.innerText = "Collapse Features ▲";
+            } else {
+                featDiv.classList.add('hidden');
+                btn.innerText = "Expand Features ▼";
+            }
+        }
+
+        // Device Compatibility Check Engine
+        function checkCompatibility() {
+            const selectedModel = document.getElementById('device-model').value;
+            const selectedOS = document.getElementById('os-version').value;
+            const compatBanner = document.getElementById('compatible-banner');
+
+            // Trigger Incompatible Modal for specific test parameters (e.g. iOS 26 or iPhone 17)
+            if (selectedOS.includes('26') || selectedModel.includes('17')) {
+                compatBanner.classList.add('hidden');
+                document.getElementById('modal-device-text').innerText = `(${selectedModel} running ${selectedOS})`;
+                document.getElementById('incompatible-modal').classList.remove('hidden');
+            } else {
+                compatBanner.classList.remove('hidden');
+                document.getElementById('compatible-banner-msg').innerText = `Your ${selectedModel} running ${selectedOS} is fully compatible with MonitoringAccess!`;
+            }
+        }
+
+        // Universal BUY NOW Modal Trigger
+        function openPaymentModal(planName) {
+            document.getElementById('payment-selected-item').innerText = `Selected Package: ${planName}`;
+            document.getElementById('payment-modal').classList.remove('hidden');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+        }
+
+        function processCheckout() {
+            alert("Redirecting to secure MonitoringAccess payment gateway...");
+            closeModal('payment-modal');
+        }
+
+        function showStepDetail(stepNum) {
+            if (stepNum === 1) {
+                openInfoModal('Physical Access Required', 'To install MonitoringAccess, you must have physical access to the target device for initial setup. Remote installation without access is not available.');
+            }
+        }
+
+        function scrollToSelector() {
+            document.getElementById('compatibility-section').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function openRefundModal() {
+            openInfoModal('MonitoringAccess Refund Policy', 'We offer a full refund guarantee within 10 days if our support team cannot resolve any hardware or OS compatibility issue on your device.');
+        }
+
+        function openInstallationServiceModal() {
+            openInfoModal('Worry-Free Installation Service', 'Prefer us to handle it? Our skilled technicians can remotely assist you with setup and installation hassle-free.');
+        }
+
+        function showPayMethodInfo(method) {
+            openInfoModal(`${method} Billed Discretely`, `All purchases made with ${method} are billed discretely. 'MonitoringAccess' will not appear on your credit card statement.`);
+        }
+
+        function openInfoModal(title, text) {
+            document.getElementById('info-modal-title').innerText = title;
+            document.getElementById('info-modal-content').innerText = text;
+            document.getElementById('info-modal').classList.remove('hidden');
+        }
+
+        // Live Chat Support Toggle
+        function toggleChatWidget() {
+            document.getElementById('chat-widget').classList.toggle('hidden');
+        }
+
+        function sendChatMessage() {
+            const input = document.getElementById('chat-input');
+            const chatBox = document.getElementById('chat-box');
+            if (input.value.trim() !== '') {
+                const userMsg = document.createElement('div');
+                userMsg.className = 'bg-blue-500 text-white p-2.5 rounded-lg text-xs max-w-[85%] ml-auto text-right';
+                userMsg.innerText = input.value;
+                chatBox.appendChild(userMsg);
+
+                const botReply = document.createElement('div');
+                botReply.className = 'bg-white p-2.5 rounded-lg border border-gray-200 text-gray-700 max-w-[85%]';
+                botReply.innerText = "Thanks for contacting MonitoringAccess! Select your target device model above to check compatibility.";
+                setTimeout(() => {
+                    chatBox.appendChild(botReply);
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                }, 500);
+
+                input.value = '';
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }
+        }
+    </script>
 </body>
 </html>
