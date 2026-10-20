@@ -1,886 +1,488 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Monitoring Portal — Demo Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compatibility & Pricing Page</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
 
-<style>
-:root {
-  --bg: #f4f6fa;
-  --panel: #ffffff;
-  --sidebar: #182536;
-  --sidebar2: #213349;
-  --text: #263448;
-  --muted: #8995a6;
-  --blue: #2385ed;
-  --border: #e8edf3;
-  --green: #21a675;
-}
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  font-size: 14px;
-}
-button, input, select {
-  font: inherit;
-}
-button { cursor: pointer; }
-.layout { min-height: 100vh; }
-.sidebar {
-  position: fixed;
-  inset: 0 auto 0 0;
-  width: 245px;
-  background: var(--sidebar);
-  color: #d3dce7;
-  overflow-y: auto;
-  z-index: 20;
-  transition: transform .25s;
-}
-.brand {
-  height: 72px;
-  display: flex;
-  align-items: center;
-  gap: 11px;
-  padding: 0 22px;
-  border-bottom: 1px solid #ffffff12;
-  color: white;
-  font-size: 19px;
-  font-weight: 700;
-}
-.brand-icon {
-  display: grid;
-  place-items: center;
-  width: 34px;
-  height: 34px;
-  border-radius: 9px;
-  background: var(--blue);
-  font-size: 20px;
-}
-.demo-tag {
-  margin: 16px 18px 8px;
-  padding: 9px 10px;
-  background: #f0a92818;
-  color: #ffd079;
-  border: 1px solid #f0a92835;
-  border-radius: 6px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: .5px;
-}
-.nav-label {
-  padding: 19px 22px 9px;
-  font-size: 10px;
-  letter-spacing: 1.3px;
-  color: #8091a6;
-  font-weight: 700;
-}
-.nav-item {
-  margin: 3px 10px;
-  padding: 12px 13px;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  gap: 13px;
-  color: #bac7d6;
-  cursor: pointer;
-  transition: .15s;
-}
-.nav-item:hover { background: #ffffff0d; color: white; }
-.nav-item.active { background: var(--blue); color: white; }
-.nav-icon { width: 20px; text-align: center; font-size: 16px; }
-.nav-count {
-  margin-left: auto;
-  background: #ffffff18;
-  border-radius: 10px;
-  padding: 3px 7px;
-  font-size: 10px;
-}
-.sidebar-bottom {
-  padding: 16px;
-  border-top: 1px solid #ffffff12;
-  margin-top: 20px;
-  font-size: 11px;
-  color: #91a0b3;
-  line-height: 1.7;
-}
-.main {
-  margin-left: 245px;
-  min-height: 100vh;
-}
-.topbar {
-  height: 72px;
-  background: white;
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 28px;
-  gap: 14px;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
-.top-left, .top-right { display: flex; align-items: center; gap: 15px; }
-.menu-toggle {
-  display: none;
-  border: 0;
-  background: transparent;
-  font-size: 22px;
-  color: var(--text);
-}
-.breadcrumb { color: var(--muted); font-size: 13px; }
-.breadcrumb strong { color: var(--text); }
-.top-search {
-  width: 205px;
-  padding: 10px 12px;
-  border: 1px solid var(--border);
-  background: #f9fafc;
-  border-radius: 6px;
-  outline: none;
-}
-.top-search:focus, input:focus, select:focus {
-  border-color: var(--blue);
-}
-.icon-btn {
-  width: 36px;
-  height: 36px;
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: 7px;
-  color: #69778a;
-}
-.profile {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  cursor: pointer;
-}
-.avatar {
-  width: 35px;
-  height: 35px;
-  background: #dcecff;
-  color: #1768bb;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  font-weight: 700;
-}
-.profile small { display: block; color: var(--muted); margin-top: 3px; }
-.content { padding: 27px 28px 40px; max-width: 1600px; margin: auto; }
-.page-heading {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 15px;
-  margin-bottom: 24px;
-}
-h1 { font-size: 24px; margin: 0 0 8px; font-weight: 700; }
-.subtitle { color: var(--muted); font-size: 13px; line-height: 1.5; }
-.primary {
-  background: var(--blue);
-  color: white;
-  border: 1px solid var(--blue);
-  border-radius: 5px;
-  padding: 10px 15px;
-}
-.primary:hover { background: #126fd0; }
-.secondary {
-  background: white;
-  border: 1px solid var(--border);
-  color: #526176;
-  border-radius: 5px;
-  padding: 9px 13px;
-}
-.grid { display: grid; gap: 18px; }
-.stats { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-.card {
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  min-width: 0;
-}
-.stat-card { padding: 20px; }
-.stat-top { display: flex; justify-content: space-between; gap: 8px; align-items: center; }
-.stat-label { color: #77869a; font-size: 12px; }
-.stat-icon {
-  width: 38px;
-  height: 38px;
-  display: grid;
-  place-items: center;
-  border-radius: 8px;
-  font-size: 19px;
-  background: #eaf3ff;
-}
-.stat-number { font-size: 27px; font-weight: 700; margin: 17px 0 9px; }
-.stat-note { font-size: 11px; color: var(--muted); }
-.good { color: var(--green); }
-.columns { grid-template-columns: minmax(0, 1.65fr) minmax(270px, 1fr); margin-top: 20px; }
-.card-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  padding: 19px 20px;
-  border-bottom: 1px solid var(--border);
-}
-.card-head h3 { margin: 0; font-size: 14px; }
-.card-body { padding: 20px; }
-.small-muted { color: var(--muted); font-size: 11px; }
-.device-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 0;
-  border-bottom: 1px solid var(--border);
-}
-.device-row:last-child { border-bottom: 0; }
-.device-symbol {
-  width: 43px; height: 43px;
-  display: grid; place-items: center;
-  background: #edf4ff; border-radius: 9px;
-  font-size: 20px;
-}
-.device-info { flex: 1; min-width: 0; }
-.device-info strong { display: block; margin-bottom: 5px; }
-.device-info small { color: var(--muted); }
-.status {
-  padding: 5px 8px;
-  background: #e7f8ef;
-  color: #178858;
-  border-radius: 20px;
-  font-size: 10px;
-  white-space: nowrap;
-}
-.status.offline { background: #f0f1f4; color: #788396; }
-.activity-item {
-  display: flex; gap: 12px; padding: 13px 0;
-  border-bottom: 1px solid var(--border);
-}
-.activity-item:last-child { border: 0; }
-.activity-dot {
-  width: 9px; height: 9px; border-radius: 50%;
-  background: var(--blue); margin-top: 4px; flex-shrink: 0;
-}
-.activity-text { line-height: 1.6; font-size: 12px; }
-.activity-text small { display: block; color: var(--muted); margin-top: 4px; }
-.table-wrap { overflow-x: auto; }
-table { width: 100%; border-collapse: collapse; white-space: nowrap; }
-th, td {
-  text-align: left; padding: 15px 19px;
-  border-bottom: 1px solid var(--border);
-  font-size: 12px;
-}
-th {
-  color: #7f8b9c;
-  background: #fafbfd;
-  font-weight: 600;
-  font-size: 11px;
-}
-tbody tr:hover { background: #f8fbff; }
-tbody tr:last-child td { border-bottom: 0; }
-.filters {
-  display: flex; gap: 10px; flex-wrap: wrap;
-  margin-bottom: 18px;
-}
-.filters input, .filters select {
-  padding: 10px 12px; border: 1px solid var(--border);
-  border-radius: 5px; background: white; min-width: 155px;
-}
-.full { margin-top: 20px; }
-.empty-map {
-  height: 340px;
-  display: grid;
-  place-items: center;
-  text-align: center;
-  background-color: #eaf0f4;
-  background-image: linear-gradient(30deg, #dce5eb 12%, transparent 12.5%, transparent 87%, #dce5eb 87.5%, #dce5eb),
-  linear-gradient(150deg, #dce5eb 12%, transparent 12.5%, transparent 87%, #dce5eb 87.5%, #dce5eb),
-  linear-gradient(30deg, #dce5eb 12%, transparent 12.5%, transparent 87%, #dce5eb 87.5%, #dce5eb),
-  linear-gradient(150deg, #dce5eb 12%, transparent 12.5%, transparent 87%, #dce5eb 87.5%, #dce5eb);
-  background-size: 90px 150px;
-  background-position: 0 0, 0 0, 45px 75px, 45px 75px;
-}
-.map-message {
-  background: white; padding: 24px; border-radius: 9px;
-  box-shadow: 0 4px 20px #233b5015; max-width: 320px;
-}
-.map-message strong { display: block; margin: 8px; }
-.map-message p { color: var(--muted); line-height: 1.6; font-size: 12px; }
-.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 17px; }
-.field { display: flex; flex-direction: column; gap: 8px; }
-.field label { color: #617086; font-size: 12px; }
-.field input, .field select {
-  width: 100%; padding: 11px; border: 1px solid var(--border);
-  border-radius: 5px; background: white;
-}
-.field.full-width { grid-column: 1 / -1; }
-.settings-note {
-  padding: 13px; background: #eef6ff; color: #42688f;
-  border-radius: 6px; font-size: 12px; line-height: 1.6;
-  margin-bottom: 18px;
-}
-.pagination {
-  display: flex; justify-content: space-between; align-items: center;
-  gap: 10px; padding: 15px 19px; color: var(--muted); font-size: 11px;
-}
-.page-buttons { display: flex; gap: 5px; }
-.page-buttons button { padding: 6px 10px; }
-.toast {
-  position: fixed; bottom: 22px; right: 22px;
-  background: #1c2e42; color: white; padding: 14px 18px;
-  border-radius: 7px; box-shadow: 0 6px 25px #0002;
-  z-index: 50; display: none; max-width: 320px;
-}
-.footer { text-align: center; color: #9aa5b4; font-size: 11px; padding: 25px 0 0; }
-.overlay { display: none; }
-@media(max-width:1100px) {
-  .stats { grid-template-columns: repeat(2, minmax(0,1fr)); }
-  .columns { grid-template-columns: 1fr; }
-}
-@media(max-width:700px) {
-  .sidebar { transform: translateX(-100%); }
-  .sidebar.open { transform: translateX(0); }
-  .main { margin-left: 0; }
-  .menu-toggle { display: block; }
-  .topbar { height: 62px; padding: 0 14px; }
-  .top-search { width: 120px; }
-  .profile > div:last-child { display: none; }
-  .content { padding: 20px 14px 30px; }
-  .stats { gap: 10px; }
-  .stat-card { padding: 14px; }
-  .stat-number { font-size: 23px; }
-  .page-heading { align-items: flex-start; }
-  h1 { font-size: 21px; }
-  .form-grid { grid-template-columns: 1fr; }
-  .field.full-width { grid-column: auto; }
-  .overlay.visible {
-    display: block; position: fixed; inset: 0;
-    background: #101d2a70; z-index: 15;
-  }
-}
-</style>
+        body {
+            background-color: #f4f6f8;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            padding: 20px 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 420px;
+            background: #ffffff;
+            border: 1px solid #ddd;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        /* Top Navigation Tabs */
+        .tabs {
+            display: flex;
+            background-color: #5d676e;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 12px 0;
+            text-align: center;
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            border-right: 1px solid #6c777e;
+        }
+
+        .tab:last-child {
+            border-right: none;
+        }
+
+        .tab.active {
+            background-color: #4caf50;
+            position: relative;
+        }
+
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 6px 6px 0 6px;
+            border-style: solid;
+            border-color: #4caf50 transparent transparent transparent;
+        }
+
+        /* Banner Header */
+        .header-banner {
+            background-color: #263238;
+            color: #ffffff;
+            text-align: center;
+            padding: 25px 20px;
+        }
+
+        .header-banner h2 {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .header-banner p {
+            font-size: 12px;
+            color: #b0bec5;
+            margin-bottom: 15px;
+        }
+
+        .btn-orange {
+            background-color: #ff9800;
+            color: #ffffff;
+            border: none;
+            padding: 10px 30px;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 3px;
+            cursor: pointer;
+            display: inline-block;
+            text-transform: uppercase;
+        }
+
+        .btn-orange:hover {
+            background-color: #e68a00;
+        }
+
+        /* Compatibility Selection Form */
+        .selector-section {
+            padding: 25px 20px;
+            text-align: center;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .selector-section h3 {
+            font-size: 18px;
+            color: #444;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 6px;
+            color: #333;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            font-size: 13px;
+            background-color: #fff;
+        }
+
+        .btn-blue {
+            width: 100%;
+            background-color: #64b5f6;
+            color: #ffffff;
+            border: none;
+            padding: 10px;
+            font-size: 13px;
+            font-weight: bold;
+            border-radius: 3px;
+            cursor: pointer;
+            margin-top: 10px;
+            text-transform: uppercase;
+        }
+
+        /* Pricing Card Base */
+        .pricing-card {
+            margin: 20px;
+            border-radius: 12px;
+            overflow: hidden;
+            background-color: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            position: relative;
+        }
+
+        .card-header {
+            padding: 12px 15px;
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .price-badge {
+            background: #ffffff;
+            color: #333;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .card-body {
+            padding: 20px 15px;
+            text-align: center;
+        }
+
+        .card-desc {
+            font-size: 12px;
+            line-height: 1.5;
+            color: #555;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 15px;
+        }
+
+        .options-list {
+            text-align: left;
+            font-size: 12px;
+            margin-bottom: 20px;
+        }
+
+        .option-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .option-item label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .card-footer-expand {
+            background-color: #d6d6d6;
+            color: #555;
+            text-align: center;
+            padding: 8px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        /* Card Specific Colors */
+        .card-lite .card-header { background-color: #16a085; }
+        .card-lite .price-badge { color: #16a085; }
+
+        .card-premium .card-header { background-color: #2980b9; }
+        .card-premium .price-badge { color: #2980b9; }
+
+        .card-extreme .card-header { background-color: #8e44ad; }
+        .card-extreme .price-badge { color: #8e44ad; }
+
+        /* Before You Buy Section */
+        .before-buy {
+            margin: 25px 20px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .bb-header {
+            background-color: #8bc34a;
+            color: #fff;
+            text-align: center;
+            padding: 12px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .bb-step {
+            background-color: #78909c;
+            color: #fff;
+            text-align: center;
+            padding: 15px;
+            border-bottom: 1px solid #90a4ae;
+        }
+
+        .bb-step h4 {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .bb-step p {
+            font-size: 11px;
+            color: #eceff1;
+        }
+
+        .bb-or {
+            background-color: #29b6f6;
+            color: #fff;
+            text-align: center;
+            padding: 15px;
+            position: relative;
+        }
+
+        .or-badge {
+            width: 40px;
+            height: 40px;
+            background: #ffffff;
+            color: #29b6f6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin: -25px auto 10px auto;
+            border: 2px solid #29b6f6;
+        }
+
+        .bb-or p {
+            font-size: 11px;
+            margin-top: 5px;
+        }
+
+        /* Payment Icons Footer */
+        .payment-methods {
+            text-align: center;
+            padding: 15px 10px;
+            font-size: 11px;
+            color: #777;
+            background: #fff;
+        }
+
+        .payment-icons {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+
+        .pay-card {
+            background: #eee;
+            padding: 3px 6px;
+            border-radius: 3px;
+            font-size: 10px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
 </head>
-
 <body>
-<div class="layout">
 
-<aside class="sidebar" id="sidebar">
-  <div class="brand">
-    <div class="brand-icon">◈</div>
-    <span>Device Portal</span>
-  </div>
+<div class="container">
 
-  <div class="demo-tag">● INTERACTIVE DEMO MODE</div>
-
-  <div class="nav-label">MAIN MENU</div>
-  <div class="nav-item active" data-page="dashboard"><span class="nav-icon">▦</span>Dashboard</div>
-  <div class="nav-item" data-page="devices"><span class="nav-icon">▣</span>Devices <span class="nav-count">2</span></div>
-  <div class="nav-item" data-page="location"><span class="nav-icon">⌖</span>Location</div>
-
-  <div class="nav-label">DEMO RECORDS</div>
-  <div class="nav-item" data-page="calls"><span class="nav-icon">☎</span>Call Logs</div>
-  <div class="nav-item" data-page="messages"><span class="nav-icon">▤</span>Messages</div>
-  <div class="nav-item" data-page="contacts"><span class="nav-icon">♙</span>Contacts</div>
-  <div class="nav-item" data-page="apps"><span class="nav-icon">▦</span>Applications</div>
-  <div class="nav-item" data-page="browser"><span class="nav-icon">◎</span>Browser History</div>
-  <div class="nav-item" data-page="media"><span class="nav-icon">▻</span>Media Library</div>
-
-  <div class="nav-label">MANAGEMENT</div>
-  <div class="nav-item" data-page="reports"><span class="nav-icon">▥</span>Reports</div>
-  <div class="nav-item" data-page="settings"><span class="nav-icon">⚙</span>Settings</div>
-  <div class="nav-item" data-page="help"><span class="nav-icon">?</span>Help Center</div>
-
-  <div class="sidebar-bottom">
-    <strong>DEMO ENVIRONMENT</strong><br>
-    All records are fictional.<br>
-    No real device connection.
-    <br><br>Portal UI prototype · v1.0
-  </div>
-</aside>
-
-<div class="overlay" id="overlay"></div>
-
-<main class="main">
-  <header class="topbar">
-    <div class="top-left">
-      <button class="menu-toggle" id="menuToggle" aria-label="Open menu">☰</button>
-      <div class="breadcrumb">Portal / <strong id="breadcrumb">Dashboard</strong></div>
+    <!-- Device Tabs -->
+    <div class="tabs">
+        <div class="tab">Android</div>
+        <div class="tab active">iPhone</div>
+        <div class="tab">iPad</div>
+        <div class="tab">Computers</div>
     </div>
-    <div class="top-right">
-      <input class="top-search" id="globalSearch" placeholder="Search demo..." aria-label="Search demo">
-      <button class="icon-btn" id="notifications" title="Notifications">♧</button>
-      <div class="profile" id="profileButton">
-        <div class="avatar">D</div>
-        <div><strong>Demo User</strong><small>Administrator</small></div>
-        <span>⌄</span>
-      </div>
-    </div>
-  </header>
 
-  <section class="content" id="content"></section>
-</main>
+    <!-- Header Banner -->
+    <div class="header-banner">
+        <h2>Check If My iPhone Is Compatible</h2>
+        <p>(FlexiSPY supports most iPhones)</p>
+        <button class="btn-orange">Buy Now</button>
+    </div>
+
+    <!-- Selector Section -->
+    <div class="selector-section">
+        <h3>Select Your iPhone</h3>
+        
+        <div class="form-group">
+            <label>I have a</label>
+            <select class="form-control">
+                <option>iPhone 16 Pro</option>
+                <option>iPhone 15 Pro</option>
+                <option>iPhone 14</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>running</label>
+            <select class="form-control">
+                <option>iOS 16</option>
+                <option>iOS 17</option>
+                <option>iOS 18</option>
+            </select>
+        </div>
+
+        <button class="btn-blue">SHOW ME</button>
+    </div>
+
+    <!-- LITE Card -->
+    <div class="pricing-card card-lite">
+        <div class="card-header">
+            <span>LITE</span>
+            <span class="price-badge">$49.95</span>
+        </div>
+        <div class="card-body">
+            <p class="card-desc">
+                LITE offers an essential set of monitoring features at an unbeatable price. Perfect for those who are on a budget.
+            </p>
+            <div class="options-list">
+                <div class="option-item">
+                    <label><input type="radio" name="lite" checked> 1 month</label>
+                    <span>$49.95</span>
+                </div>
+            </div>
+            <button class="btn-orange">BUY NOW</button>
+        </div>
+        <div class="card-footer-expand">Expand Features &#9660;</div>
+    </div>
+
+    <!-- PREMIUM Card -->
+    <div class="pricing-card card-premium">
+        <div class="card-header">
+            <span>PREMIUM</span>
+            <span class="price-badge">$79</span>
+        </div>
+        <div class="card-body">
+            <p class="card-desc">
+                Choose PREMIUM for <strong>all around monitoring</strong> of mobile activities. Gives you more features than any of our competitors.
+            </p>
+            <div class="options-list">
+                <div class="option-item">
+                    <label><input type="radio" name="premium" checked> 1 month</label>
+                    <span>$79</span>
+                </div>
+                <div class="option-item">
+                    <label><input type="radio" name="premium"> 3 months</label>
+                    <span>$119</span>
+                </div>
+                <div class="option-item">
+                    <label><input type="radio" name="premium"> 12 months</label>
+                    <span>$179</span>
+                </div>
+            </div>
+            <button class="btn-orange">BUY NOW</button>
+        </div>
+        <div class="card-footer-expand">Expand Features &#9660;</div>
+    </div>
+
+    <!-- EXTREME Card -->
+    <div class="pricing-card card-extreme">
+        <div class="card-header">
+            <span>EXTREME</span>
+            <span class="price-badge">$119</span>
+        </div>
+        <div class="card-body">
+            <p class="card-desc">
+                Only for <strong>the most demanding detectives</strong>, EXTREME adds monitoring and recording of all audio streams and other amazing discovery tools.
+            </p>
+            <div class="options-list">
+                <div class="option-item">
+                    <label><input type="radio" name="extreme" checked> 1 month</label>
+                    <span>$119</span>
+                </div>
+                <div class="option-item">
+                    <label><input type="radio" name="extreme"> 3 months</label>
+                    <span>$239</span>
+                </div>
+                <div class="option-item">
+                    <label><input type="radio" name="extreme"> 12 months</label>
+                    <span>$419</span>
+                </div>
+            </div>
+            <button class="btn-orange">BUY NOW</button>
+        </div>
+        <div class="card-footer-expand">Expand Features &#9660;</div>
+    </div>
+
+    <!-- Before You Buy Section -->
+    <div class="before-buy">
+        <div class="bb-header">Before You Buy</div>
+        
+        <div class="bb-step">
+            <h4>1.</h4>
+            <p>You will need physical access to the device.</p>
+        </div>
+
+        <div class="bb-step">
+            <h4>2.</h4>
+            <p>Click here to see if your device is compatible.</p>
+        </div>
+
+        <div class="bb-step">
+            <h4>3.</h4>
+            <p>View our refund policy.</p>
+        </div>
+
+        <div class="bb-or">
+            <div class="or-badge">OR</div>
+            <div style="font-size: 20px;">&#9881;</div>
+            <p>Use our worry-free installation service.</p>
+        </div>
+    </div>
+
+    <!-- Payment Gateways Footer -->
+    <div class="payment-methods">
+        <div class="payment-icons">
+            <span class="pay-card">VISA</span>
+            <span class="pay-card">MasterCard</span>
+            <span class="pay-card">PayPal</span>
+            <span class="pay-card">AMEX</span>
+            <span class="pay-card">Discover</span>
+            <span class="pay-card">&#8383; BTC</span>
+        </div>
+    </div>
+
 </div>
 
-<div class="toast" id="toast" role="status"></div>
-
-<script>
-const demoData = {
-  devices: [
-    {name:"Demo Android", model:"Android test device", id:"DEMO-1001", status:"Demo online", last:"Today, 10:42 AM"},
-    {name:"Demo iPhone", model:"iOS test device", id:"DEMO-1002", status:"Demo offline", last:"Yesterday, 6:20 PM"}
-  ],
-  calls: [
-    ["Alex Morgan","+1 555-0101","Incoming","04:32","Today, 10:20 AM"],
-    ["Jordan Lee","+1 555-0102","Outgoing","02:15","Today, 9:48 AM"],
-    ["Taylor Reed","+1 555-0103","Missed","00:00","Today, 8:12 AM"],
-    ["Casey Park","+1 555-0104","Incoming","06:10","Yesterday, 5:32 PM"],
-    ["Morgan Blake","+1 555-0105","Outgoing","01:45","Yesterday, 2:17 PM"]
-  ],
-  messages: [
-    ["Alex Morgan","+1 555-0101","Incoming","Sample demonstration message","Today, 10:18 AM"],
-    ["Jordan Lee","+1 555-0102","Outgoing","This is fictional demo content.","Today, 9:42 AM"],
-    ["Taylor Reed","+1 555-0103","Incoming","Example record for UI testing.","Yesterday, 7:15 PM"]
-  ],
-  contacts: [
-    ["Alex Morgan","+1 555-0101","alex@example.test"],
-    ["Jordan Lee","+1 555-0102","jordan@example.test"],
-    ["Taylor Reed","+1 555-0103","taylor@example.test"],
-    ["Casey Park","+1 555-0104","casey@example.test"],
-    ["Morgan Blake","+1 555-0105","morgan@example.test"]
-  ],
-  apps: [
-    ["Maps","Navigation","Installed (sample)"],
-    ["Calendar","Productivity","Installed (sample)"],
-    ["Photos","Media","Installed (sample)"],
-    ["Browser","Internet","Installed (sample)"],
-    ["Notes","Productivity","Installed (sample)"]
-  ],
-  browser: [
-    ["Example Search","example.test","Today, 10:10 AM"],
-    ["Demo Documentation","docs.example.test","Today, 9:55 AM"],
-    ["Sample News Page","news.example.test","Yesterday, 8:30 PM"],
-    ["Test Homepage","home.example.test","Yesterday, 5:22 PM"]
-  ],
-  media: [
-    ["Sample image 01","Image","Fictional placeholder"],
-    ["Sample video 01","Video","Fictional placeholder"],
-    ["Sample image 02","Image","Fictional placeholder"],
-    ["Sample audio 01","Audio","Fictional placeholder"]
-  ]
-};
-
-const titles = {
-  dashboard:"Dashboard", devices:"Devices", location:"Location",
-  calls:"Call Logs", messages:"Messages", contacts:"Contacts",
-  apps:"Applications", browser:"Browser History", media:"Media Library",
-  reports:"Reports", settings:"Settings", help:"Help Center"
-};
-
-let currentPage = "dashboard";
-let currentFilter = "";
-let toastTimer;
-
-const content = document.getElementById("content");
-const sidebar = document.getElementById("sidebar");
-const overlay = document.getElementById("overlay");
-
-function notify(message) {
-  const toast = document.getElementById("toast");
-  toast.textContent = message;
-  toast.style.display = "block";
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => toast.style.display = "none", 3000);
-}
-
-function escapeHTML(value) {
-  return String(value).replace(/[&<>"']/g, ch => ({
-    "&":"&amp;", "<":"&lt;", ">":"&gt;",
-    '"':"&quot;", "'":"&#39;"
-  }[ch]));
-}
-
-function heading(title, description, action = "") {
-  return `<div class="page-heading">
-    <div><h1>${title}</h1><div class="subtitle">${description}</div></div>
-    ${action}
-  </div>`;
-}
-
-function card(title, body, extra = "") {
-  return `<section class="card ${extra}">
-    <div class="card-head"><h3>${title}</h3></div>
-    <div class="card-body">${body}</div>
-  </section>`;
-}
-
-function stat(label, number, note, symbol) {
-  return `<div class="card stat-card">
-    <div class="stat-top"><span class="stat-label">${label}</span>
-      <span class="stat-icon">${symbol}</span></div>
-    <div class="stat-number">${number}</div>
-    <div class="stat-note">${note}</div>
-  </div>`;
-}
-
-function deviceRows() {
-  return demoData.devices.map(d => `
-    <div class="device-row">
-      <div class="device-symbol">▣</div>
-      <div class="device-info"><strong>${d.name}</strong>
-        <small>${d.model} · ${d.id}</small></div>
-      <span class="status ${d.status.includes("offline") ? "offline" : ""}">${d.status}</span>
-    </div>`).join("");
-}
-
-function activityRows() {
-  return [
-    ["Demo dashboard opened","Just now"],
-    ["Sample device record displayed","Today, 10:42 AM"],
-    ["Demo report generated","Today, 9:30 AM"],
-    ["Example settings viewed","Yesterday"]
-  ].map(x => `<div class="activity-item">
-    <span class="activity-dot"></span>
-    <div class="activity-text">${x[0]}<small>${x[1]}</small></div>
-  </div>`).join("");
-}
-
-function dashboardPage() {
-  return heading("Dashboard",
-      "Overview of your interactive demonstration environment.",
-      `<button class="primary" data-action="report">＋ Generate report</button>`) +
-    `<div class="grid stats">
-      ${stat("Demo devices","02","Fictional test devices","▣")}
-      ${stat("Sample records","24","Illustrative records only","▤")}
-      ${stat("Demo reports","03","Example reports available","▥")}
-      ${stat("System status","Ready","Local UI demonstration","✓")}
-    </div>
-    <div class="grid columns">
-      ${card("Devices overview", deviceRows() +
-        `<button class="secondary" data-go="devices" style="margin-top:12px">View all devices →</button>`)}
-      ${card("Recent demo activity",activityRows())}
-    </div>
-    <div class="grid columns">
-      ${card("Record categories",`
-        <div class="device-row"><span class="device-symbol">☎</span><div class="device-info"><strong>Call log samples</strong><small>Example call records</small></div><button class="secondary" data-go="calls">Open</button></div>
-        <div class="device-row"><span class="device-symbol">▤</span><div class="device-info"><strong>Message samples</strong><small>Fictional conversations</small></div><button class="secondary" data-go="messages">Open</button></div>
-        <div class="device-row"><span class="device-symbol">⌖</span><div class="device-info"><strong>Location demo</strong><small>Illustrative map panel</small></div><button class="secondary" data-go="location">Open</button></div>
-      `)}
-      ${card("Demo environment",`
-        <div class="settings-note">This is a standalone interface prototype. It does not connect to devices, collect location data, or retrieve private messages.</div>
-        <button class="secondary" data-go="settings">Open demo settings →</button>
-      `)}
-    </div>`;
-}
-
-function devicesPage() {
-  return heading("Devices","Manage fictional devices in the demo.",
-    `<button class="primary" data-action="add-device">＋ Add demo device</button>`) +
-    `<div class="grid stats">
-      ${stat("Total devices","2","Demo records","▣")}
-      ${stat("Demo online","1","Illustrative status","●")}
-      ${stat("Demo offline","1","Illustrative status","◌")}
-      ${stat("Connections","0","No real connections","⌁")}
-    </div>
-    <div class="card full"><div class="card-head"><h3>Device inventory</h3><button class="secondary" data-action="export">Export CSV</button></div>
-    <div class="table-wrap"><table><thead><tr><th>DEVICE</th><th>MODEL</th><th>DEMO ID</th><th>STATUS</th><th>LAST SEEN (SAMPLE)</th><th>ACTION</th></tr></thead>
-    <tbody>${demoData.devices.map((d,i)=>`<tr>
-      <td><strong>${d.name}</strong></td><td>${d.model}</td><td>${d.id}</td>
-      <td>${d.status}</td><td>${d.last}</td>
-      <td><button class="secondary" data-device="${i}">Details</button></td>
-    </tr>`).join("")}</tbody></table></div></div>`;
-}
-
-function locationPage() {
-  return heading("Location","Illustrative map panel — no real location tracking.") +
-    `<div class="card">
-      <div class="card-head"><h3>Location overview</h3><span class="status offline">Demo only</span></div>
-      <div class="empty-map"><div class="map-message">
-        <div style="font-size:32px">⌖</div>
-        <strong>Map demonstration</strong>
-        <p>No live GPS connection is available in this prototype. This panel is a visual placeholder.</p>
-        <button class="primary" data-action="map-info">View map information</button>
-      </div></div>
-      <div class="card-body"><strong>Location history</strong><p class="small-muted">No actual coordinates are recorded. Sample locations are intentionally omitted.</p></div>
-    </div>`;
-}
-
-function tablePage(title, description, headers, rows, key) {
-  const action = `<button class="secondary" data-action="export">Export CSV</button>`;
-  return heading(title, description, action) +
-    `<div class="filters">
-      <input id="tableSearch" placeholder="Filter ${title.toLowerCase()}..." value="${escapeHTML(currentFilter)}">
-      <select id="tableLimit"><option value="all">All records</option><option value="3">Show 3</option><option value="5">Show 5</option></select>
-      <button class="secondary" data-action="clear-filter">Clear filters</button>
-    </div>
-    <div class="card"><div class="card-head"><h3>${title} — sample records</h3><span class="small-muted">Fictional data</span></div>
-    <div class="table-wrap"><table><thead><tr>${headers.map(h=>`<th>${h}</th>`).join("")}</tr></thead>
-    <tbody id="dataRows">${rows.map((row,i)=>`<tr>${row.map(v=>`<td>${escapeHTML(v)}</td>`).join("")}${key==="contacts" ? `<td><button class="secondary" data-contact="${i}">Details</button></td>` : ""}</tr>`).join("")}</tbody>
-    </table></div>
-    <div class="pagination"><span id="recordCount">${rows.length} sample records</span><div class="page-buttons"><button class="secondary" data-action="prev">‹</button><button class="secondary" data-action="next">›</button></div></div></div>`;
-}
-
-function reportsPage() {
-  return heading("Reports","Create and view example reports.",
-    `<button class="primary" data-action="report">＋ New report</button>`) +
-    `<div class="grid stats">
-      ${stat("Available reports","3","Example templates","▥")}
-      ${stat("Generated today","1","Demo activity","✓")}
-      ${stat("Export format","CSV","Download sample data","⇩")}
-      ${stat("Scheduled reports","0","No schedule configured","◷")}
-    </div>
-    <div class="card full"><div class="card-head"><h3>Report templates</h3></div>
-    <div class="table-wrap"><table><thead><tr><th>REPORT NAME</th><th>DESCRIPTION</th><th>FORMAT</th><th>STATUS</th><th>ACTION</th></tr></thead>
-    <tbody>
-      <tr><td>Device Summary</td><td>Sample device inventory</td><td>CSV</td><td>Available</td><td><button class="secondary" data-report="devices">Generate</button></td></tr>
-      <tr><td>Call Log Sample</td><td>Fictional call records</td><td>CSV</td><td>Available</td><td><button class="secondary" data-report="calls">Generate</button></td></tr>
-      <tr><td>Contact List Sample</td><td>Example contacts</td><td>CSV</td><td>Available</td><td><button class="secondary" data-report="contacts">Generate</button></td></tr>
-    </tbody></table></div></div>`;
-}
-
-function settingsPage() {
-  return heading("Settings","Customize the appearance of this local demo.") +
-    `<div class="grid columns">
-      ${card("Profile settings",`
-        <form id="settingsForm" class="form-grid">
-          <div class="field"><label>Display name</label><input name="displayName" value="Demo User" required></div>
-          <div class="field"><label>Language</label><select name="language"><option>English</option><option>French</option><option>Spanish</option></select></div>
-          <div class="field"><label>Time format</label><select name="time"><option>12-hour</option><option>24-hour</option></select></div>
-          <div class="field"><label>Theme</label><select name="theme"><option>Light</option><option>Dark (coming soon)</option></select></div>
-          <div class="field full-width"><button class="primary">Save preferences</button></div>
-        </form>`)}
-      ${card("Demo information",`
-        <div class="settings-note">Settings are stored only for this page session. This standalone file does not save preferences to a server.</div>
-        <p><strong>Environment:</strong> Local prototype</p>
-        <p><strong>Version:</strong> 1.0</p>
-        <p><strong>Device connection:</strong> Disabled</p>
-        <button class="secondary" data-action="reset">Reset demo data</button>
-      `)}
-    </div>`;
-}
-
-function helpPage() {
-  return heading("Help Center","Explore how to use the interface prototype.") +
-    `<div class="grid columns">
-      ${card("Navigation",`
-        <p>Use the left sidebar to switch between pages.</p>
-        <p>Use the search field to find demo records.</p>
-        <p>Use export controls to download sample CSV files.</p>
-      `)}
-      ${card("Frequently asked questions",`
-        <details open><summary>Is this connected to a real device?</summary><p class="small-muted">No. This is a standalone demonstration.</p></details>
-        <hr style="border:0;border-top:1px solid var(--border);margin:16px 0">
-        <details><summary>Can I export demo records?</summary><p class="small-muted">Yes. CSV export controls download fictional sample records.</p></details>
-        <hr style="border:0;border-top:1px solid var(--border);margin:16px 0">
-        <details><summary>Does this need a server?</summary><p class="small-muted">No. The UI works directly in your browser.</p></details>
-      `)}
-    </div>`;
-}
-
-function render() {
-  currentFilter = "";
-  document.getElementById("breadcrumb").textContent = titles[currentPage];
-  document.querySelectorAll(".nav-item").forEach(item =>
-    item.classList.toggle("active", item.dataset.page === currentPage)
-  );
-
-  const pages = {
-    dashboard: dashboardPage,
-    devices: devicesPage,
-    location: locationPage,
-    calls: () => tablePage("Call Logs","Fictional example call history.",
-      ["CONTACT","NUMBER","TYPE","DURATION","TIME"],demoData.calls,"calls"),
-    messages: () => tablePage("Messages","Fictional demonstration messages.",
-      ["CONTACT","NUMBER","DIRECTION","SAMPLE TEXT","TIME"],demoData.messages,"messages"),
-    contacts: () => tablePage("Contacts","Example contacts created for this demo.",
-      ["NAME","NUMBER","EMAIL","ACTION"],demoData.contacts,"contacts"),
-    apps: () => tablePage("Applications","Illustrative application inventory.",
-      ["APPLICATION","CATEGORY","STATUS"],demoData.apps,"apps"),
-    browser: () => tablePage("Browser History","Fictional example browsing records.",
-      ["PAGE TITLE","DEMO DOMAIN","TIME"],demoData.browser,"browser"),
-    media: () => tablePage("Media Library","Placeholder media inventory.",
-      ["FILE NAME","TYPE","DESCRIPTION"],demoData.media,"media"),
-    reports: reportsPage,
-    settings: settingsPage,
-    help: helpPage
-  };
-
-  content.innerHTML = (pages[currentPage] || dashboardPage)() +
-    `<div class="footer">Interactive UI prototype · Fictional sample data · No real device monitoring</div>`;
-  sidebar.classList.remove("open");
-  overlay.classList.remove("visible");
-}
-
-function go(page) {
-  if (!titles[page]) return;
-  currentPage = page;
-  render();
-  window.scrollTo({top:0,behavior:"smooth"});
-}
-
-document.querySelectorAll(".nav-item").forEach(item =>
-  item.addEventListener("click", () => go(item.dataset.page))
-);
-
-document.getElementById("menuToggle").addEventListener("click", () => {
-  sidebar.classList.toggle("open");
-  overlay.classList.toggle("visible");
-});
-overlay.addEventListener("click", () => {
-  sidebar.classList.remove("open");
-  overlay.classList.remove("visible");
-});
-
-document.getElementById("notifications").addEventListener("click", () =>
-  notify("You are viewing the demo environment. No new notifications.")
-);
-
-document.getElementById("profileButton").addEventListener("click", () =>
-  notify("Signed in as Demo User — simulated profile only.")
-);
-
-document.getElementById("globalSearch").addEventListener("keydown", e => {
-  if (e.key !== "Enter") return;
-  const q = e.target.value.trim().toLowerCase();
-  const found = Object.keys(titles).find(k => titles[k].toLowerCase().includes(q));
-  if (found) go(found);
-  else if (q) {
-    const matches = Object.keys(demoData).filter(k =>
-      demoData[k].some(row => row.join(" ").toLowerCase().includes(q))
-    );
-    if (matches.length) go(matches[0]);
-    else notify("No matching demo page or record found.");
-  }
-});
-
-content.addEventListener("click", e => {
-  const target = e.target.closest("button, [data-go]");
-  if (!target) return;
-
-  if (target.dataset.go) return go(target.dataset.go);
-
-  if (target.dataset.action) {
-    switch (target.dataset.action) {
-      case "report":
-        go("reports");
-        notify("Report center opened. Choose a sample report.");
-        break;
-      case "add-device":
-        notify("Demo only: device connections are disabled.");
-        break;
-      case "export":
-        exportCurrentCSV();
-        break;
-      case "clear-filter":
-        currentFilter = "";
-        render();
-        break;
-      case "prev":
-      case "next":
-        notify("All sample records are displayed on this page.");
-        break;
-      case "map-info":
-        notify("This is a decorative map placeholder, not a live map.");
-        break;
-      case "reset":
-        if (confirm("Reset this demo view? No real data will be changed.")) {
-          currentPage = "dashboard";
-          render();
-          notify("Demo view reset.");
-        }
-        break;
-    }
-  }
-
-  if (target.dataset.device !== undefined) {
-    const d = demoData.devices[Number(target.dataset.device)];
-    notify(d.name + " · " + d.id + " · " + d.status);
-  }
-
-  if (target.dataset.contact !== undefined) {
-    const d = demoData.contacts[Number(target.dataset.contact)];
-    notify(d[0] + " · " + d[1] + " · " + d[2]);
-  }
-
-  if (target.dataset.report) {
-    const key = target.dataset.report;
-    const dataset = key === "devices"
-      ? [["Device","Model","ID","Status"], ...demoData.devices.map(d=>[d.name,d.model,d.id,d.status])]
-      : key === "calls"
-      ? [["Contact","Number","Type","Duration","Time"], ...demoData.calls]
-      : [["Name","Number","Email"], ...demoData.contacts];
-    downloadCSV(key + "-demo-report.csv", dataset);
-    notify("Sample report downloaded.");
-  }
-});
-
-content.addEventListener("input", e => {
-  if (e.target.id !== "tableSearch") return;
-  const q = e.target.value.toLowerCase();
-  const rows = document.querySelectorAll("#dataRows tr");
-  let count = 0;
-  rows.forEach(row => {
-    const visible = row.textContent.toLowerCase().includes(q);
-    row.style.display = visible ? "" : "none";
-    if (visible) count++;
-  });
-  const counter = document.getElementById("recordCount");
-  if (counter) counter.textContent = count + " matching records";
-});
-
-content.addEventListener("change", e => {
-  if (e.target.id !== "tableLimit") return;
-  const limit = e.target.value === "all" ? Infinity : Number(e.target.value);
-  const rows = [...document.querySelectorAll("#dataRows tr")];
-  rows.forEach((row, i) => row.style.display = i < limit ? "" : "none");
-  const counter = document.getElementById("recordCount");
-  if (counter) counter.textContent = Math.min(rows.length, limit) + " displayed records";
-});
-
-content.addEventListener("submit", e => {
-  if (e.target.id !== "settingsForm") return;
-  e.preventDefault();
-  const name = e.target.elements.displayName.value.trim() || "Demo User";
-  document.querySelector("#profileButton strong").textContent = name;
-  notify("Demo preferences applied for this session.");
-});
-
-function downloadCSV(filename, rows) {
-  const csv = rows.map(row => row.map(value =>
-    '"' + String(value).replace(/"/g,'""') + '"'
-  ).join(",")).join("\r\n");
-  const blob = new Blob(["\uFEFF" + csv], {type:"text/csv;charset=utf-8;"});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = filename;
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
-}
-
-function exportCurrentCSV() {
-  let rows = [];
-  let filename = currentPage + "-demo.csv";
-
-  if (currentPage === "devices") {
-    rows = [["Name","Model","ID","Status","Last seen"],
-      ...demoData.devices.map(d=>[d.name,d.model,d.id,d.status,d.last])];
-  } else if (demoData[currentPage]) {
-    rows = [["Sample record"], ...demoData[currentPage].map(row=>[row.join(" | ")])];
-  } else {
-    rows = [["Report"],["Fictional demo export"],["Page",currentPage]];
-  }
-
-  downloadCSV(filename, rows);
-  notify("Your sample CSV file is ready.");
-}
-
-render();
-</script>
 </body>
 </html>
