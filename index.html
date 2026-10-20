@@ -1,613 +1,599 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MonitoringAccess Compatibility & Pricing</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            dark: '#263238',
-                            slate: '#5d676e',
-                            green: '#4caf50',
-                            greenDark: '#388e3c',
-                            orange: '#ff9800',
-                            orangeHover: '#e68a00',
-                            blue: '#64b5f6',
-                            blueHover: '#42a5f5',
-                            lite: '#16a085',
-                            premium: '#2980b9',
-                            extreme: '#8e44ad',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #f4f6f8;
-            color: #333;
-        }
-
-        /* Custom tab triangle indicator */
-        .tab-active::after {
-            content: '';
-            position: absolute;
-            bottom: -6px;
-            left: 50%;
-            transform: translateX(-50%);
-            border-width: 6px 6px 0 6px;
-            border-style: solid;
-            border-color: #4caf50 transparent transparent transparent;
-        }
-
-        /* OR badge overlay */
-        .or-badge {
-            width: 44px;
-            height: 44px;
-            background: #ffffff;
-            color: #29b6f6;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            margin: -22px auto 10px auto;
-            border: 3px solid #29b6f6;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        /* Custom scrollbar for chat */
-        .chat-scroll::-webkit-scrollbar {
-            width: 5px;
-        }
-        .chat-scroll::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 4px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MonitoringAccess - Compatibility & Pricing</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f1f5f9;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+    .modal-backdrop {
+      background-color: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(4px);
+    }
+  </style>
 </head>
-<body class="min-h-screen flex flex-col items-center justify-start py-0 md:py-6 px-0 md:px-4">
+<body class="text-slate-800 antialiased min-h-screen flex flex-col items-center justify-start py-4 px-2 sm:px-4">
 
-    <!-- Main Container -->
-    <div class="w-full max-w-md bg-white border border-gray-200 shadow-xl rounded-none md:rounded-xl overflow-hidden relative pb-10">
+  <!-- Main Container Mobile Wrapper (max-w-[420px] on mobile/tablet, responsive on larger screens) -->
+  <div class="w-full max-w-[430px] sm:max-w-2xl md:max-w-4xl lg:max-w-5xl bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200 my-2">
+    
+    <!-- Top Navigation Header -->
+    <header class="bg-slate-900 text-white px-4 py-4 flex items-center justify-between border-b border-slate-800">
+      <div class="flex items-center space-x-2">
+        <div class="bg-emerald-500 text-slate-900 font-extrabold px-2.5 py-1 rounded-lg text-lg tracking-wider">
+          MA
+        </div>
+        <div>
+          <h1 class="text-lg font-bold tracking-tight text-white leading-tight">MonitoringAccess</h1>
+          <p class="text-[10px] text-emerald-400 font-medium">PREMIUM MONITORING SOLUTION</p>
+        </div>
+      </div>
+      <div class="text-xs bg-slate-800 text-slate-300 px-3 py-1.5 rounded-full border border-slate-700 flex items-center space-x-1">
+        <i class="fa-solid me-1 fa-shield-halved text-emerald-400"></i> 100% Secure
+      </div>
+    </header>
 
-        <!-- Top Navigation / Device Tabs -->
-        <div class="flex bg-[#5d676e]" id="device-tabs">
-            <button onclick="switchTab('android')" id="tab-android" class="flex-1 py-3 text-center text-white text-xs font-bold border-r border-[#6c777e] relative hover:bg-[#6c777e] transition">Android</button>
-            <button onclick="switchTab('iphone')" id="tab-iphone" class="flex-1 py-3 text-center text-white text-xs font-bold border-r border-[#6c777e] relative bg-[#4caf50] tab-active hover:bg-[#43a047] transition">iPhone</button>
-            <button onclick="switchTab('ipad')" id="tab-ipad" class="flex-1 py-3 text-center text-white text-xs font-bold border-r border-[#6c777e] relative hover:bg-[#6c777e] transition">iPad</button>
-            <button onclick="switchTab('computers')" id="tab-computers" class="flex-1 py-3 text-center text-white text-xs font-bold relative hover:bg-[#6c777e] transition">Computers</button>
+    <!-- Main Content Area -->
+    <main class="p-4 sm:p-6 space-y-6">
+
+      <!-- Section 1: Device Compatibility Check -->
+      <section class="bg-slate-50 p-4 sm:p-5 rounded-xl border border-slate-200 shadow-sm">
+        <div class="text-center mb-4">
+          <h2 class="text-lg font-bold text-slate-900">Device Compatibility Check</h2>
+          <p class="text-xs text-slate-500 mt-0.5">Select target device specifications to verify support</p>
         </div>
 
-        <!-- Banner Header -->
-        <div class="bg-[#263238] text-white text-center py-6 px-4">
-            <h1 id="banner-title" class="text-xl font-bold mb-1">Check If My iPhone Is Compatible</h1>
-            <p id="banner-subtitle" class="text-xs text-gray-300 mb-4">(MonitoringAccess supports most iPhones)</p>
-            <button onclick="openPaymentModal('Header Quick Buy')" class="bg-[#ff9800] hover:bg-[#e68a00] text-white px-8 py-2.5 rounded font-bold text-sm tracking-wide shadow-md uppercase transition active:scale-95">
-                Buy Now
-            </button>
+        <!-- OS Tabs -->
+        <div class="grid grid-cols-4 gap-1 sm:gap-2 mb-4 bg-slate-200 p-1 rounded-xl" id="osTabs">
+          <button onclick="selectOS('android')" id="tab-android" class="os-tab active flex flex-col sm:flex-row items-center justify-center py-2 px-1 rounded-lg text-xs font-semibold bg-white text-slate-900 shadow-sm transition-all">
+            <i class="fa-brands fa-android text-base sm:me-1.5 text-emerald-600 mb-1 sm:mb-0"></i>
+            <span>Android</span>
+          </button>
+          <button onclick="selectOS('iphone')" id="tab-iphone" class="os-tab flex flex-col sm:flex-row items-center justify-center py-2 px-1 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition-all">
+            <i class="fa-brands fa-apple text-base sm:me-1.5 mb-1 sm:mb-0"></i>
+            <span>iPhone</span>
+          </button>
+          <button onclick="selectOS('ipad')" id="tab-ipad" class="os-tab flex flex-col sm:flex-row items-center justify-center py-2 px-1 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition-all">
+            <i class="fa-solid fa-tablet-screen-button text-base sm:me-1.5 mb-1 sm:mb-0"></i>
+            <span>iPad</span>
+          </button>
+          <button onclick="selectOS('computer')" id="tab-computer" class="os-tab flex flex-col sm:flex-row items-center justify-center py-2 px-1 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition-all">
+            <i class="fa-solid fa-laptop text-base sm:me-1.5 mb-1 sm:mb-0"></i>
+            <span>Computer</span>
+          </button>
         </div>
 
-        <!-- Compatibility Selector Section -->
-        <div id="compatibility-section" class="p-6 text-center border-b border-gray-200 bg-white">
-            <h2 id="selector-title" class="text-lg font-bold text-gray-700 mb-4">Select Your iPhone</h2>
-            
-            <div class="space-y-4 text-left">
-                <div>
-                    <label id="model-label" class="block text-xs font-bold text-gray-600 mb-1 text-center">I have a</label>
-                    <select id="device-model" class="w-full p-2.5 border border-gray-300 rounded text-sm bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-400 transition">
-                        <!-- Dynamic Options loaded by JS -->
-                    </select>
-                </div>
-
-                <div>
-                    <label id="os-label" class="block text-xs font-bold text-gray-600 mb-1 text-center">running</label>
-                    <select id="os-version" class="w-full p-2.5 border border-gray-300 rounded text-sm bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-400 transition">
-                        <!-- Dynamic Options loaded by JS -->
-                    </select>
-                </div>
-            </div>
-
-            <button onclick="checkCompatibility()" class="w-full mt-5 bg-[#64b5f6] hover:bg-[#42a5f5] text-white font-bold py-3 px-4 rounded text-sm tracking-wide uppercase transition shadow active:scale-95">
-                SHOW ME
-            </button>
-
-            <!-- Compatible Green Success Banner -->
-            <div id="compatible-banner" class="hidden mt-4 p-3 bg-green-100 border border-green-300 text-green-800 rounded text-xs text-left">
-                <div class="flex items-center gap-2">
-                    <i class="fa-solid fa-circle-check text-green-600 text-base"></i>
-                    <span class="font-bold">Device Fully Compatible!</span>
-                </div>
-                <p id="compatible-banner-msg" class="mt-1 text-green-700">Your selected device is 100% supported by MonitoringAccess.</p>
-            </div>
+        <!-- Select Dropdowns -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
+          <div>
+            <label class="block text-xs font-medium text-slate-600 mb-1" id="modelLabel">Device Model</label>
+            <select id="deviceModelSelect" class="w-full text-xs font-medium bg-white border border-slate-300 rounded-lg px-3 py-2.5 text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+              <!-- Options populated dynamically -->
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-slate-600 mb-1" id="versionLabel">OS Version</label>
+            <select id="deviceVersionSelect" class="w-full text-xs font-medium bg-white border border-slate-300 rounded-lg px-3 py-2.5 text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+              <!-- Options populated dynamically -->
+            </select>
+          </div>
         </div>
 
-        <!-- Pricing Cards Section -->
-        <div class="p-4 space-y-6 bg-gray-50">
-
-            <!-- LITE Card -->
-            <div class="rounded-xl overflow-hidden bg-white border border-gray-200 shadow-sm transition hover:shadow-md">
-                <div class="bg-[#16a085] text-white p-3 px-4 flex justify-between items-center">
-                    <span class="font-extrabold text-lg tracking-wider">LITE</span>
-                    <span id="lite-price-badge" class="bg-white text-[#16a085] px-3 py-1 rounded-full font-bold text-lg shadow-inner">$49.95</span>
-                </div>
-                <div class="p-4 text-center">
-                    <p class="text-xs text-gray-600 pb-3 border-b border-gray-100 leading-relaxed">
-                        LITE offers an essential set of monitoring features at an unbeatable price. Perfect for those who are on a budget.
-                    </p>
-                    <div class="my-4 text-xs space-y-2 text-left px-2">
-                        <label class="flex justify-between items-center cursor-pointer p-1 rounded hover:bg-gray-50">
-                            <span class="flex items-center gap-2">
-                                <input type="radio" name="lite_plan" value="49.95" checked onclick="updatePrice('lite', '49.95')" class="accent-[#16a085]">
-                                <span>1 month</span>
-                            </span>
-                            <span class="font-semibold">$49.95</span>
-                        </label>
-                    </div>
-                    <button onclick="openPaymentModal('LITE ($' + document.getElementById('lite-price-badge').innerText + ')')" class="w-full bg-[#ff9800] hover:bg-[#e68a00] text-white font-bold py-3 rounded text-sm uppercase shadow transition active:scale-95">
-                        BUY NOW
-                    </button>
-                </div>
-                <!-- Collapsible List -->
-                <div id="lite-features" class="hidden bg-gray-50 p-4 border-t border-dashed border-gray-200 text-xs text-gray-700">
-                    <p class="font-bold mb-2 text-gray-800">Included LITE Features:</p>
-                    <ul class="list-disc pl-5 space-y-1">
-                        <li>Call Logs & Contact List</li>
-                        <li>SMS & Text Messages</li>
-                        <li>GPS Location Tracking</li>
-                        <li>Browser History & Bookmarks</li>
-                        <li>Photos & Video Files</li>
-                    </ul>
-                </div>
-                <button onclick="toggleFeatures('lite-features', this)" class="w-full bg-[#d6d6d6] hover:bg-gray-300 text-gray-700 text-xs font-bold py-2 text-center border-t border-gray-200 transition">
-                    Expand Features ▼
-                </button>
-            </div>
-
-            <!-- PREMIUM Card -->
-            <div class="rounded-xl overflow-hidden bg-white border border-gray-200 shadow-sm transition hover:shadow-md">
-                <div class="bg-[#2980b9] text-white p-3 px-4 flex justify-between items-center">
-                    <span class="font-extrabold text-lg tracking-wider">PREMIUM</span>
-                    <span id="premium-price-badge" class="bg-white text-[#2980b9] px-3 py-1 rounded-full font-bold text-lg shadow-inner">$79</span>
-                </div>
-                <div class="p-4 text-center">
-                    <p class="text-xs text-gray-600 pb-3 border-b border-gray-100 leading-relaxed">
-                        Choose PREMIUM for <strong class="text-gray-800">all around monitoring</strong> of mobile activities. Gives you more features than any of our competitors.
-                    </p>
-                    <div class="my-4 text-xs space-y-2 text-left px-2">
-                        <label class="flex justify-between items-center cursor-pointer p-1 rounded hover:bg-gray-50">
-                            <span class="flex items-center gap-2">
-                                <input type="radio" name="premium_plan" value="79" checked onclick="updatePrice('premium', '79')" class="accent-[#2980b9]">
-                                <span>1 month</span>
-                            </span>
-                            <span class="font-semibold">$79</span>
-                        </label>
-                        <label class="flex justify-between items-center cursor-pointer p-1 rounded hover:bg-gray-50">
-                            <span class="flex items-center gap-2">
-                                <input type="radio" name="premium_plan" value="119" onclick="updatePrice('premium', '119')" class="accent-[#2980b9]">
-                                <span>3 months</span>
-                            </span>
-                            <span class="font-semibold">$119</span>
-                        </label>
-                        <label class="flex justify-between items-center cursor-pointer p-1 rounded hover:bg-gray-50">
-                            <span class="flex items-center gap-2">
-                                <input type="radio" name="premium_plan" value="179" onclick="updatePrice('premium', '179')" class="accent-[#2980b9]">
-                                <span>12 months</span>
-                            </span>
-                            <span class="font-semibold">$179</span>
-                        </label>
-                    </div>
-                    <button onclick="openPaymentModal('PREMIUM ($' + document.getElementById('premium-price-badge').innerText + ')')" class="w-full bg-[#ff9800] hover:bg-[#e68a00] text-white font-bold py-3 rounded text-sm uppercase shadow transition active:scale-95">
-                        BUY NOW
-                    </button>
-                </div>
-                <!-- Collapsible List -->
-                <div id="premium-features" class="hidden bg-gray-50 p-4 border-t border-dashed border-gray-200 text-xs text-gray-700">
-                    <p class="font-bold mb-2 text-gray-800">Included PREMIUM Features:</p>
-                    <ul class="list-disc pl-5 space-y-1">
-                        <li>All LITE Features Included</li>
-                        <li>WhatsApp, Facebook, Instagram Chats</li>
-                        <li>Snapchat, Tinder, Skype & Telegram</li>
-                        <li>Keylogger & Application Usage</li>
-                        <li>Email Monitoring & Calendar</li>
-                    </ul>
-                </div>
-                <button onclick="toggleFeatures('premium-features', this)" class="w-full bg-[#d6d6d6] hover:bg-gray-300 text-gray-700 text-xs font-bold py-2 text-center border-t border-gray-200 transition">
-                    Expand Features ▼
-                </button>
-            </div>
-
-            <!-- EXTREME Card -->
-            <div class="rounded-xl overflow-hidden bg-white border border-gray-200 shadow-sm transition hover:shadow-md">
-                <div class="bg-[#8e44ad] text-white p-3 px-4 flex justify-between items-center">
-                    <span class="font-extrabold text-lg tracking-wider">EXTREME</span>
-                    <span id="extreme-price-badge" class="bg-white text-[#8e44ad] px-3 py-1 rounded-full font-bold text-lg shadow-inner">$119</span>
-                </div>
-                <div class="p-4 text-center">
-                    <p class="text-xs text-gray-600 pb-3 border-b border-gray-100 leading-relaxed">
-                        Only for <strong class="text-gray-800">the most demanding detectives</strong>, EXTREME adds monitoring and recording of all audio streams and other amazing discovery tools.
-                    </p>
-                    <div class="my-4 text-xs space-y-2 text-left px-2">
-                        <label class="flex justify-between items-center cursor-pointer p-1 rounded hover:bg-gray-50">
-                            <span class="flex items-center gap-2">
-                                <input type="radio" name="extreme_plan" value="119" checked onclick="updatePrice('extreme', '119')" class="accent-[#8e44ad]">
-                                <span>1 month</span>
-                            </span>
-                            <span class="font-semibold">$119</span>
-                        </label>
-                        <label class="flex justify-between items-center cursor-pointer p-1 rounded hover:bg-gray-50">
-                            <span class="flex items-center gap-2">
-                                <input type="radio" name="extreme_plan" value="239" onclick="updatePrice('extreme', '239')" class="accent-[#8e44ad]">
-                                <span>3 months</span>
-                            </span>
-                            <span class="font-semibold">$239</span>
-                        </label>
-                        <label class="flex justify-between items-center cursor-pointer p-1 rounded hover:bg-gray-50">
-                            <span class="flex items-center gap-2">
-                                <input type="radio" name="extreme_plan" value="419" onclick="updatePrice('extreme', '419')" class="accent-[#8e44ad]">
-                                <span>12 months</span>
-                            </span>
-                            <span class="font-semibold">$419</span>
-                        </label>
-                    </div>
-                    <button onclick="openPaymentModal('EXTREME ($' + document.getElementById('extreme-price-badge').innerText + ')')" class="w-full bg-[#ff9800] hover:bg-[#e68a00] text-white font-bold py-3 rounded text-sm uppercase shadow transition active:scale-95">
-                        BUY NOW
-                    </button>
-                </div>
-                <!-- Collapsible List -->
-                <div id="extreme-features" class="hidden bg-gray-50 p-4 border-t border-dashed border-gray-200 text-xs text-gray-700">
-                    <p class="font-bold mb-2 text-gray-800">Included EXTREME Features:</p>
-                    <ul class="list-disc pl-5 space-y-1">
-                        <li>All PREMIUM Features Included</li>
-                        <li>Phone Call Recording & Live Interception</li>
-                        <li>Ambient Surroundings Recording</li>
-                        <li>Remotely Take Secret Photos & Videos</li>
-                        <li>VOIP Call Recording (WhatsApp, Skype)</li>
-                    </ul>
-                </div>
-                <button onclick="toggleFeatures('extreme-features', this)" class="w-full bg-[#d6d6d6] hover:bg-gray-300 text-gray-700 text-xs font-bold py-2 text-center border-t border-gray-200 transition">
-                    Expand Features ▼
-                </button>
-            </div>
-
-        </div>
-
-        <!-- Before You Buy Informational Stepper -->
-        <div class="mx-4 my-6 rounded-lg overflow-hidden shadow border border-gray-200 bg-white">
-            <div class="bg-[#8bc34a] text-white text-center py-3 font-bold text-base uppercase tracking-wide">
-                Before You Buy
-            </div>
-
-            <div onclick="showStepDetail(1)" class="bg-[#78909c] hover:bg-[#607d8b] text-white text-center py-4 px-4 border-b border-[#90a4ae] cursor-pointer transition">
-                <h3 class="text-xl font-extrabold mb-1">1.</h3>
-                <p class="text-xs text-gray-100">You will need physical access to the device.</p>
-            </div>
-
-            <div onclick="scrollToSelector()" class="bg-[#78909c] hover:bg-[#607d8b] text-white text-center py-4 px-4 border-b border-[#90a4ae] cursor-pointer transition">
-                <h3 class="text-xl font-extrabold mb-1">2.</h3>
-                <p class="text-xs text-gray-100 underline underline-offset-2">Click here to see if your device is compatible.</p>
-            </div>
-
-            <div onclick="openRefundModal()" class="bg-[#78909c] hover:bg-[#607d8b] text-white text-center py-4 px-4 cursor-pointer transition">
-                <h3 class="text-xl font-extrabold mb-1">3.</h3>
-                <p class="text-xs text-gray-100 underline underline-offset-2">View our refund policy.</p>
-            </div>
-
-            <div class="bg-[#29b6f6] text-white text-center p-4 relative pt-6">
-                <div class="or-badge">OR</div>
-                <div onclick="openInstallationServiceModal()" class="cursor-pointer hover:opacity-90 transition">
-                    <i class="fa-solid fa-screwdriver-wrench text-2xl mb-1"></i>
-                    <p class="text-xs font-semibold">Use our worry-free installation service.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Interactive Payment Gateways Footer -->
-        <div class="text-center py-4 px-2 bg-white">
-            <p class="text-xs text-gray-500 font-semibold mb-2">Supported Payment Methods</p>
-            <div class="flex flex-wrap justify-center gap-1.5 text-xs font-bold text-gray-700">
-                <span onclick="showPayMethodInfo('Visa')" class="bg-gray-100 hover:bg-blue-50 border border-gray-200 px-2.5 py-1 rounded cursor-pointer transition hover:text-blue-600">VISA</span>
-                <span onclick="showPayMethodInfo('MasterCard')" class="bg-gray-100 hover:bg-red-50 border border-gray-200 px-2.5 py-1 rounded cursor-pointer transition hover:text-red-600">MasterCard</span>
-                <span onclick="showPayMethodInfo('PayPal')" class="bg-gray-100 hover:bg-sky-50 border border-gray-200 px-2.5 py-1 rounded cursor-pointer transition hover:text-sky-600">PayPal</span>
-                <span onclick="showPayMethodInfo('AMEX')" class="bg-gray-100 hover:bg-blue-50 border border-gray-200 px-2.5 py-1 rounded cursor-pointer transition hover:text-blue-700">AMEX</span>
-                <span onclick="showPayMethodInfo('Discover')" class="bg-gray-100 hover:bg-orange-50 border border-gray-200 px-2.5 py-1 rounded cursor-pointer transition hover:text-orange-600">Discover</span>
-                <span onclick="showPayMethodInfo('Bitcoin')" class="bg-gray-100 hover:bg-amber-50 border border-gray-200 px-2.5 py-1 rounded cursor-pointer transition hover:text-amber-600"><i class="fa-brands fa-bitcoin text-amber-500 mr-1"></i>BTC</span>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- Floating Support Icon -->
-    <div class="fixed bottom-4 right-4 z-40">
-        <button onclick="toggleChatWidget()" class="bg-[#4caf50] hover:bg-[#43a047] text-white p-3.5 rounded-full shadow-2xl flex items-center justify-center transition transform active:scale-95 focus:outline-none ring-4 ring-green-200">
-            <i class="fa-solid fa-headset text-2xl"></i>
+        <!-- Show Me / Check Button -->
+        <button onclick="checkCompatibility()" class="w-full bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-bold py-2.5 px-4 rounded-xl shadow transition-all duration-200 flex items-center justify-center space-x-2 text-sm tracking-wide">
+          <i class="fa-solid fa-magnifying-glass text-xs"></i>
+          <span>SHOW ME COMPATIBILITY</span>
         </button>
-    </div>
+      </section>
 
-    <!-- Live Support Chat Widget Popup -->
-    <div id="chat-widget" class="hidden fixed bottom-20 right-4 w-80 bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden z-50 flex flex-col">
-        <div class="bg-[#263238] text-white p-3 flex justify-between items-center">
-            <div class="flex items-center gap-2">
-                <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-                <span class="font-bold text-sm">MonitoringAccess Support</span>
-            </div>
-            <button onclick="toggleChatWidget()" class="text-gray-300 hover:text-white text-base"><i class="fa-solid fa-xmark"></i></button>
+      <!-- Section 2: Pricing Cards -->
+      <section class="space-y-4">
+        <div class="text-center">
+          <h2 class="text-xl font-extrabold text-slate-900">Choose Your Plan</h2>
+          <p class="text-xs text-slate-500">Full features unlocked immediately upon activation</p>
         </div>
-        <div class="p-3 bg-gray-50 h-52 overflow-y-auto space-y-2 text-xs chat-scroll" id="chat-box">
-            <div class="bg-white p-2.5 rounded-lg border border-gray-200 text-gray-700 max-w-[85%]">
-                Hello! Need help checking if your target device is compatible with MonitoringAccess?
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+          <!-- CARD 1: LITE -->
+          <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden hover:shadow-md transition-shadow flex flex-col justify-between">
+            <div>
+              <div class="bg-slate-100 p-4 border-b border-slate-200 text-center relative">
+                <span class="text-xs font-bold text-slate-500 uppercase tracking-widest">Basic Access</span>
+                <h3 class="text-xl font-extrabold text-slate-800 mt-1">LITE</h3>
+                <div class="mt-2 flex items-baseline justify-center text-slate-900">
+                  <span class="text-sm font-semibold">$</span>
+                  <span class="text-3xl font-black tracking-tight" id="lite-price-display">135.95</span>
+                </div>
+              </div>
+
+              <div class="p-4 space-y-3">
+                <div class="text-xs text-slate-500 font-medium text-center">Select Duration:</div>
+                <div class="space-y-2">
+                  <label class="flex items-center justify-between p-2.5 rounded-lg border border-emerald-500 bg-emerald-50/40 cursor-pointer">
+                    <div class="flex items-center space-x-2">
+                      <input type="radio" name="lite-plan" value="135.95" checked onchange="updateCardPrice('lite', 135.95, '3 Months')" class="text-emerald-600 focus:ring-emerald-500">
+                      <span class="text-xs font-bold text-slate-800">3 Months</span>
+                    </div>
+                    <span class="text-xs font-bold text-slate-900">$135.95</span>
+                  </label>
+                </div>
+
+                <div class="pt-2 border-t border-slate-100 text-xs space-y-2">
+                  <div class="flex items-center text-slate-700">
+                    <i class="fa-solid fa-check text-emerald-500 me-2 text-xs"></i> Call Logs & Contacts
+                  </div>
+                  <div class="flex items-center text-slate-700">
+                    <i class="fa-solid fa-check text-emerald-500 me-2 text-xs"></i> SMS & iMessage Tracking
+                  </div>
+                  <div class="flex items-center text-slate-700">
+                    <i class="fa-solid fa-check text-emerald-500 me-2 text-xs"></i> GPS Location Tracking
+                  </div>
+                  <div class="flex items-center text-slate-700">
+                    <i class="fa-solid fa-check text-emerald-500 me-2 text-xs"></i> Browser History
+                  </div>
+                </div>
+              </div>
             </div>
+
+            <div class="p-4 pt-0">
+              <button onclick="openPaymentModal('LITE', currentLitePrice, currentLiteDuration)" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-2.5 px-4 rounded-xl shadow text-xs uppercase tracking-wider transition-all">
+                BUY NOW
+              </button>
+            </div>
+          </div>
+
+          <!-- CARD 2: PREMIUM (Featured) -->
+          <div class="bg-white rounded-2xl border-2 border-emerald-500 shadow-md overflow-hidden relative flex flex-col justify-between">
+            <div class="absolute top-0 right-0 bg-emerald-500 text-white text-[10px] font-extrabold uppercase px-3 py-1 rounded-bl-lg tracking-wider">
+              Popular
+            </div>
+            <div>
+              <div class="bg-emerald-50/50 p-4 border-b border-slate-200 text-center">
+                <span class="text-xs font-bold text-emerald-600 uppercase tracking-widest">Advanced Suite</span>
+                <h3 class="text-xl font-extrabold text-slate-800 mt-1">PREMIUM</h3>
+                <div class="mt-2 flex items-baseline justify-center text-slate-900">
+                  <span class="text-sm font-semibold">$</span>
+                  <span class="text-3xl font-black tracking-tight" id="premium-price-display">170.11</span>
+                </div>
+              </div>
+
+              <div class="p-4 space-y-3">
+                <div class="text-xs text-slate-500 font-medium text-center">Select Duration:</div>
+                <div class="space-y-2">
+                  <label id="prem-opt-1" class="flex items-center justify-between p-2.5 rounded-lg border border-emerald-500 bg-emerald-50/40 cursor-pointer">
+                    <div class="flex items-center space-x-2">
+                      <input type="radio" name="premium-plan" value="170.11" checked onchange="updateCardPrice('premium', 170.11, '3 Months')" class="text-emerald-600 focus:ring-emerald-500">
+                      <span class="text-xs font-bold text-slate-800">3 Months</span>
+                    </div>
+                    <span class="text-xs font-bold text-slate-900">$170.11</span>
+                  </label>
+                  <label id="prem-opt-2" class="flex items-center justify-between p-2.5 rounded-lg border border-slate-200 hover:border-slate-300 cursor-pointer">
+                    <div class="flex items-center space-x-2">
+                      <input type="radio" name="premium-plan" value="230.85" onchange="updateCardPrice('premium', 230.85, '6 Months')" class="text-emerald-600 focus:ring-emerald-500">
+                      <span class="text-xs font-bold text-slate-800">6 Months</span>
+                    </div>
+                    <span class="text-xs font-bold text-slate-900">$230.85</span>
+                  </label>
+                </div>
+
+                <div class="pt-2 border-t border-slate-100 text-xs space-y-2">
+                  <div class="flex items-center text-slate-700">
+                    <i class="fa-solid fa-check text-emerald-500 me-2 text-xs"></i> All Lite Features Included
+                  </div>
+                  <div class="flex items-center text-slate-700">
+                    <i class="fa-solid fa-check text-emerald-500 me-2 text-xs"></i> WhatsApp, Facebook, IG Direct
+                  </div>
+                  <div class="flex items-center text-slate-700">
+                    <i class="fa-solid fa-check text-emerald-500 me-2 text-xs"></i> Photos & Video Access
+                  </div>
+                  <div class="flex items-center text-slate-700">
+                    <i class="fa-solid fa-check text-emerald-500 me-2 text-xs"></i> Keylogger & App Usage
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-4 pt-0">
+              <button onclick="openPaymentModal('PREMIUM', currentPremiumPrice, currentPremiumDuration)" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 px-4 rounded-xl shadow text-xs uppercase tracking-wider transition-all">
+                BUY NOW
+              </button>
+            </div>
+          </div>
+
+          <!-- CARD 3: EXTREME -->
+          <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden hover:shadow-md transition-shadow flex flex-col justify-between">
+            <div>
+              <div class="bg-slate-100 p-4 border-b border-slate-200 text-center">
+                <span class="text-xs font-bold text-purple-600 uppercase tracking-widest">Ultimate Power</span>
+                <h3 class="text-xl font-extrabold text-slate-800 mt-1">EXTREME</h3>
+                <div class="mt-2 flex items-baseline justify-center text-slate-900">
+                  <span class="text-sm font-semibold">$</span>
+                  <span class="text-3xl font-black tracking-tight" id="extreme-price-display">225.00</span>
+                </div>
+              </div>
+
+              <div class="p-4 space-y-3">
+                <div class="text-xs text-slate-500 font-medium text-center">Select Duration:</div>
+                <div class="space-y-2">
+                  <label id="ext-opt-1" class="flex items-center justify-between p-2.5 rounded-lg border border-emerald-500 bg-emerald-50/40 cursor-pointer">
+                    <div class="flex items-center space-x-2">
+                      <input type="radio" name="extreme-plan" value="225.00" checked onchange="updateCardPrice('extreme', 225.00, '6 Months')" class="text-emerald-600 focus:ring-emerald-500">
+                      <span class="text-xs font-bold text-slate-800">6 Months</span>
+                    </div>
+                    <span class="text-xs font-bold text-slate-900">$225.00</span>
+                  </label>
+                  <label id="ext-opt-2" class="flex items-center justify-between p-2.5 rounded-lg border border-slate-200 hover:border-slate-300 cursor-pointer">
+                    <div class="flex items-center space-x-2">
+                      <input type="radio" name="extreme-plan" value="380.00" onchange="updateCardPrice('extreme', 380.00, '12 Months')" class="text-emerald-600 focus:ring-emerald-500">
+                      <span class="text-xs font-bold text-slate-800">12 Months</span>
+                    </div>
+                    <span class="text-xs font-bold text-slate-900">$380.00</span>
+                  </label>
+                </div>
+
+                <div class="pt-2 border-t border-slate-100 text-xs space-y-2">
+                  <div class="flex items-center text-slate-700">
+                    <i class="fa-solid fa-check text-emerald-500 me-2 text-xs"></i> All Premium Features Included
+                  </div>
+                  <div class="flex items-center text-slate-700">
+                    <i class="fa-solid fa-check text-emerald-500 me-2 text-xs"></i> Live Call Intercept & Recording
+                  </div>
+                  <div class="flex items-center text-slate-700">
+                    <i class="fa-solid fa-check text-emerald-500 me-2 text-xs"></i> Ambient Mic Recording
+                  </div>
+                  <div class="flex items-center text-slate-700">
+                    <i class="fa-solid fa-check text-emerald-500 me-2 text-xs"></i> Remote Camera Capture
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-4 pt-0">
+              <button onclick="openPaymentModal('EXTREME', currentExtremePrice, currentExtremeDuration)" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-2.5 px-4 rounded-xl shadow text-xs uppercase tracking-wider transition-all">
+                BUY NOW
+              </button>
+            </div>
+          </div>
+
         </div>
-        <div class="p-2 border-t border-gray-200 bg-white flex gap-1">
-            <input type="text" id="chat-input" placeholder="Type a message..." class="flex-1 p-2 text-xs border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-blue-400" onkeypress="if(event.key==='Enter') sendChatMessage()">
-            <button onclick="sendChatMessage()" class="bg-[#64b5f6] hover:bg-[#42a5f5] text-white px-3 py-1.5 rounded text-xs font-bold"><i class="fa-solid fa-paper-plane"></i></button>
-        </div>
-    </div>
+      </section>
 
-    <!-- MODAL 1: Incompatible Device Modal (Pixel-Perfect Replica) -->
-    <div id="incompatible-modal" class="hidden fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4">
-        <div class="bg-white w-full max-w-xs sm:max-w-sm rounded-lg p-6 text-center shadow-2xl relative">
-            <!-- Red Blocked Icon -->
-            <div class="w-12 h-12 rounded-full border-4 border-[#f4511e] text-[#f4511e] text-2xl flex items-center justify-center mx-auto mb-4 font-bold">
-                <i class="fa-solid fa-ban"></i>
-            </div>
-            <h3 class="text-xl font-bold text-[#1a237e] mb-1 leading-tight">Sorry, Your Phone Is<br>Not Compatible</h3>
-            <p id="modal-device-text" class="text-xs text-gray-600 mb-4">(iPhone 17 running iOS 26)</p>
+      <!-- Section 3: Feature Expansion Accordion -->
+      <section class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
+        <button onclick="toggleAccordion()" class="w-full p-4 text-left flex items-center justify-between bg-slate-50 hover:bg-slate-100 transition-colors">
+          <div class="flex items-center space-x-2">
+            <i class="fa-solid fa-layer-group text-emerald-600"></i>
+            <span class="font-bold text-slate-800 text-sm">Expand Full Feature Matrix</span>
+          </div>
+          <i id="accordionIcon" class="fa-solid fa-chevron-down text-slate-500 text-xs transition-transform duration-200"></i>
+        </button>
 
-            <div class="bg-[#dcedc8] text-[#33691e] p-3 rounded text-xs leading-snug mb-4 text-left border border-[#c5e1a5]">
-                There is no jailbreak currently available for your device, but they become available regularly
-            </div>
-
-            <div class="text-left text-xs text-gray-700 mb-5">
-                <p class="font-bold text-gray-800 mb-1">Recommended Action</p>
-                <ul class="list-disc pl-4 space-y-1">
-                    <li>Purchase a phone pre-installed with MonitoringAccess delivered direct to your door. <a href="javascript:void(0)" onclick="openInstallationServiceModal()" class="text-[#64b5f6] underline">See here</a></li>
-                    <li><a href="javascript:void(0)" onclick="closeModal('incompatible-modal'); alert('Thank you! You will be notified when jailbreak becomes available.');" class="text-[#64b5f6] underline">Sign up to our newsletter</a> to be notified when your device is supported</li>
-                </ul>
+        <div id="accordionContent" class="hidden p-4 border-t border-slate-200 text-xs space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="space-y-2">
+              <h4 class="font-bold text-slate-900 border-b pb-1 text-xs uppercase tracking-wider text-emerald-600">Communication Tracking</h4>
+              <ul class="space-y-1.5 text-slate-600">
+                <li class="flex items-center"><i class="fa-solid fa-angle-right text-emerald-500 me-2"></i> WhatsApp, LINE, Viber, Skype</li>
+                <li class="flex items-center"><i class="fa-solid fa-angle-right text-emerald-500 me-2"></i> Facebook Messenger, Instagram Direct</li>
+                <li class="flex items-center"><i class="fa-solid fa-angle-right text-emerald-500 me-2"></i> Snapchat, Telegram, Tinder Messages</li>
+                <li class="flex items-center"><i class="fa-solid fa-angle-right text-emerald-500 me-2"></i> SMS, MMS & Email Log Capture</li>
+              </ul>
             </div>
 
             <div class="space-y-2">
-                <button onclick="closeModal('incompatible-modal')" class="w-full bg-[#64b5f6] hover:bg-[#42a5f5] text-white font-bold py-3 rounded text-sm uppercase transition shadow">
-                    CANCEL
-                </button>
-                <button onclick="closeModal('incompatible-modal'); openPaymentModal('Direct Order');" class="w-full bg-[#ff9800] hover:bg-[#e68a00] text-white font-bold py-3 rounded text-sm uppercase transition shadow">
-                    BUY NOW
-                </button>
+              <h4 class="font-bold text-slate-900 border-b pb-1 text-xs uppercase tracking-wider text-emerald-600">Remote Controls & Media</h4>
+              <ul class="space-y-1.5 text-slate-600">
+                <li class="flex items-center"><i class="fa-solid fa-angle-right text-emerald-500 me-2"></i> Hidden Camera Photo Triggering</li>
+                <li class="flex items-center"><i class="fa-solid fa-angle-right text-emerald-500 me-2"></i> Surroundings Sound Recording</li>
+                <li class="flex items-center"><i class="fa-solid fa-angle-right text-emerald-500 me-2"></i> Photo & Video Gallery Downloader</li>
+                <li class="flex items-center"><i class="fa-solid fa-angle-right text-emerald-500 me-2"></i> Real-time GPS Location & Geofencing</li>
+              </ul>
             </div>
+          </div>
         </div>
+      </section>
+
+      <!-- Footer Info -->
+      <footer class="text-center pt-2 pb-1 text-[11px] text-slate-400 space-y-1 border-t border-slate-100">
+        <p>© 2026 MonitoringAccess. All rights reserved.</p>
+        <p class="text-[10px]">Discrete, secure, and instant service provisioning.</p>
+      </footer>
+
+    </main>
+  </div>
+
+  <!-- MODAL 1: Compatibility Result Modal -->
+  <div id="compatModal" class="fixed inset-0 modal-backdrop hidden z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-sm w-full p-5 shadow-2xl border border-slate-100 text-center space-y-4">
+      <div id="compatIconContainer" class="w-12 h-12 rounded-full flex items-center justify-center mx-auto text-xl">
+        <!-- Icon inserted by JS -->
+      </div>
+      <div>
+        <h3 id="compatTitle" class="text-base font-bold text-slate-900"></h3>
+        <p id="compatMessage" class="text-xs text-slate-600 mt-2 leading-relaxed"></p>
+      </div>
+      <button onclick="closeModal('compatModal')" class="w-full bg-slate-900 text-white font-bold py-2 rounded-xl text-xs uppercase tracking-wider hover:bg-slate-800 transition-colors">
+        Close
+      </button>
     </div>
+  </div>
 
-    <!-- MODAL 2: "Access Required" Payment Checkout Modal -->
-    <div id="payment-modal" class="hidden fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4">
-        <div class="bg-white w-full max-w-sm rounded-lg p-6 text-center shadow-2xl relative">
-            <button onclick="closeModal('payment-modal')" class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-lg">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-            
-            <div class="w-12 h-12 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-3 text-xl">
-                <i class="fa-solid fa-lock"></i>
-            </div>
-
-            <h3 class="text-xl font-bold text-gray-800 mb-1">Access Required</h3>
-            <p class="text-sm font-bold text-gray-700 mb-3">Make payment to view access now.</p>
-            <p id="payment-selected-item" class="text-xs text-blue-600 font-semibold mb-4">Selected Plan: PREMIUM ($79)</p>
-
-            <div class="bg-gray-50 p-3.5 rounded text-xs text-left space-y-2 border border-gray-200 mb-5">
-                <div class="flex justify-between border-b pb-1">
-                    <span class="text-gray-500">License Key Delivery:</span>
-                    <span class="font-bold text-gray-700">Instant via Email</span>
-                </div>
-                <div class="flex justify-between border-b pb-1">
-                    <span class="text-gray-500">Customer Support:</span>
-                    <span class="font-bold text-gray-700">24/7 Included</span>
-                </div>
-                <div class="flex justify-between">
-                    <span class="text-gray-500">Discreet Billing:</span>
-                    <span class="font-bold text-gray-700">Yes (100% Confidential)</span>
-                </div>
-            </div>
-
-            <div class="space-y-2">
-                <button onclick="processCheckout()" class="w-full bg-[#ff9800] hover:bg-[#e68a00] text-white font-bold py-3 rounded text-sm uppercase shadow transition active:scale-95">
-                    PROCEED TO PAYMENT
-                </button>
-                <button onclick="closeModal('payment-modal')" class="w-full bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2.5 rounded text-xs uppercase transition">
-                    CANCEL
-                </button>
-            </div>
+  <!-- MODAL 2: BUY NOW Bitcoin Payment Modal -->
+  <div id="paymentModal" class="fixed inset-0 modal-backdrop hidden z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-5 shadow-2xl border border-slate-100 space-y-4 relative">
+      
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between border-b pb-3 border-slate-100">
+        <div class="flex items-center space-x-2">
+          <i class="fa-brands fa-bitcoin text-amber-500 text-xl"></i>
+          <h3 class="text-base font-bold text-slate-900">Bitcoin Checkout</h3>
         </div>
-    </div>
+        <button onclick="closeModal('paymentModal')" class="text-slate-400 hover:text-slate-600 p-1">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
 
-    <!-- MODAL 3: Generic Informational Popup -->
-    <div id="info-modal" class="hidden fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4">
-        <div class="bg-white w-full max-w-sm rounded-lg p-6 text-left shadow-2xl relative">
-            <button onclick="closeModal('info-modal')" class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-lg">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-            <h3 id="info-modal-title" class="text-base font-bold text-gray-800 mb-2">Information</h3>
-            <div id="info-modal-content" class="text-xs text-gray-600 leading-relaxed space-y-2">
-                <!-- Dynamic Content -->
-            </div>
-            <button onclick="closeModal('info-modal')" class="w-full mt-4 bg-[#64b5f6] hover:bg-[#42a5f5] text-white font-bold py-2 rounded text-xs uppercase">
-                Got It
-            </button>
+      <!-- Instruction Banner -->
+      <div class="bg-amber-50 border border-amber-200 rounded-xl p-3 text-center">
+        <p class="text-xs font-semibold text-amber-900">Make payment to view access now.</p>
+      </div>
+
+      <!-- Live Order Summary Box -->
+      <div class="bg-slate-50 rounded-xl p-3 border border-slate-200 space-y-1.5 text-xs">
+        <div class="flex justify-between text-slate-600">
+          <span>Selected Package:</span>
+          <span id="summaryPackage" class="font-bold text-slate-800">PREMIUM</span>
         </div>
+        <div class="flex justify-between text-slate-600">
+          <span>Duration:</span>
+          <span id="summaryDuration" class="font-bold text-slate-800">3 Months</span>
+        </div>
+        <div class="flex justify-between text-slate-900 text-sm font-extrabold pt-1 border-t border-slate-200">
+          <span>Total Amount Due:</span>
+          <span id="summaryPrice" class="text-emerald-600">$170.11</span>
+        </div>
+      </div>
+
+      <!-- Bitcoin Address Box -->
+      <div class="space-y-2">
+        <label class="block text-xs font-semibold text-slate-700">Send Payment to BTC Address:</label>
+        <div class="bg-slate-900 text-emerald-400 p-3 rounded-xl flex items-center justify-between font-mono text-xs break-all shadow-inner border border-slate-800">
+          <span id="btcAddressText" class="select-all tracking-tight">1ByFg5V1jNdq8GDtHmhDjEVkxDv1CPu6oN</span>
+        </div>
+        <button onclick="copyBtcAddress()" id="copyBtn" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold py-2 px-3 rounded-xl border border-slate-300 text-xs flex items-center justify-center space-x-2 transition-colors">
+          <i class="fa-solid fa-copy text-slate-600"></i>
+          <span id="copyBtnText">Copy Address</span>
+        </button>
+      </div>
+
+      <!-- Verification Note -->
+      <div class="text-[11px] text-slate-500 text-center space-y-1">
+        <p><i class="fa-solid fa-clock text-amber-500 me-1"></i> Access link and dashboard login will be activated automatically upon 1 network confirmation.</p>
+      </div>
+
     </div>
+  </div>
 
-    <!-- JavaScript Actions & Dynamic Logic -->
-    <script>
-        // Device Options Data Store
-        const deviceData = {
-            iphone: {
-                title: "iPhone",
-                models: ["iPhone 16 Pro", "iPhone 16", "iPhone 15 Pro", "iPhone 15", "iPhone 14 Pro", "iPhone 14", "iPhone 13", "iPhone 12 / SE", "iPhone 17"],
-                os: ["iOS 18", "iOS 17", "iOS 16", "iOS 15", "iOS 26"]
-            },
-            android: {
-                title: "Android Device",
-                models: ["Samsung Galaxy S24 / S23", "Samsung Galaxy A Series", "Google Pixel 8 / 7", "Xiaomi / Redmi", "OnePlus / Oppo / Vivo", "Motorola / Sony"],
-                os: ["Android 14", "Android 13", "Android 12", "Android 11", "Android 10", "Android 15 (Beta)"]
-            },
-            ipad: {
-                title: "iPad",
-                models: ["iPad Pro 11 / 12.9", "iPad Air 5 / 4", "iPad Mini 6", "iPad 10th Gen"],
-                os: ["iPadOS 18", "iPadOS 17", "iPadOS 16", "iPadOS 26"]
-            },
-            computers: {
-                title: "Computer",
-                models: ["Windows PC / Laptop", "Apple Mac / MacBook Pro", "macOS Air Series"],
-                os: ["Windows 11", "Windows 10", "macOS Sonoma", "macOS Ventura", "macOS Monterey"]
-            }
-        };
+  <!-- JavaScript Logic -->
+  <script>
+    // State management for pricing
+    let currentLitePrice = 135.95;
+    let currentLiteDuration = '3 Months';
 
-        let currentCategory = 'iphone';
+    let currentPremiumPrice = 170.11;
+    let currentPremiumDuration = '3 Months';
 
-        // Switch Active Tab
-        function switchTab(category) {
-            currentCategory = category;
-            const data = deviceData[category];
+    let currentExtremePrice = 225.00;
+    let currentExtremeDuration = '6 Months';
 
-            const tabs = ['android', 'iphone', 'ipad', 'computers'];
-            tabs.forEach(t => {
-                const btn = document.getElementById(`tab-${t}`);
-                if (t === category) {
-                    btn.className = "flex-1 py-3 text-center text-white text-xs font-bold border-r border-[#6c777e] relative bg-[#4caf50] tab-active transition";
-                } else {
-                    btn.className = "flex-1 py-3 text-center text-white text-xs font-bold border-r border-[#6c777e] relative hover:bg-[#6c777e] transition";
-                }
-            });
+    // Device Options Map
+    const deviceData = {
+      android: {
+        models: ['Samsung Galaxy S24 / S23', 'Google Pixel 8 / 7', 'Xiaomi / Redmi Series', 'OnePlus 12 / 11', 'Motorola Edge / Moto G', 'Other Android Phone'],
+        versions: ['Android 14', 'Android 13', 'Android 12', 'Android 11', 'Android 10 & older']
+      },
+      iphone: {
+        models: ['iPhone 17 / Pro Max', 'iPhone 16 / 15 Series', 'iPhone 14 / 13 Series', 'iPhone 12 / 11 Series', 'iPhone SE / XS / XR'],
+        versions: ['iOS 26 (Beta/Unreleased)', 'iOS 17.x', 'iOS 16.x', 'iOS 15.x', 'iOS 14 & older']
+      },
+      ipad: {
+        models: ['iPad Pro 12.9" / 11"', 'iPad Air (5th/4th Gen)', 'iPad Mini (6th Gen)', 'Standard iPad (10th/9th Gen)'],
+        versions: ['iPadOS 17.x', 'iPadOS 16.x', 'iPadOS 15.x', 'iPadOS 14 & older']
+      },
+      computer: {
+        models: ['Windows 11 PC / Laptop', 'Windows 10 PC / Laptop', 'MacBook Air / Pro (M1/M2/M3)', 'iMac / Mac Studio'],
+        versions: ['Windows 11 23H2/22H2', 'Windows 10 22H2', 'macOS Sonoma (14.x)', 'macOS Ventura (13.x)', 'macOS Monterey (12.x)']
+      }
+    };
 
-            // Update Banner & Headers
-            document.getElementById('banner-title').innerText = `Check If My ${data.title} Is Compatible`;
-            document.getElementById('banner-subtitle').innerText = `(MonitoringAccess supports most ${data.title}s)`;
-            document.getElementById('selector-title').innerText = `Select Your ${data.title}`;
+    let activeOS = 'android';
 
-            // Populate Dropdowns
-            const modelSelect = document.getElementById('device-model');
-            const osSelect = document.getElementById('os-version');
+    // Initialize Options on DOM Load
+    document.addEventListener('DOMContentLoaded', () => {
+      populateDeviceDropdowns('android');
+    });
 
-            modelSelect.innerHTML = data.models.map(m => `<option value="${m}">${m}</option>`).join('');
-            osSelect.innerHTML = data.os.map(o => `<option value="${o}">${o}</option>`).join('');
+    // Select OS Tab
+    function selectOS(os) {
+      activeOS = os;
+      // Update tab styles
+      document.querySelectorAll('.os-tab').forEach(tab => {
+        tab.classList.remove('bg-white', 'text-slate-900', 'shadow-sm');
+        tab.classList.add('text-slate-600');
+        const icon = tab.querySelector('i');
+        if (icon) icon.classList.remove('text-emerald-600');
+      });
 
-            document.getElementById('compatible-banner').classList.add('hidden');
+      const activeTab = document.getElementById(`tab-${os}`);
+      activeTab.classList.add('bg-white', 'text-slate-900', 'shadow-sm');
+      activeTab.classList.remove('text-slate-600');
+      const activeIcon = activeTab.querySelector('i');
+      if (activeIcon) activeIcon.classList.add('text-emerald-600');
+
+      populateDeviceDropdowns(os);
+    }
+
+    // Populate dropdowns based on selected OS
+    function populateDeviceDropdowns(os) {
+      const modelSelect = document.getElementById('deviceModelSelect');
+      const versionSelect = document.getElementById('deviceVersionSelect');
+
+      modelSelect.innerHTML = '';
+      versionSelect.innerHTML = '';
+
+      deviceData[os].models.forEach(model => {
+        const opt = document.createElement('option');
+        opt.value = model;
+        opt.textContent = model;
+        modelSelect.appendChild(opt);
+      });
+
+      deviceData[os].versions.forEach(ver => {
+        const opt = document.createElement('option');
+        opt.value = ver;
+        opt.textContent = ver;
+        versionSelect.appendChild(opt);
+      });
+    }
+
+    // Check Compatibility Trigger
+    function checkCompatibility() {
+      const model = document.getElementById('deviceModelSelect').value;
+      const version = document.getElementById('deviceVersionSelect').value;
+
+      const iconContainer = document.getElementById('compatIconContainer');
+      const title = document.getElementById('compatTitle');
+      const msg = document.getElementById('compatMessage');
+
+      // Check for specifically requested incompatible combo (e.g. iPhone 17 or iOS 26)
+      if (model.includes('iPhone 17') || version.includes('iOS 26')) {
+        iconContainer.className = 'w-12 h-12 rounded-full flex items-center justify-center mx-auto text-xl bg-red-100 text-red-600';
+        iconContainer.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i>';
+        title.textContent = 'Compatibility Warning';
+        title.className = 'text-base font-bold text-red-600';
+        msg.textContent = `Selected configuration (${model} running ${version}) is currently unreleased or unsupported by standard installation modules. Please select a supported release version.`;
+      } else {
+        iconContainer.className = 'w-12 h-12 rounded-full flex items-center justify-center mx-auto text-xl bg-emerald-100 text-emerald-600';
+        iconContainer.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
+        title.textContent = '100% Fully Compatible!';
+        title.className = 'text-base font-bold text-slate-900';
+        msg.textContent = `MonitoringAccess is fully operational on ${model} (${version}). All features including call recording, keylogger, and instant messengers are supported.`;
+      }
+
+      openModal('compatModal');
+    }
+
+    // Dynamic Price Updating for Plan Cards
+    function updateCardPrice(card, price, duration) {
+      if (card === 'lite') {
+        currentLitePrice = price;
+        currentLiteDuration = duration;
+        document.getElementById('lite-price-display').textContent = price.toFixed(2);
+      } else if (card === 'premium') {
+        currentPremiumPrice = price;
+        currentPremiumDuration = duration;
+        document.getElementById('premium-price-display').textContent = price.toFixed(2);
+        
+        // Update selection UI styles
+        const opt1 = document.getElementById('prem-opt-1');
+        const opt2 = document.getElementById('prem-opt-2');
+        if (price === 170.11) {
+          opt1.className = 'flex items-center justify-between p-2.5 rounded-lg border border-emerald-500 bg-emerald-50/40 cursor-pointer';
+          opt2.className = 'flex items-center justify-between p-2.5 rounded-lg border border-slate-200 hover:border-slate-300 cursor-pointer';
+        } else {
+          opt2.className = 'flex items-center justify-between p-2.5 rounded-lg border border-emerald-500 bg-emerald-50/40 cursor-pointer';
+          opt1.className = 'flex items-center justify-between p-2.5 rounded-lg border border-slate-200 hover:border-slate-300 cursor-pointer';
         }
+      } else if (card === 'extreme') {
+        currentExtremePrice = price;
+        currentExtremeDuration = duration;
+        document.getElementById('extreme-price-display').textContent = price.toFixed(2);
 
-        // Initialize default tab (iPhone)
-        switchTab('iphone');
-
-        // Dynamic Pricing Radio Selection
-        function updatePrice(cardType, price) {
-            document.getElementById(`${cardType}-price-badge`).innerText = `$${price}`;
+        // Update selection UI styles
+        const opt1 = document.getElementById('ext-opt-1');
+        const opt2 = document.getElementById('ext-opt-2');
+        if (price === 225.00) {
+          opt1.className = 'flex items-center justify-between p-2.5 rounded-lg border border-emerald-500 bg-emerald-50/40 cursor-pointer';
+          opt2.className = 'flex items-center justify-between p-2.5 rounded-lg border border-slate-200 hover:border-slate-300 cursor-pointer';
+        } else {
+          opt2.className = 'flex items-center justify-between p-2.5 rounded-lg border border-emerald-500 bg-emerald-50/40 cursor-pointer';
+          opt1.className = 'flex items-center justify-between p-2.5 rounded-lg border border-slate-200 hover:border-slate-300 cursor-pointer';
         }
+      }
+    }
 
-        // Accordion Feature Toggle
-        function toggleFeatures(featureId, btn) {
-            const featDiv = document.getElementById(featureId);
-            if (featDiv.classList.contains('hidden')) {
-                featDiv.classList.remove('hidden');
-                btn.innerText = "Collapse Features ▲";
-            } else {
-                featDiv.classList.add('hidden');
-                btn.innerText = "Expand Features ▼";
-            }
-        }
+    // Toggle Accordion
+    function toggleAccordion() {
+      const content = document.getElementById('accordionContent');
+      const icon = document.getElementById('accordionIcon');
+      if (content.classList.contains('hidden')) {
+        content.classList.remove('hidden');
+        icon.classList.add('rotate-180');
+      } else {
+        content.classList.add('hidden');
+        icon.classList.remove('rotate-180');
+      }
+    }
 
-        // Device Compatibility Check Engine
-        function checkCompatibility() {
-            const selectedModel = document.getElementById('device-model').value;
-            const selectedOS = document.getElementById('os-version').value;
-            const compatBanner = document.getElementById('compatible-banner');
+    // Open Payment Modal
+    function openPaymentModal(pkg, price, duration) {
+      document.getElementById('summaryPackage').textContent = pkg;
+      document.getElementById('summaryDuration').textContent = duration;
+      document.getElementById('summaryPrice').textContent = `$${parseFloat(price).toFixed(2)}`;
+      
+      // Reset Copy Button State
+      const copyBtnText = document.getElementById('copyBtnText');
+      copyBtnText.textContent = 'Copy Address';
+      
+      openModal('paymentModal');
+    }
 
-            // Trigger Incompatible Modal for specific test parameters (e.g. iOS 26 or iPhone 17)
-            if (selectedOS.includes('26') || selectedModel.includes('17')) {
-                compatBanner.classList.add('hidden');
-                document.getElementById('modal-device-text').innerText = `(${selectedModel} running ${selectedOS})`;
-                document.getElementById('incompatible-modal').classList.remove('hidden');
-            } else {
-                compatBanner.classList.remove('hidden');
-                document.getElementById('compatible-banner-msg').innerText = `Your ${selectedModel} running ${selectedOS} is fully compatible with MonitoringAccess!`;
-            }
-        }
+    // Copy Bitcoin Address Utility
+    function copyBtcAddress() {
+      const address = document.getElementById('btcAddressText').innerText;
+      
+      // Fallback copy implementation
+      const tempInput = document.createElement('textarea');
+      tempInput.value = address;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempInput);
 
-        // Universal BUY NOW Modal Trigger
-        function openPaymentModal(planName) {
-            document.getElementById('payment-selected-item').innerText = `Selected Package: ${planName}`;
-            document.getElementById('payment-modal').classList.remove('hidden');
-        }
+      const copyBtnText = document.getElementById('copyBtnText');
+      copyBtnText.textContent = 'Copied!';
+      setTimeout(() => {
+        copyBtnText.textContent = 'Copy Address';
+      }, 2500);
+    }
 
-        function closeModal(modalId) {
-            document.getElementById(modalId).classList.add('hidden');
-        }
+    // Modal Helpers
+    function openModal(id) {
+      document.getElementById(id).classList.remove('hidden');
+    }
 
-        function processCheckout() {
-            alert("Redirecting to secure MonitoringAccess payment gateway...");
-            closeModal('payment-modal');
-        }
-
-        function showStepDetail(stepNum) {
-            if (stepNum === 1) {
-                openInfoModal('Physical Access Required', 'To install MonitoringAccess, you must have physical access to the target device for initial setup. Remote installation without access is not available.');
-            }
-        }
-
-        function scrollToSelector() {
-            document.getElementById('compatibility-section').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function openRefundModal() {
-            openInfoModal('MonitoringAccess Refund Policy', 'We offer a full refund guarantee within 10 days if our support team cannot resolve any hardware or OS compatibility issue on your device.');
-        }
-
-        function openInstallationServiceModal() {
-            openInfoModal('Worry-Free Installation Service', 'Prefer us to handle it? Our skilled technicians can remotely assist you with setup and installation hassle-free.');
-        }
-
-        function showPayMethodInfo(method) {
-            openInfoModal(`${method} Billed Discretely`, `All purchases made with ${method} are billed discretely. 'MonitoringAccess' will not appear on your credit card statement.`);
-        }
-
-        function openInfoModal(title, text) {
-            document.getElementById('info-modal-title').innerText = title;
-            document.getElementById('info-modal-content').innerText = text;
-            document.getElementById('info-modal').classList.remove('hidden');
-        }
-
-        // Live Chat Support Toggle
-        function toggleChatWidget() {
-            document.getElementById('chat-widget').classList.toggle('hidden');
-        }
-
-        function sendChatMessage() {
-            const input = document.getElementById('chat-input');
-            const chatBox = document.getElementById('chat-box');
-            if (input.value.trim() !== '') {
-                const userMsg = document.createElement('div');
-                userMsg.className = 'bg-blue-500 text-white p-2.5 rounded-lg text-xs max-w-[85%] ml-auto text-right';
-                userMsg.innerText = input.value;
-                chatBox.appendChild(userMsg);
-
-                const botReply = document.createElement('div');
-                botReply.className = 'bg-white p-2.5 rounded-lg border border-gray-200 text-gray-700 max-w-[85%]';
-                botReply.innerText = "Thanks for contacting MonitoringAccess! Select your target device model above to check compatibility.";
-                setTimeout(() => {
-                    chatBox.appendChild(botReply);
-                    chatBox.scrollTop = chatBox.scrollHeight;
-                }, 500);
-
-                input.value = '';
-                chatBox.scrollTop = chatBox.scrollHeight;
-            }
-        }
-    </script>
+    function closeModal(id) {
+      document.getElementById(id).classList.add('hidden');
+    }
+  </script>
 </body>
 </html>
