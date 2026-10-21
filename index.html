@@ -2,363 +2,230 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#0b1020">
-<title>Esther Merel | Profile</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Esther Merel | Conversation Records</title>
 <style>
 :root {
-  --bg:#090e19;
-  --panel:#111a2a;
-  --panel2:#172338;
-  --line:#293952;
-  --text:#f0f5ff;
-  --muted:#91a2bb;
-  --blue:#68a5ff;
-  --green:#56d6a0;
-  --amber:#e7bd72;
+  --bg:#090e19;--panel:#111a2a;--panel2:#19253a;
+  --line:#293951;--text:#f1f5fc;--muted:#94a4bd;
+  --blue:#73adff;--amber:#edc77f;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
-  font-size:14px;
-  line-height:1.55;
-}
-button,input{font:inherit}
-button{cursor:pointer}
-a{color:inherit;text-decoration:none}
-.topbar{
-  height:65px;
-  padding:0 5%;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:16px;
-  border-bottom:1px solid var(--line);
-  background:#0d1422;
-}
-.brand{display:flex;align-items:center;gap:11px;font-weight:750;letter-spacing:.2px}
-.brand-icon{
-  width:34px;height:34px;border-radius:10px;
-  display:grid;place-items:center;background:#1c3b65;
-  color:#9dc7ff;font-size:19px;
-}
-.brand small{display:block;color:var(--muted);font-size:10px;font-weight:500}
-.top-status{font-size:11px;color:var(--muted)}
-.top-status span{color:var(--green);margin-right:6px}
-main{max-width:1050px;margin:auto;padding:28px 20px 55px}
-.breadcrumb{font-size:12px;color:var(--muted);margin-bottom:20px}
-.breadcrumb strong{color:var(--text);font-weight:500}
-.profile-header{
-  display:flex;align-items:center;gap:20px;
-  padding:27px;background:linear-gradient(120deg,#172742,#111a2a);
-  border:1px solid var(--line);border-radius:16px;margin-bottom:20px;
-}
-.avatar{
-  width:78px;height:78px;flex-shrink:0;border-radius:16px;
-  display:grid;place-items:center;background:#23446e;
-  border:1px solid #416a9c;color:#dceaff;font-size:26px;font-weight:750;
-}
-.eyebrow{font-size:10px;letter-spacing:1.7px;text-transform:uppercase;color:var(--blue);font-weight:700}
-h1{font-size:29px;line-height:1.2;margin:5px 0 8px}
-.subtitle{color:var(--muted);font-size:13px}
-.pills{display:flex;flex-wrap:wrap;gap:7px;margin-top:13px}
-.pill{padding:4px 9px;border-radius:6px;border:1px solid var(--line);background:#111d30;color:#c7d8ef;font-size:10px}
-.nav{
-  display:flex;gap:6px;overflow-x:auto;padding:0 0 17px;margin-bottom:4px;
-}
-.nav a{white-space:nowrap;padding:9px 12px;border-radius:8px;background:#111a2a;border:1px solid var(--line);font-size:12px;color:#b9c8dd}
-.nav a:hover{background:#1c2b42;color:white}
-.section{
-  background:var(--panel);border:1px solid var(--line);
-  border-radius:14px;padding:22px;margin-bottom:16px;scroll-margin-top:15px;
-}
-.section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
-.section-head h2{font-size:16px;margin:0}
-.section-icon{color:var(--blue);margin-right:8px}
-.count{font-size:10px;color:var(--muted);border:1px solid var(--line);padding:4px 8px;border-radius:6px;white-space:nowrap}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
-.field{min-width:0}
-.label{color:var(--muted);font-size:11px;margin-bottom:4px}
-.value{font-size:14px;font-weight:550;overflow-wrap:anywhere}
-.subvalue{font-size:11px;color:var(--muted);margin-top:3px}
-.records{display:grid;gap:9px}
-.record{
-  display:flex;align-items:center;justify-content:space-between;gap:12px;
-  padding:13px 14px;border-radius:10px;background:var(--panel2);
-  border:1px solid #24344c;min-width:0;
-}
-.record-main{min-width:0}
-.record-title{font-size:13px;font-weight:600;overflow-wrap:anywhere}
-.record-sub{font-size:11px;color:var(--muted);overflow-wrap:anywhere;margin-top:3px}
-.badge{font-size:10px;padding:4px 7px;border-radius:5px;white-space:nowrap;background:#26344a;color:#c4d1e4}
-.badge.green{background:#15372e;color:#7ee4b7}
-.badge.amber{background:#382e1d;color:#ebca8c}
-.action{
-  border:1px solid #365780;background:#203b5e;color:#dceaff;
-  border-radius:7px;padding:7px 10px;font-size:11px;flex-shrink:0;
-}
-.action:hover{background:#2a4e7a}
-.search{
-  width:100%;border:1px solid var(--line);border-radius:9px;
-  background:#0c1422;color:white;padding:11px 13px;margin-bottom:12px;outline:none;
-}
-.search:focus{border-color:var(--blue)}
-.location-number{
-  display:inline-grid;place-items:center;width:25px;height:25px;
-  border:1px solid #334c6e;border-radius:7px;background:#203550;
-  color:#c6dcff;font-size:11px;margin-right:9px;flex-shrink:0;
-}
-.message-layout{display:grid;grid-template-columns:1fr;gap:10px}
-.message-card{padding:15px;border:1px solid var(--line);border-radius:10px;background:#0e1727}
-.message-top{display:flex;justify-content:space-between;gap:10px;align-items:center}
-.message-top strong{font-size:13px}
-.message-preview{font-size:12px;color:var(--muted);margin-top:9px}
-.empty-state{
-  text-align:center;padding:24px 14px;border:1px dashed #30415b;
-  border-radius:10px;color:var(--muted);font-size:12px;
-}
-.empty-state strong{display:block;color:#dce6f5;font-size:13px;margin-bottom:5px}
-.footer{padding-top:12px;text-align:center;color:#64758f;font-size:10px}
-@media(max-width:600px){
-  main{padding:20px 12px 40px}
-  .topbar{padding:0 14px}
-  .top-status{font-size:10px}
-  .profile-header{padding:18px 14px;gap:13px}
-  .avatar{width:61px;height:61px;border-radius:13px;font-size:22px}
-  h1{font-size:23px}
-  .section{padding:17px 13px}
-  .grid{grid-template-columns:1fr;gap:14px}
-  .record{padding:12px 10px}
+body{margin:0;background:var(--bg);color:var(--text);font:14px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+button{font:inherit;cursor:pointer}
+.topbar{padding:16px 20px;border-bottom:1px solid var(--line);background:#0e1523;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.brand{font-weight:750;letter-spacing:.5px}
+.brand small{display:block;color:var(--muted);font-size:10px;font-weight:400}
+main{max-width:1000px;margin:auto;padding:22px 15px 50px}
+.profile{display:flex;align-items:center;gap:15px;padding:22px;background:var(--panel);border:1px solid var(--line);border-radius:14px;margin-bottom:18px}
+.avatar{width:60px;height:60px;border-radius:14px;background:#25446d;display:grid;place-items:center;font-size:22px;font-weight:750;flex-shrink:0}
+h1{font-size:24px;margin:0 0 4px}
+.muted{color:var(--muted);font-size:12px}
+nav{display:flex;gap:8px;overflow-x:auto;margin:16px 0}
+nav button,.action{padding:9px 13px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--text);white-space:nowrap}
+nav button.active,nav button:hover,.action:hover{background:#203b5e;border-color:#42689b}
+.layout{display:grid;grid-template-columns:280px minmax(0,1fr);gap:15px}
+.panel{min-width:0;background:var(--panel);border:1px solid var(--line);border-radius:13px;overflow:hidden}
+.panel-head{padding:15px;border-bottom:1px solid var(--line);font-weight:650}
+.contact{width:100%;display:block;text-align:left;padding:13px 14px;background:transparent;color:var(--text);border:0;border-bottom:1px solid #202d41}
+.contact:hover,.contact.selected{background:#1a2a42}
+.contact strong{display:block;font-size:13px}
+.contact small{display:block;color:var(--muted);margin-top:3px}
+.badge{font-size:10px;color:#d6e4f8;background:#25344b;border-radius:5px;padding:3px 7px}
+.thread-head{padding:16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:10px}
+.thread-head strong{font-size:14px}
+.thread-body{padding:18px;min-height:290px;position:relative;overflow:hidden}
+.bubbles{filter:blur(5px);opacity:.8;pointer-events:none;user-select:none}
+.bubble{max-width:82%;width:fit-content;padding:11px 13px;margin-bottom:13px;border-radius:13px;background:#25344a;color:#e1e9f7;font-size:13px}
+.bubble.outgoing{margin-left:auto;background:#244d7e}
+.preview-time{font-size:10px;color:#aab7ca;margin-top:5px}
+.overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:18px;background:rgba(8,13,23,.66)}
+.warning{width:100%;max-width:320px;text-align:center;padding:24px 19px;border:1px solid #625033;border-radius:13px;background:#171a22;box-shadow:0 16px 50px #0008}
+.warning-icon{font-size:28px;margin-bottom:8px}
+.warning h2{font-size:17px;margin:0 0 8px}
+.warning p{font-size:12px;color:#b9c4d5;margin:0 0 17px}
+.warning button{width:100%;padding:11px;border:1px solid #5a76a1;border-radius:8px;background:#29476e;color:#fff}
+.warning .secondary{background:transparent;border-color:var(--line);margin-top:8px}
+.hidden{display:none!important}
+.inbox-empty{padding:35px 20px;text-align:center;color:var(--muted)}
+.inbox-empty strong{display:block;color:var(--text);margin-bottom:7px}
+.info{margin-top:15px;padding:12px 14px;border:1px solid var(--line);border-radius:9px;color:var(--muted);font-size:11px}
+@media(max-width:650px){
+ main{padding:14px 10px 35px}
+ .layout{grid-template-columns:1fr}
+ .contact-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+ .contact{border-right:1px solid #202d41}
+ .thread-body{min-height:320px}
 }
 </style>
 </head>
 <body>
 <div class="topbar">
-  <div class="brand">
-    <div class="brand-icon">◈</div>
-    <div>PROFILE RECORD<small>PERSON INFORMATION</small></div>
-  </div>
-  <div class="top-status"><span>●</span> Local record</div>
+  <div class="brand">◈ PROFILE RECORD<small>ESTHER MEREL</small></div>
+  <span class="badge">Local interface</span>
 </div>
 <main>
-  <div class="breadcrumb">Records / Profiles / <strong>Esther Merel</strong></div>
-  <header class="profile-header">
+  <header class="profile">
     <div class="avatar">EM</div>
     <div>
-      <div class="eyebrow">Individual profile</div>
       <h1>Esther Merel</h1>
-      <div class="subtitle">Primary number: +1 917 536 4180</div>
-      <div class="pills">
-        <span class="pill">United States</span>
-        <span class="pill">T-Mobile USA, Inc.</span>
-        <span class="pill">Profile details supplied</span>
-      </div>
+      <div class="muted">+1 917 536 4180</div>
+      <div class="muted">Reported carrier: T-Mobile USA, Inc.</div>
     </div>
   </header>
-  <nav class="nav">
-    <a href="#profile">Profile</a>
-    <a href="#contacts">Contacts</a>
-    <a href="#locations">Locations</a>
-    <a href="#messages">Text messages</a>
-    <a href="#calls">Call history</a>
-    <a href="#social">Social media</a>
-    <a href="#apps">Messaging apps</a>
+  <nav id="serviceNav">
+    <button class="active" data-service="sms">SMS Messages</button>
+    <button data-service="whatsapp">WhatsApp</button>
+    <button data-service="social">Social Inbox</button>
+    <button data-service="calls">Call Records</button>
   </nav>
-  <section class="section" id="profile">
-    <div class="section-head">
-      <h2><span class="section-icon">◈</span>Profile details</h2>
-      <span class="count">PERSONAL INFORMATION</span>
-    </div>
-    <div class="grid">
-      <div class="field">
-        <div class="label">Full name</div>
-        <div class="value">Esther Merel</div>
+  <div class="layout">
+    <aside class="panel">
+      <div class="panel-head" id="listTitle">Conversations</div>
+      <div class="contact-list" id="contactList"></div>
+    </aside>
+    <section class="panel">
+      <div class="thread-head">
+        <div>
+          <strong id="threadTitle">Select a record</strong>
+          <div class="muted" id="threadSubtitle">Conversation preview</div>
+        </div>
+        <span class="badge" id="threadBadge">Preview</span>
       </div>
-      <div class="field">
-        <div class="label">Primary number</div>
-        <div class="value">+1 917 536 4180</div>
-        <div class="subvalue">Supplied phone number</div>
+      <div id="threadBody" class="thread-body">
+        <div class="inbox-empty">
+          <strong>Choose a conversation</strong>
+          Select a contact to view its conversation panel.
+        </div>
       </div>
-      <div class="field">
-        <div class="label">Potential date of birth</div>
-        <div class="value">August 11, 1976</div>
-        <div class="subvalue">Unverified</div>
-      </div>
-      <div class="field">
-        <div class="label">Phone carrier information</div>
-        <div class="value">T-Mobile USA, Inc.</div>
-        <div class="subvalue">Supplied carrier information</div>
-      </div>
-      <div class="field">
-        <div class="label">Country reference</div>
-        <div class="value">United States</div>
-      </div>
-      <div class="field">
-        <div class="label">Record type</div>
-        <div class="value">Personal profile</div>
-      </div>
-    </div>
-  </section>
-  <section class="section" id="contacts">
-    <div class="section-head">
-      <h2><span class="section-icon">♧</span>Associated contacts</h2>
-      <span class="count" id="contactCount">5 records</span>
-    </div>
-    <input class="search" id="contactSearch" placeholder="Search names or phone numbers..." aria-label="Search contacts">
-    <div class="records" id="contactList"></div>
-  </section>
-  <section class="section" id="locations">
-    <div class="section-head">
-      <h2><span class="section-icon">⌖</span>Associated locations</h2>
-      <span class="count">5 RECORDS</span>
-    </div>
-    <div class="records">
-      <div class="record">
-        <div class="record-main"><div class="record-title"><span class="location-number">01</span>Albuquerque, New Mexico</div><div class="record-sub">10204 Pandora Lane NW · ZIP 87114</div></div>
-        <span class="badge amber">Associated</span>
-      </div>
-      <div class="record">
-        <div class="record-main"><div class="record-title"><span class="location-number">02</span>Boca Raton, Florida</div><div class="record-sub">6668 Thornhill Court · ZIP 33433</div></div>
-        <span class="badge amber">Associated</span>
-      </div>
-      <div class="record">
-        <div class="record-main"><div class="record-title"><span class="location-number">03</span>Chicago, Illinois</div><div class="record-sub">550 W Adams Street · ZIP 60661</div></div>
-        <span class="badge amber">Associated</span>
-      </div>
-      <div class="record">
-        <div class="record-main"><div class="record-title"><span class="location-number">04</span>Richmond, Virginia</div><div class="record-sub">6737 Thayer Court · ZIP 23226</div></div>
-        <span class="badge amber">Associated</span>
-      </div>
-      <div class="record">
-        <div class="record-main"><div class="record-title"><span class="location-number">05</span>Brooklyn, New York</div><div class="record-sub">2615 Avenue S · ZIP 11229</div></div>
-        <span class="badge amber">Associated</span>
-      </div>
-    </div>
-  </section>
-  <section class="section" id="messages">
-    <div class="section-head">
-      <h2><span class="section-icon">▤</span>Text messages</h2>
-      <span class="count">SMS</span>
-    </div>
-    <div class="message-layout">
-      <div class="message-card">
-        <div class="message-top"><strong>SMS message records</strong><span class="badge">No records imported</span></div>
-        <div class="message-preview">Message content and timestamps can be displayed here when provided through an authorized message export.</div>
-      </div>
-    </div>
-  </section>
-  <section class="section" id="calls">
-    <div class="section-head">
-      <h2><span class="section-icon">☎</span>Call history</h2>
-      <span class="count">CALL RECORDS</span>
-    </div>
-    <div class="empty-state">
-      <strong>No call records loaded</strong>
-      Call entries can be shown when authorized call-history records are imported.
-    </div>
-  </section>
-  <section class="section" id="social">
-    <div class="section-head">
-      <h2><span class="section-icon">@</span>Associated social usernames</h2>
-      <span class="count">3 RECORDS</span>
-    </div>
-    <div class="records">
-      <div class="record">
-        <div class="record-main"><div class="record-title">esther-merel-19277271</div><div class="record-sub">Social username supplied</div></div>
-        <span class="badge amber">Unverified</span>
-      </div>
-      <div class="record">
-        <div class="record-main"><div class="record-title">emerel2</div><div class="record-sub">Social username supplied</div></div>
-        <span class="badge amber">Unverified</span>
-      </div>
-      <div class="record">
-        <div class="record-main"><div class="record-title">esthermerel</div><div class="record-sub">Social username supplied</div></div>
-        <span class="badge amber">Unverified</span>
-      </div>
-    </div>
-  </section>
-  <section class="section" id="apps">
-    <div class="section-head">
-      <h2><span class="section-icon">▣</span>Messaging & social applications</h2>
-      <span class="count">SERVICE RECORDS</span>
-    </div>
-    <div class="records">
-      <div class="record">
-        <div class="record-main"><div class="record-title">SMS / Text messages</div><div class="record-sub">Message records</div></div>
-        <span class="badge">Not connected</span>
-      </div>
-      <div class="record">
-        <div class="record-main"><div class="record-title">WhatsApp</div><div class="record-sub">Messaging service</div></div>
-        <span class="badge">Not connected</span>
-      </div>
-      <div class="record">
-        <div class="record-main"><div class="record-title">Social media inboxes</div><div class="record-sub">Associated usernames listed above</div></div>
-        <span class="badge">Not connected</span>
-      </div>
-    </div>
-  </section>
-  <div class="footer">Personal Profile Record · Static HTML</div>
+    </section>
+  </div>
+  <div class="info">The inbox interaction and blur overlay are part of this local interface. Real conversation records require an authorized data source.</div>
 </main>
 <script>
 const contacts = [
-  {name:"Benjamin Merel", number:"+1 718 645 5740"},
-  {name:"Abigail Merel Tamir", number:"+1 561 409 4134"},
-  {name:"Abigail Merel-Tamir", number:"+1 718 382 1404"},
-  {name:"Leah Scharf", number:"+1 800 793 1111"},
-  {name:"Bryan Charles", number:"+1 718 253 4941"}
+  {name:"Benjamin Merel",number:"+1 718 645 5740"},
+  {name:"Abigail Merel Tamir",number:"+1 561 409 4134"},
+  {name:"Abigail Merel-Tamir",number:"+1 718 382 1404"},
+  {name:"Leah Scharf",number:"+1 800 793 1111"},
+  {name:"Bryan Charles",number:"+1 718 253 4941"}
 ];
-const contactList = document.getElementById("contactList");
-const contactSearch = document.getElementById("contactSearch");
-const contactCount = document.getElementById("contactCount");
-function renderContacts() {
-  const query = contactSearch.value.toLowerCase().trim();
-  const filtered = contacts.filter(contact =>
-    contact.name.toLowerCase().includes(query) ||
-    contact.number.includes(query)
-  );
+const services = {
+  sms:{title:"SMS Messages",list:"Conversations"},
+  whatsapp:{title:"WhatsApp",list:"WhatsApp Conversations"},
+  social:{title:"Social Inbox",list:"Social Accounts"},
+  calls:{title:"Call Records",list:"Call Records"}
+};
+let currentService="sms";
+let selectedContact=0;
+let unlockedPreview=false;
+const contactList=document.getElementById("contactList");
+const threadBody=document.getElementById("threadBody");
+const threadTitle=document.getElementById("threadTitle");
+const threadSubtitle=document.getElementById("threadSubtitle");
+const threadBadge=document.getElementById("threadBadge");
+function renderList(){
   contactList.replaceChildren();
-  contactCount.textContent = filtered.length + " records";
-  if (!filtered.length) {
-    const empty = document.createElement("div");
-    empty.className = "empty-state";
-    empty.textContent = "No matching contacts";
-    contactList.appendChild(empty);
-    return;
-  }
-  filtered.forEach(contact => {
-    const record = document.createElement("div");
-    record.className = "record";
-    const details = document.createElement("div");
-    details.className = "record-main";
-    const name = document.createElement("div");
-    name.className = "record-title";
-    name.textContent = contact.name;
-    const number = document.createElement("div");
-    number.className = "record-sub";
-    number.textContent = contact.number;
-    const button = document.createElement("button");
-    button.className = "action";
-    button.textContent = "Copy number";
-    button.addEventListener("click", async () => {
-      try {
-        await navigator.clipboard.writeText(contact.number);
-        button.textContent = "Copied";
-        setTimeout(() => button.textContent = "Copy number", 1200);
-      } catch {
-        button.textContent = contact.number;
-      }
+  document.getElementById("listTitle").textContent=services[currentService].list;
+  contacts.forEach((contact,index)=>{
+    const button=document.createElement("button");
+    button.className="contact"+(index===selectedContact?" selected":"");
+    const name=document.createElement("strong");
+    name.textContent=contact.name;
+    const sub=document.createElement("small");
+    sub.textContent=currentService==="social"
+      ? "Username association not verified"
+      : contact.number;
+    const badge=document.createElement("span");
+    badge.className="badge";
+    badge.textContent=currentService==="calls"?"Call record":"Preview";
+    button.append(name,sub,badge);
+    button.addEventListener("click",()=>{
+      selectedContact=index;
+      unlockedPreview=false;
+      renderList();
+      renderThread();
     });
-    details.append(name, number);
-    record.append(details, button);
-    contactList.appendChild(record);
+    contactList.appendChild(button);
   });
 }
-contactSearch.addEventListener("input", renderContacts);
-renderContacts();
+function renderThread(){
+  const contact=contacts[selectedContact];
+  threadTitle.textContent=contact.name;
+  threadSubtitle.textContent=contact.number;
+  threadBadge.textContent=currentService==="calls"?"No call data":"Preview";
+  threadBody.replaceChildren();
+  if(currentService==="calls"){
+    const empty=document.createElement("div");
+    empty.className="inbox-empty";
+    const strong=document.createElement("strong");
+    strong.textContent="Call records not imported";
+    const text=document.createElement("p");
+    text.textContent="Authorized call-history records can be displayed here.";
+    empty.append(strong,text);
+    threadBody.appendChild(empty);
+    return;
+  }
+  const bubbles=document.createElement("div");
+  bubbles.className="bubbles";
+  const sampleMessages=[
+    {text:"Conversation preview",out:false,time:"Sample content"},
+    {text:"Message details would appear here when authorized records are provided.",out:true,time:"Preview only"},
+    {text:"No real messages have been loaded into this page.",out:false,time:"No imported data"}
+  ];
+  sampleMessages.forEach(message=>{
+    const bubble=document.createElement("div");
+    bubble.className="bubble"+(message.out?" outgoing":"");
+    bubble.textContent=message.text;
+    const time=document.createElement("div");
+    time.className="preview-time";
+    time.textContent=message.time;
+    bubble.appendChild(time);
+    bubbles.appendChild(bubble);
+  });
+  threadBody.appendChild(bubbles);
+  if(!unlockedPreview){
+    const overlay=document.createElement("div");
+    overlay.className="overlay";
+    const warning=document.createElement("div");
+    warning.className="warning";
+    const icon=document.createElement("div");
+    icon.className="warning-icon";
+    icon.textContent="⚠";
+    const heading=document.createElement("h2");
+    heading.textContent="Unlock Full Access to Conversations";
+    const description=document.createElement("p");
+    description.textContent="Conversation preview is blurred. Actual messages must be supplied through an authorized import.";
+    const unlock=document.createElement("button");
+    unlock.textContent="View Preview";
+    unlock.addEventListener("click",()=>{
+      unlockedPreview=true;
+      renderThread();
+    });
+    const cancel=document.createElement("button");
+    cancel.className="secondary";
+    cancel.textContent="Keep Blurred";
+    cancel.addEventListener("click",()=>{
+      overlay.remove();
+    });
+    warning.append(icon,heading,description,unlock,cancel);
+    overlay.appendChild(warning);
+    threadBody.appendChild(overlay);
+  }
+}
+document.querySelectorAll("#serviceNav button").forEach(button=>{
+  button.addEventListener("click",()=>{
+    currentService=button.dataset.service;
+    document.querySelectorAll("#serviceNav button").forEach(item=>{
+      item.classList.toggle("active",item===button);
+    });
+    unlockedPreview=false;
+    renderList();
+    renderThread();
+  });
+});
+renderList();
+renderThread();
 </script>
 </body>
 </html>
