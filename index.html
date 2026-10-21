@@ -3,1137 +3,910 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#0a1020">
-<title>Esther Merel | Conversation Dashboard</title>
+<title>Esther Merel | Dashboard</title>
 <style>
 :root {
   --bg: #080d18;
-  --panel: #101827;
-  --panel2: #151f31;
-  --panel3: #1b2940;
-  --line: #27364d;
-  --text: #f2f6ff;
-  --muted: #92a1b8;
-  --blue: #3985ff;
-  --green: #22c985;
-  --purple: #a78bfa;
-  --amber: #f5b942;
-  --radius: 18px;
+  --panel: #101929;
+  --panel2: #151f32;
+  --line: #28364d;
+  --text: #f1f5fc;
+  --muted: #91a0b8;
+  --blue: #5795ff;
+  --green: #48d6a0;
 }
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 body {
   margin: 0;
-  min-height: 100vh;
-  color: var(--text);
   background:
-    radial-gradient(ellipse at 15% 0%, #15294a 0%, transparent 35%),
-    radial-gradient(ellipse at 100% 100%, #17203a 0%, transparent 38%),
+    radial-gradient(ellipse at top, #172748 0%, transparent 48%),
     var(--bg);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, Helvetica, Arial, sans-serif;
+  color: var(--text);
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
-button, input, textarea {
-  font: inherit;
-}
-button {
-  cursor: pointer;
-}
-button:focus-visible,
-input:focus-visible,
-textarea:focus-visible {
-  outline: 2px solid #70aaff;
-  outline-offset: 3px;
-}
-.app {
-  max-width: 1600px;
-  margin: auto;
-  padding: 24px;
-}
+button, input { font: inherit; }
+button { cursor: pointer; }
+.app { min-height: 100vh; }
 .topbar {
+  height: 72px;
+  padding: 0 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 18px;
-  margin-bottom: 24px;
+  border-bottom: 1px solid var(--line);
+  background: #0b1220eF;
+  position: sticky;
+  top: 0;
+  z-index: 20;
 }
 .brand {
   display: flex;
   align-items: center;
-  gap: 13px;
+  gap: 12px;
+  font-weight: 750;
+  letter-spacing: .2px;
 }
-.brand-mark {
-  width: 46px;
-  height: 46px;
+.brand-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
   display: grid;
   place-items: center;
-  border-radius: 15px;
-  background: linear-gradient(135deg, #3985ff, #8b5cf6);
-  font-size: 21px;
-  font-weight: 800;
-  box-shadow: 0 8px 28px #3985ff30;
+  color: white;
+  background: linear-gradient(145deg, #478dff, #7358ee);
+  font-size: 20px;
 }
-.brand h1 {
-  margin: 0;
-  font-size: 19px;
-  letter-spacing: -.4px;
-}
-.brand p {
-  margin: 4px 0 0;
-  color: var(--muted);
-  font-size: 12px;
-}
-.top-actions {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.status-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 9px 12px;
+.top-actions { display: flex; gap: 8px; }
+.icon-btn, .secondary-btn {
+  color: var(--text);
+  background: var(--panel2);
   border: 1px solid var(--line);
-  border-radius: 999px;
-  color: #d5deec;
-  background: #101827cc;
-  font-size: 12px;
+  border-radius: 11px;
+  padding: 10px 13px;
 }
-.status-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--amber);
+.icon-btn:hover, .secondary-btn:hover {
+  border-color: var(--blue);
 }
 .layout {
   display: grid;
-  grid-template-columns: 265px 290px minmax(0, 1fr);
-  gap: 16px;
-  min-height: 700px;
+  grid-template-columns: 225px minmax(0, 1fr);
+  min-height: calc(100vh - 72px);
 }
-.panel {
-  min-width: 0;
-  overflow: hidden;
-  background: linear-gradient(160deg, #111a2aee, #0d1523f5);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  box-shadow: 0 18px 50px #00000020;
+.sidebar {
+  border-right: 1px solid var(--line);
+  background: #0b1220;
+  padding: 22px 14px;
 }
-.panel-heading {
-  padding: 20px 18px 15px;
-  border-bottom: 1px solid var(--line);
-}
-.panel-heading h2 {
-  margin: 0;
-  font-size: 15px;
-}
-.panel-heading p {
-  margin: 6px 0 0;
+.side-label {
   color: var(--muted);
-  font-size: 12px;
+  font-size: 11px;
+  font-weight: 750;
+  letter-spacing: 1.5px;
+  padding: 12px 12px 9px;
 }
-.search-wrap {
-  padding: 14px 14px 8px;
-}
-.search {
+.nav-btn {
   width: 100%;
-  padding: 11px 13px;
-  color: var(--text);
-  background: #080f1d;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  outline: none;
-}
-.search::placeholder {
-  color: #75859e;
-}
-.contact-list {
-  padding: 7px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  max-height: 570px;
-  overflow-y: auto;
-}
-.contact-item {
+  border: 1px solid transparent;
+  background: transparent;
+  color: #aebbd0;
+  padding: 13px 12px;
+  border-radius: 11px;
+  text-align: left;
   display: flex;
   align-items: center;
   gap: 11px;
-  width: 100%;
-  padding: 12px 10px;
-  color: var(--text);
-  text-align: left;
-  background: transparent;
-  border: 1px solid transparent;
-  border-radius: 13px;
-  transition: .18s ease;
+  margin: 3px 0;
 }
-.contact-item:hover {
-  background: #ffffff08;
-}
-.contact-item.active {
-  background: #3985ff17;
-  border-color: #3985ff55;
-}
-.avatar {
-  flex: 0 0 auto;
-  width: 42px;
-  height: 42px;
-  display: grid;
-  place-items: center;
-  border-radius: 50%;
-  color: white;
-  font-weight: 700;
-  background: linear-gradient(135deg, #4361ee, #8b5cf6);
-}
-.avatar.green {
-  background: linear-gradient(135deg, #0b986a, #31d49b);
-}
-.avatar.orange {
-  background: linear-gradient(135deg, #d97706, #fb7185);
-}
-.avatar.pink {
-  background: linear-gradient(135deg, #db2777, #8b5cf6);
-}
-.avatar.cyan {
-  background: linear-gradient(135deg, #0891b2, #3b82f6);
-}
-.contact-copy {
-  min-width: 0;
-  flex: 1;
-}
-.contact-name {
-  display: block;
-  overflow: hidden;
-  font-size: 12px;
-  font-weight: 650;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.contact-number {
-  display: block;
-  margin-top: 5px;
-  color: var(--muted);
-  font-size: 11px;
-}
-.contact-arrow {
-  color: #64748b;
+.nav-btn .nav-icon {
+  width: 23px;
+  text-align: center;
   font-size: 17px;
 }
-.profile-content {
-  padding: 23px 18px;
+.nav-btn.active {
+  color: white;
+  background: #1b2b48;
+  border-color: #2a4165;
 }
-.profile-top {
+.nav-btn:hover { background: #15233a; }
+.main {
+  min-width: 0;
+  padding: 28px;
+}
+.page-heading {
   display: flex;
   align-items: center;
-  flex-direction: column;
-  text-align: center;
-  padding: 8px 0 23px;
-  border-bottom: 1px solid var(--line);
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
 }
-.profile-avatar {
-  width: 82px;
-  height: 82px;
-  margin-bottom: 15px;
+.eyebrow {
+  color: var(--blue);
+  font-size: 11px;
+  letter-spacing: 1.8px;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+h1 {
+  margin: 0;
+  font-size: clamp(25px, 3vw, 34px);
+  letter-spacing: -.8px;
+}
+.subtitle {
+  color: var(--muted);
+  margin-top: 8px;
+  font-size: 14px;
+}
+.profile-hero {
+  background:
+    radial-gradient(ellipse at 95% 0%, #244c8c66, transparent 48%),
+    linear-gradient(130deg, #14233a, #101827 70%);
+  border: 1px solid #30425e;
+  border-radius: 20px;
+  padding: 26px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 20px;
+  position: relative;
+  overflow: hidden;
+}
+.avatar {
+  width: 76px;
+  height: 76px;
+  flex: 0 0 auto;
   display: grid;
   place-items: center;
-  border: 3px solid #ffffff15;
-  border-radius: 50%;
+  border-radius: 23px;
   color: white;
-  background: linear-gradient(135deg, #4263eb, #9b5de5);
   font-size: 25px;
   font-weight: 800;
-  box-shadow: 0 10px 28px #0003;
+  background: linear-gradient(145deg, #478dff, #8060ed);
+  box-shadow: 0 8px 28px #0004;
 }
-.profile-top h3 {
-  margin: 0;
-  font-size: 18px;
-}
-.profile-top p {
-  margin: 7px 0 0;
-  color: var(--muted);
-  font-size: 12px;
-}
-.profile-badge {
-  margin-top: 13px;
-  padding: 6px 10px;
-  color: #b9d4ff;
-  background: #3985ff18;
-  border: 1px solid #3985ff40;
-  border-radius: 999px;
-  font-size: 10px;
-}
-.info-title {
-  margin: 20px 0 13px;
-  color: #aab8cd;
-  font-size: 11px;
+.profile-name {
+  font-size: 25px;
   font-weight: 750;
-  letter-spacing: 1px;
-  text-transform: uppercase;
 }
-.info-row {
-  padding: 12px 0;
-  border-bottom: 1px solid #ffffff0b;
+.profile-number {
+  color: #bac8dc;
+  margin-top: 7px;
+  font-size: 14px;
 }
-.info-label {
-  display: block;
-  margin-bottom: 6px;
-  color: var(--muted);
+.profile-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+.pill {
+  border: 1px solid #344866;
+  background: #172741;
+  border-radius: 999px;
+  padding: 6px 10px;
+  color: #c8d8f1;
   font-size: 11px;
 }
-.info-value {
-  overflow-wrap: anywhere;
-  color: #edf3ff;
-  font-size: 12px;
-  line-height: 1.5;
+.pill.green {
+  color: #7de6bd;
+  background: #12352f;
+  border-color: #245e4c;
 }
 .profile-actions {
   display: flex;
   gap: 8px;
-  margin-top: 18px;
+  flex-wrap: wrap;
+  margin-left: auto;
 }
-.small-button {
-  flex: 1;
-  padding: 10px 8px;
-  color: #eaf2ff;
-  background: #ffffff08;
-  border: 1px solid var(--line);
+.primary-btn {
+  border: 0;
+  color: white;
+  font-weight: 650;
   border-radius: 10px;
-  font-size: 11px;
+  padding: 11px 15px;
+  background: linear-gradient(120deg, #478dff, #655ff0);
 }
-.small-button:hover {
-  background: #ffffff12;
+.primary-btn:hover { filter: brightness(1.12); }
+.section-title {
+  font-size: 16px;
+  font-weight: 750;
+  margin: 26px 0 14px;
 }
-.chat-panel {
-  display: flex;
-  flex-direction: column;
-  min-height: 700px;
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
 }
-.chat-top {
+.stat-card, .info-card, .activity-card {
+  background: linear-gradient(145deg, #121e30, #0f1726);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 19px;
+  min-width: 0;
+}
+.stat-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  padding: 17px 20px;
-  border-bottom: 1px solid var(--line);
-  background: #101827bb;
-}
-.chat-person {
-  display: flex;
-  align-items: center;
-  min-width: 0;
-  gap: 12px;
-}
-.chat-person .avatar {
-  width: 43px;
-  height: 43px;
-}
-.chat-person h2 {
-  margin: 0;
-  overflow: hidden;
-  font-size: 14px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.chat-person p {
-  margin: 5px 0 0;
-  color: var(--muted);
-  font-size: 11px;
-}
-.chat-actions {
-  display: flex;
   gap: 8px;
+  color: var(--muted);
+  font-size: 12px;
 }
-.icon-button {
-  width: 38px;
-  height: 38px;
+.stat-icon {
+  width: 35px;
+  height: 35px;
+  border-radius: 10px;
+  background: #1d3456;
   display: grid;
   place-items: center;
-  color: #dbe7fb;
-  background: #ffffff08;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  font-size: 16px;
-  text-decoration: none;
+  color: #8db9ff;
+  font-size: 17px;
 }
-.icon-button:hover {
-  background: #ffffff12;
-}
-.service-tabs {
-  display: flex;
-  gap: 7px;
-  padding: 13px 16px;
-  overflow-x: auto;
-  border-bottom: 1px solid var(--line);
-}
-.service-tab {
-  flex: 0 0 auto;
-  padding: 10px 13px;
-  color: #a9b7cd;
-  background: transparent;
-  border: 1px solid transparent;
-  border-radius: 10px;
-  font-size: 11px;
-  font-weight: 650;
-  transition: .18s ease;
-}
-.service-tab:hover {
-  background: #ffffff08;
-}
-.service-tab.active {
-  color: white;
-  background: #3985ff22;
-  border-color: #3985ff55;
-}
-.service-tab[data-service="whatsapp"].active {
-  background: #22c98518;
-  border-color: #22c98555;
-}
-.service-tab[data-service="social"].active {
-  background: #a78bfa18;
-  border-color: #a78bfa55;
-}
-.conversation-stage {
-  position: relative;
-  flex: 1;
-  min-height: 450px;
-  overflow: hidden;
-  background:
-    radial-gradient(ellipse at 50% 20%, #18263d 0%, transparent 60%),
-    #0a1220;
-}
-.messages-content {
-  position: absolute;
-  inset: 0;
-  padding: 24px 20px 110px;
-  overflow: hidden;
-  filter: blur(2px);
-  opacity: .84;
-  pointer-events: none;
-  user-select: none;
-}
-.day-divider {
-  width: fit-content;
-  margin: 0 auto 24px;
-  padding: 7px 12px;
-  color: #9eacc1;
-  background: #ffffff08;
-  border: 1px solid #ffffff0c;
-  border-radius: 999px;
-  font-size: 10px;
-}
-.message-row {
-  display: flex;
-  margin: 12px 0;
-}
-.message-row.outgoing {
-  justify-content: flex-end;
-}
-.message {
-  max-width: min(78%, 380px);
-  padding: 12px 14px 8px;
-  color: #edf4ff;
-  background: #1d2a40;
-  border: 1px solid #ffffff0a;
-  border-radius: 17px 17px 17px 5px;
-  font-size: 12px;
-  line-height: 1.5;
+.stat-value {
+  margin-top: 15px;
+  font-size: 18px;
+  font-weight: 750;
   overflow-wrap: anywhere;
 }
-.message-row.outgoing .message {
-  color: white;
-  background: #246ee8;
-  border-radius: 17px 17px 5px 17px;
-}
-.messages-content.whatsapp .message-row.outgoing .message {
-  background: #087f5b;
-}
-.messages-content.social .message-row.outgoing .message {
-  background: #7045ca;
-}
-.message-time {
-  display: block;
-  margin-top: 5px;
-  text-align: right;
-  color: #d2dceda8;
-  font-size: 9px;
-}
-.chat-footer {
-  display: flex;
-  gap: 9px;
-  padding: 14px;
-  border-top: 1px solid var(--line);
-  background: #101827;
-}
-.chat-footer input {
-  min-width: 0;
-  flex: 1;
-  padding: 12px 14px;
-  color: #9aa9bd;
-  background: #080f1c;
-  border: 1px solid var(--line);
-  border-radius: 13px;
-}
-.send-button {
-  padding: 0 17px;
-  color: white;
-  background: #347cf4;
-  border: 0;
-  border-radius: 12px;
-  font-size: 12px;
-  font-weight: 700;
-}
-.send-button:disabled,
-.chat-footer input:disabled {
-  cursor: not-allowed;
-  opacity: .65;
-}
-/* Sharp caution panel over the slightly blurred conversation */
-.caution-overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  background: #080e1b20;
-}
-.caution-card {
-  width: 100%;
-  max-width: 365px;
-  padding: 27px 24px;
-  text-align: center;
-  background: rgba(17, 27, 45, .97);
-  border: 1px solid #f5b94270;
-  border-radius: 21px;
-  box-shadow: 0 22px 70px #0007;
-  animation: appear .24s ease-out;
-}
-@keyframes appear {
-  from { opacity: 0; transform: translateY(7px) scale(.98); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
-}
-.caution-icon {
-  width: 56px;
-  height: 56px;
-  margin: 0 auto 16px;
-  display: grid;
-  place-items: center;
-  color: #ffd16a;
-  background: #f5b94219;
-  border: 1px solid #f5b94235;
-  border-radius: 18px;
-  font-size: 27px;
-}
-.caution-card h3 {
-  margin: 0 0 11px;
-  color: #fff;
-  font-size: 21px;
-  letter-spacing: -.4px;
-}
-.caution-card p {
-  margin: 0;
-  color: #c1ccdd;
-  font-size: 12px;
-  line-height: 1.8;
-}
-.caution-divider {
-  height: 1px;
-  margin: 20px 0 16px;
-  background: #ffffff12;
-}
-.caution-note {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  padding: 12px;
-  text-align: left;
-  color: #d4deed;
-  background: #ffffff06;
-  border: 1px solid #ffffff0d;
-  border-radius: 12px;
-  font-size: 11px;
-  line-height: 1.65;
-}
-.caution-note span {
-  color: #ffd16a;
-  font-size: 15px;
-}
-.caution-card .status-caption {
-  margin-top: 15px;
-  color: #8393aa;
-  font-size: 10px;
-}
-.empty-state {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 10px;
-  padding: 30px;
-  text-align: center;
-}
-.empty-icon {
-  width: 58px;
-  height: 58px;
-  display: grid;
-  place-items: center;
-  color: #b9cced;
-  background: #ffffff09;
-  border: 1px solid var(--line);
-  border-radius: 18px;
-  font-size: 24px;
-}
-.empty-state h3 {
-  margin: 7px 0 0;
-  font-size: 16px;
-}
-.empty-state p {
-  max-width: 280px;
-  margin: 0;
+.stat-caption {
+  margin-top: 7px;
   color: var(--muted);
   font-size: 12px;
-  line-height: 1.7;
+  line-height: 1.5;
 }
-.mobile-contact-toggle {
-  display: none;
+.content-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
 }
-.toast {
-  position: fixed;
-  z-index: 30;
-  left: 50%;
-  bottom: 24px;
-  transform: translateX(-50%);
-  padding: 12px 18px;
-  color: white;
-  background: #1e2b40;
-  border: 1px solid #40516a;
-  border-radius: 12px;
-  box-shadow: 0 12px 40px #0006;
+.info-card h3, .activity-card h3 {
+  font-size: 15px;
+  margin: 0 0 18px;
+}
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 13px 0;
+  border-bottom: 1px solid #25334a;
+}
+.info-row:last-child { border-bottom: 0; }
+.info-label {
+  color: var(--muted);
   font-size: 12px;
 }
-.hidden {
-  display: none !important;
+.info-value {
+  text-align: right;
+  font-size: 13px;
+  font-weight: 600;
+  overflow-wrap: anywhere;
 }
-@media (max-width: 1120px) {
-  .app {
-    padding: 15px;
+.info-value.muted {
+  color: var(--muted);
+  font-weight: 450;
+}
+.activity-list {
+  display: grid;
+  gap: 15px;
+}
+.activity-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.activity-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--blue);
+  margin-top: 4px;
+  box-shadow: 0 0 12px #5795ff55;
+  flex-shrink: 0;
+}
+.activity-item strong {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 5px;
+}
+.activity-item p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+  margin: 0;
+}
+.view { display: none; }
+.view.active { display: block; }
+.contact-search {
+  width: 100%;
+  margin: 12px 0 16px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  background: #0c1524;
+  color: white;
+  border-radius: 10px;
+  outline: none;
+}
+.contact-search:focus { border-color: var(--blue); }
+.contact-item {
+  width: 100%;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text);
+  padding: 12px 10px;
+  border-radius: 12px;
+}
+.contact-item:hover, .contact-item.selected {
+  background: #182740;
+  border-color: #2b4263;
+}
+.mini-avatar {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 13px;
+  display: grid;
+  place-items: center;
+  background: #253e61;
+  font-size: 13px;
+  font-weight: 750;
+}
+.contact-item strong {
+  display: block;
+  font-size: 13px;
+}
+.contact-item small {
+  display: block;
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 11px;
+}
+.activity-filter {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+.activity-filter button {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--muted);
+  padding: 9px 13px;
+  border-radius: 9px;
+}
+.activity-filter button.active {
+  background: #1b2b48;
+  color: white;
+  border-color: #35557f;
+}
+.mobile-nav {
+  display: none;
+}
+.empty-state {
+  padding: 35px 20px;
+  text-align: center;
+  color: var(--muted);
+  line-height: 1.7;
+  font-size: 13px;
+}
+.footer {
+  padding: 20px 0 6px;
+  color: #70809a;
+  font-size: 11px;
+}
+@media (max-width: 1000px) {
+  .layout { grid-template-columns: 190px minmax(0, 1fr); }
+  .main { padding: 22px; }
+  .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .profile-actions { margin-left: 0; }
+  .profile-hero { flex-wrap: wrap; }
+}
+@media (max-width: 680px) {
+  .topbar {
+    height: 62px;
+    padding: 0 14px;
   }
-  .layout {
-    grid-template-columns: 225px 245px minmax(0, 1fr);
+  .brand { font-size: 14px; }
+  .brand-icon { width: 34px; height: 34px; }
+  .top-actions .secondary-btn { padding: 8px 10px; }
+  .layout { display: block; }
+  .sidebar { display: none; }
+  .main {
+    padding: 20px 14px 95px;
+  }
+  .page-heading {
+    align-items: flex-start;
+    margin-bottom: 18px;
+  }
+  .page-heading .secondary-btn { display: none; }
+  .profile-hero {
+    padding: 20px 16px;
+    gap: 14px;
+    border-radius: 17px;
+  }
+  .avatar {
+    width: 62px;
+    height: 62px;
+    border-radius: 19px;
+    font-size: 22px;
+  }
+  .profile-name { font-size: 21px; }
+  .profile-number { font-size: 12px; }
+  .profile-actions {
+    width: 100%;
+  }
+  .profile-actions button { flex: 1; }
+  .stats {
+    grid-template-columns: 1fr;
     gap: 10px;
   }
-  .panel-heading {
-    padding: 16px 13px 13px;
-  }
-  .profile-content {
-    padding: 18px 13px;
-  }
-  .chat-top {
-    padding: 14px;
-  }
-  .service-tabs {
-    padding: 10px;
-  }
-}
-@media (max-width: 850px) {
-  .layout {
-    grid-template-columns: 1fr;
-    min-height: 0;
-  }
-  .contacts-panel,
-  .profile-panel {
-    display: none;
-  }
-  .contacts-panel.mobile-visible {
-    display: block;
-  }
-  .profile-panel.mobile-visible {
-    display: block;
-  }
-  .chat-panel {
-    min-height: 690px;
-  }
-  .mobile-contact-toggle {
-    display: inline-flex;
+  .stat-card {
+    display: flex;
     align-items: center;
+    gap: 14px;
+    padding: 15px;
+  }
+  .stat-top {
+    display: contents;
+  }
+  .stat-value {
+    margin: 0;
+    font-size: 15px;
+  }
+  .stat-caption { margin: 4px 0 0; }
+  .stat-text { flex: 1; min-width: 0; }
+  .content-grid { grid-template-columns: 1fr; }
+  .info-card, .activity-card { padding: 16px; }
+  .mobile-nav {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+    position: fixed;
+    z-index: 30;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 9px 7px calc(9px + env(safe-area-inset-bottom));
+    border-top: 1px solid var(--line);
+    background: #0b1220f5;
+    backdrop-filter: blur(18px);
+  }
+  .mobile-nav .nav-btn {
+    margin: 0;
+    padding: 9px 3px;
+    flex-direction: column;
     justify-content: center;
-    gap: 7px;
-    padding: 10px 12px;
-    color: #dce8fb;
-    background: #ffffff08;
-    border: 1px solid var(--line);
-    border-radius: 11px;
-    font-size: 11px;
-  }
-  .topbar {
-    align-items: flex-start;
-  }
-  .top-actions .status-pill {
-    display: none;
-  }
-}
-@media (max-width: 480px) {
-  .app {
-    padding: 10px;
-  }
-  .brand h1 {
-    font-size: 16px;
-  }
-  .brand p {
+    gap: 5px;
+    text-align: center;
     font-size: 10px;
   }
-  .brand-mark {
-    width: 40px;
-    height: 40px;
-  }
-  .chat-panel {
-    min-height: 650px;
-  }
-  .chat-top {
-    gap: 6px;
-  }
-  .chat-actions {
-    gap: 5px;
-  }
-  .icon-button {
-    width: 34px;
-    height: 34px;
-  }
-  .caution-card {
-    padding: 23px 18px;
-  }
-  .caution-card h3 {
-    font-size: 19px;
-  }
-  .messages-content {
-    padding-right: 13px;
-    padding-left: 13px;
-  }
+  .mobile-nav .nav-icon { font-size: 18px; }
+  .footer { padding-bottom: 15px; }
+}
+@media (max-width: 360px) {
+  .main { padding-left: 10px; padding-right: 10px; }
+  .profile-name { font-size: 19px; }
+  .top-actions .secondary-btn { font-size: 11px; }
 }
 </style>
 </head>
 <body>
 <div class="app">
-  <header class="topbar">
-    <div class="brand">
-      <div class="brand-mark">E</div>
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-icon">E</div>
+    <span>Contact Dashboard</span>
+  </div>
+  <div class="top-actions">
+    <button class="secondary-btn" onclick="showView('overview')">Overview</button>
+    <button class="icon-btn" aria-label="Open contacts" onclick="showView('contacts')">☰</button>
+  </div>
+</header>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="side-label">DASHBOARD</div>
+    <button class="nav-btn active" data-view="overview" onclick="showView('overview')">
+      <span class="nav-icon">▦</span> Overview
+    </button>
+    <button class="nav-btn" data-view="contacts" onclick="showView('contacts')">
+      <span class="nav-icon">♙</span> Contacts
+    </button>
+    <button class="nav-btn" data-view="activity" onclick="showView('activity')">
+      <span class="nav-icon">◷</span> Activity
+    </button>
+    <button class="nav-btn" data-view="location" onclick="showView('location')">
+      <span class="nav-icon">⌖</span> Location
+    </button>
+    <div class="side-label" style="margin-top:25px">SELECTED CONTACT</div>
+    <button class="contact-item selected" onclick="selectContact(0)">
+      <div class="mini-avatar">EM</div>
       <div>
-        <h1>Conversation Dashboard</h1>
-        <p>Contact details and conversation workspace</p>
+        <strong>Esther Merel</strong>
+        <small>Selected profile</small>
       </div>
-    </div>
-    <div class="top-actions">
-      <div class="status-pill">
-        <span class="status-dot"></span>
-        Authorization required
-      </div>
-      <button class="mobile-contact-toggle" id="mobileContactsBtn">
-        ☰ Contacts
-      </button>
-    </div>
-  </header>
-  <main class="layout">
-    <!-- LEFT: CONTACTS -->
-    <aside class="panel contacts-panel" id="contactsPanel">
-      <div class="panel-heading">
-        <h2>Contacts</h2>
-        <p id="contactCount">5 contacts</p>
-      </div>
-      <div class="search-wrap">
-        <input
-          class="search"
-          id="contactSearch"
-          type="search"
-          placeholder="⌕  Search contacts..."
-          autocomplete="off"
-          aria-label="Search contacts"
-        >
-      </div>
-      <div class="contact-list" id="contactList"></div>
-    </aside>
-    <!-- MIDDLE: CONTACT INFORMATION -->
-    <aside class="panel profile-panel" id="profilePanel">
-      <div class="panel-heading">
-        <h2>Contact Information</h2>
-        <p>Selected contact details</p>
-      </div>
-      <div class="profile-content">
-        <div class="profile-top">
-          <div class="profile-avatar" id="profileAvatar">EM</div>
-          <h3 id="profileName">Esther Merel</h3>
-          <p id="profileNumber">+1 917 536 4180</p>
-          <span class="profile-badge">Contact selected</span>
+    </button>
+  </aside>
+  <main class="main">
+    <!-- FIRST VIEW: ESTHER'S DASHBOARD -->
+    <section class="view active" id="view-overview">
+      <div class="page-heading">
+        <div>
+          <div class="eyebrow">CONTACT OVERVIEW</div>
+          <h1>Esther's Dashboard</h1>
+          <div class="subtitle">Contact information and profile details</div>
         </div>
-        <div class="info-title">Contact details</div>
+        <button class="secondary-btn" onclick="showView('contacts')">Other contacts ↗</button>
+      </div>
+      <div class="profile-hero">
+        <div class="avatar" id="hero-avatar">EM</div>
+        <div>
+          <div class="profile-name" id="hero-name">Esther Merel</div>
+          <div class="profile-number" id="hero-phone">+1 917 536 4180</div>
+          <div class="profile-badges">
+            <span class="pill green">Primary profile</span>
+            <span class="pill">United States number</span>
+          </div>
+        </div>
+        <div class="profile-actions">
+          <button class="primary-btn" onclick="copyNumber()">Copy number</button>
+          <button class="secondary-btn" onclick="showView('location')">Location</button>
+        </div>
+      </div>
+      <div class="section-title">Profile summary</div>
+      <div class="stats">
+        <div class="stat-card">
+          <div class="stat-icon">☎</div>
+          <div class="stat-text">
+            <div class="stat-top">Phone number</div>
+            <div class="stat-value" id="stat-phone">+1 917 536 4180</div>
+            <div class="stat-caption">Saved contact number</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">⌖</div>
+          <div class="stat-text">
+            <div class="stat-top">Location</div>
+            <div class="stat-value">Not verified</div>
+            <div class="stat-caption">No live location source connected</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">▤</div>
+          <div class="stat-text">
+            <div class="stat-top">Carrier</div>
+            <div class="stat-value" id="stat-carrier">T-Mobile USA, Inc.</div>
+            <div class="stat-caption">Provided contact information</div>
+          </div>
+        </div>
+      </div>
+      <div class="section-title">Contact details</div>
+      <div class="content-grid">
+        <div class="info-card">
+          <h3>Personal information</h3>
+          <div class="info-row">
+            <span class="info-label">Full name</span>
+            <span class="info-value" id="detail-name">Esther Merel</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Phone number</span>
+            <span class="info-value" id="detail-phone">+1 917 536 4180</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Country code</span>
+            <span class="info-value">+1 (US/Canada)</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Carrier</span>
+            <span class="info-value" id="detail-carrier">T-Mobile USA, Inc.</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Location</span>
+            <span class="info-value muted">Not verified</span>
+          </div>
+        </div>
+        <div class="activity-card">
+          <h3>Recent activity</h3>
+          <div class="activity-list">
+            <div class="activity-item">
+              <div class="activity-dot"></div>
+              <div>
+                <strong>Profile selected</strong>
+                <p>Esther Merel is the active contact in this dashboard.</p>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-dot"></div>
+              <div>
+                <strong>Contact details</strong>
+                <p>The saved phone number and available carrier information are shown above.</p>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-dot"></div>
+              <div>
+                <strong>Location status</strong>
+                <p>A verified location-sharing source is needed to display a location.</p>
+              </div>
+            </div>
+          </div>
+          <button class="secondary-btn" style="width:100%;margin-top:20px"
+            onclick="showView('activity')">View activity panel →</button>
+        </div>
+      </div>
+      <div class="footer">Contact dashboard</div>
+    </section>
+    <!-- CONTACTS -->
+    <section class="view" id="view-contacts">
+      <div class="page-heading">
+        <div>
+          <div class="eyebrow">DIRECTORY</div>
+          <h1>Other Contacts</h1>
+          <div class="subtitle">Choose a contact to view the saved details.</div>
+        </div>
+      </div>
+      <input class="contact-search" id="contact-search"
+        placeholder="Search contacts..." oninput="renderContacts()">
+      <div class="info-card" id="contacts-list"></div>
+    </section>
+    <!-- ACTIVITY -->
+    <section class="view" id="view-activity">
+      <div class="page-heading">
+        <div>
+          <div class="eyebrow">RECORDS</div>
+          <h1>Activity</h1>
+          <div class="subtitle">Available dashboard actions and contact information.</div>
+        </div>
+      </div>
+      <div class="activity-filter">
+        <button class="active" onclick="filterActivity('all', this)">All</button>
+        <button onclick="filterActivity('profile', this)">Profile</button>
+        <button onclick="filterActivity('location', this)">Location</button>
+        <button onclick="filterActivity('contact', this)">Contacts</button>
+      </div>
+      <div class="activity-card">
+        <div class="activity-list" id="activity-list"></div>
+      </div>
+    </section>
+    <!-- LOCATION -->
+    <section class="view" id="view-location">
+      <div class="page-heading">
+        <div>
+          <div class="eyebrow">LOCATION</div>
+          <h1>Location Details</h1>
+          <div class="subtitle" id="location-person">Esther Merel</div>
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="stat-icon" style="width:48px;height:48px;font-size:23px">⌖</div>
+        <h3 style="margin-top:20px">Location information</h3>
         <div class="info-row">
-          <span class="info-label">Full name</span>
-          <div class="info-value" id="infoName">Esther Merel</div>
+          <span class="info-label">Contact</span>
+          <span class="info-value" id="location-name">Esther Merel</span>
         </div>
         <div class="info-row">
           <span class="info-label">Phone number</span>
-          <div class="info-value" id="infoNumber">+1 917 536 4180</div>
+          <span class="info-value" id="location-phone">+1 917 536 4180</span>
         </div>
         <div class="info-row">
-          <span class="info-label">Reported carrier</span>
-          <div class="info-value" id="infoCarrier">T-Mobile USA, Inc.</div>
+          <span class="info-label">Live location</span>
+          <span class="info-value muted">Unavailable</span>
         </div>
         <div class="info-row">
-          <span class="info-label">Conversation access</span>
-          <div class="info-value">Authorized records required</div>
+          <span class="info-label">Location source</span>
+          <span class="info-value muted">None connected</span>
         </div>
-        <div class="profile-actions">
-          <button class="small-button" id="copyNumberBtn">Copy number</button>
-          <a class="small-button" id="callLink"
-             href="tel:+19175364180"
-             style="text-align:center;text-decoration:none">Call</a>
-        </div>
-        <div class="info-title">Workspace status</div>
-        <div class="info-row">
-          <span class="info-label">Selected inbox</span>
-          <div class="info-value" id="selectedInboxInfo">iMessage</div>
-        </div>
-        <div class="info-row">
-          <span class="info-label">Data source</span>
-          <div class="info-value">No external account connected</div>
-        </div>
+        <p class="subtitle" style="line-height:1.7;margin-top:20px">
+          A phone number alone does not provide a person's live location.
+          Location can be displayed when the person chooses to share it through
+          an authorized location-sharing service.
+        </p>
       </div>
-    </aside>
-    <!-- RIGHT: CONVERSATION -->
-    <section class="panel chat-panel">
-      <header class="chat-top">
-        <div class="chat-person">
-          <div class="avatar" id="chatAvatar">EM</div>
-          <div style="min-width:0">
-            <h2 id="chatTitle">Esther Merel</h2>
-            <p id="chatSubtitle">iMessage inbox</p>
-          </div>
-        </div>
-        <div class="chat-actions">
-          <button class="icon-button" id="viewContactBtn"
-                  title="View contact details" aria-label="View contact details">ⓘ</button>
-          <a class="icon-button" id="chatCall"
-             href="tel:+19175364180"
-             title="Call selected contact" aria-label="Call selected contact">☎</a>
-          <button class="icon-button" id="copyChatNumber"
-                  title="Copy phone number" aria-label="Copy phone number">⧉</button>
-        </div>
-      </header>
-      <nav class="service-tabs" aria-label="Inbox type">
-        <button class="service-tab active" data-service="imessage">iMessage</button>
-        <button class="service-tab" data-service="whatsapp">WhatsApp</button>
-        <button class="service-tab" data-service="social">Social Inbox</button>
-        <button class="service-tab" data-service="calls">Call Records</button>
-      </nav>
-      <div class="conversation-stage" id="conversationStage">
-        <div class="messages-content" id="messagesContent"></div>
-        <div class="caution-overlay" id="cautionOverlay">
-          <div class="caution-card">
-            <div class="caution-icon">⚠</div>
-            <h3>Authorization Required</h3>
-            <p>
-              Conversation records cannot be displayed until they are
-              provided through an authorized source.
-            </p>
-            <div class="caution-divider"></div>
-            <div class="caution-note">
-              <span>ⓘ</span>
-              <div>
-                <strong>Access notice</strong><br>
-                This workspace does not connect to another person's
-                phone or private accounts. Only records you are
-                authorized to access can be added.
-              </div>
-            </div>
-            <p class="status-caption">
-              Conversation view restricted · No account connected
-            </p>
-          </div>
-        </div>
-      </div>
-      <form class="chat-footer" id="composeForm">
-        <input
-          id="composeInput"
-          type="text"
-          placeholder="Conversation view restricted"
-          disabled
-          aria-label="Message composer"
-        >
-        <button class="send-button" type="submit" disabled>Send ➤</button>
-      </form>
     </section>
   </main>
 </div>
-<div class="toast hidden" id="toast" role="status" aria-live="polite"></div>
+<!-- MOBILE BOTTOM NAVIGATION -->
+<nav class="mobile-nav" aria-label="Dashboard navigation">
+  <button class="nav-btn active" data-view="overview" onclick="showView('overview')">
+    <span class="nav-icon">▦</span>Overview
+  </button>
+  <button class="nav-btn" data-view="contacts" onclick="showView('contacts')">
+    <span class="nav-icon">♙</span>Contacts
+  </button>
+  <button class="nav-btn" data-view="activity" onclick="showView('activity')">
+    <span class="nav-icon">◷</span>Activity
+  </button>
+  <button class="nav-btn" data-view="location" onclick="showView('location')">
+    <span class="nav-icon">⌖</span>Location
+  </button>
+</nav>
+</div>
 <script>
-"use strict";
 const contacts = [
   {
-    id: 1,
     name: "Esther Merel",
-    number: "+1 917 536 4180",
+    phone: "+1 917 536 4180",
     carrier: "T-Mobile USA, Inc.",
-    initials: "EM",
-    color: ""
+    initials: "EM"
   },
   {
-    id: 2,
     name: "Benjamin Merel",
-    number: "+1 718 645 5740",
+    phone: "+1 718 645 5740",
     carrier: "Not provided",
-    initials: "BM",
-    color: "green"
+    initials: "BM"
   },
   {
-    id: 3,
     name: "Abigail Merel Tamir",
-    number: "+1 561 409 4134",
+    phone: "+1 561 409 4134",
     carrier: "Not provided",
-    initials: "AT",
-    color: "orange"
+    initials: "AT"
   },
   {
-    id: 4,
     name: "Abigail Merel-Tamir",
-    number: "+1 718 382 1404",
+    phone: "+1 718 382 1404",
     carrier: "Not provided",
-    initials: "AM",
-    color: "pink"
+    initials: "AM"
   },
   {
-    id: 5,
     name: "Leah Scharf",
-    number: "+1 800 793 1111",
+    phone: "+1 800 793 1111",
     carrier: "Not provided",
-    initials: "LS",
-    color: "cyan"
+    initials: "LS"
   },
   {
-    id: 6,
     name: "Bryan Charles",
-    number: "+1 718 253 4941",
+    phone: "+1 718 253 4941",
     carrier: "Not provided",
-    initials: "BC",
-    color: "green"
+    initials: "BC"
   }
 ];
-const serviceNames = {
-  imessage: "iMessage inbox",
-  whatsapp: "WhatsApp inbox",
-  social: "Social Inbox",
-  calls: "Call Records"
-};
-let selectedContact = 1;
-let currentService = "imessage";
-let toastTimeout;
-const contactList = document.getElementById("contactList");
-const messagesContent = document.getElementById("messagesContent");
-const cautionOverlay = document.getElementById("cautionOverlay");
-const toast = document.getElementById("toast");
-function getSelectedContact() {
-  return contacts.find(contact => contact.id === selectedContact) || contacts[0];
-}
-function showToast(message) {
-  toast.textContent = message;
-  toast.classList.remove("hidden");
-  clearTimeout(toastTimeout);
-  toastTimeout = setTimeout(() => toast.classList.add("hidden"), 2200);
-}
-function safePhoneHref(number) {
-  return "tel:" + number.replace(/[^\d+]/g, "");
-}
-async function copyText(value) {
-  try {
-    if (navigator.clipboard && window.isSecureContext) {
-      await navigator.clipboard.writeText(value);
-    } else {
-      const helper = document.createElement("textarea");
-      helper.value = value;
-      helper.style.position = "fixed";
-      helper.style.opacity = "0";
-      document.body.appendChild(helper);
-      helper.select();
-      const copied = document.execCommand("copy");
-      helper.remove();
-      if (!copied) throw new Error("Copy unavailable");
-    }
-    showToast("Phone number copied");
-  } catch (error) {
-    showToast("Copy unavailable — select the number manually");
+let selectedContact = 0;
+let activityFilter = "all";
+const activityItems = [
+  {
+    type: "profile",
+    title: "Esther Merel profile",
+    description: "The primary contact profile is displayed in the overview."
+  },
+  {
+    type: "contact",
+    title: "Contact directory",
+    description: "The saved contact list is available from the Contacts menu."
+  },
+  {
+    type: "location",
+    title: "Location information",
+    description: "No live location source is connected."
+  },
+  {
+    type: "profile",
+    title: "Phone details",
+    description: "Saved phone number and provided carrier information are displayed."
   }
+];
+function showView(name) {
+  document.querySelectorAll(".view").forEach(view => {
+    view.classList.remove("active");
+  });
+  const target = document.getElementById("view-" + name);
+  if (target) target.classList.add("active");
+  document.querySelectorAll(".nav-btn[data-view]").forEach(button => {
+    button.classList.toggle("active", button.dataset.view === name);
+  });
+  if (name === "contacts") renderContacts();
+  if (name === "activity") renderActivity();
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
-function renderContacts(filter = "") {
-  const query = filter.trim().toLowerCase();
-  const filtered = contacts.filter(contact =>
-    contact.name.toLowerCase().includes(query) ||
-    contact.number.toLowerCase().includes(query)
-  );
-  contactList.replaceChildren();
-  document.getElementById("contactCount").textContent =
-    filtered.length + (filtered.length === 1 ? " contact" : " contacts");
+function selectContact(index) {
+  selectedContact = index;
+  const contact = contacts[index];
+  document.getElementById("hero-avatar").textContent = contact.initials;
+  document.getElementById("hero-name").textContent = contact.name;
+  document.getElementById("hero-phone").textContent = contact.phone;
+  document.getElementById("stat-phone").textContent = contact.phone;
+  document.getElementById("stat-carrier").textContent = contact.carrier;
+  document.getElementById("detail-name").textContent = contact.name;
+  document.getElementById("detail-phone").textContent = contact.phone;
+  document.getElementById("detail-carrier").textContent = contact.carrier;
+  document.getElementById("location-person").textContent = contact.name;
+  document.getElementById("location-name").textContent = contact.name;
+  document.getElementById("location-phone").textContent = contact.phone;
+  document.querySelectorAll(".contact-item").forEach((item, i) => {
+    item.classList.toggle("selected", i === index);
+  });
+  showView("overview");
+}
+function renderContacts() {
+  const query = (
+    document.getElementById("contact-search")?.value || ""
+  ).toLowerCase();
+  const list = document.getElementById("contacts-list");
+  const filtered = contacts
+    .map((contact, index) => ({ contact, index }))
+    .filter(({ contact }) =>
+      contact.name.toLowerCase().includes(query) ||
+      contact.phone.includes(query)
+    );
   if (!filtered.length) {
-    const empty = document.createElement("div");
-    empty.className = "empty-state";
-    empty.style.position = "relative";
-    empty.style.minHeight = "160px";
-    const title = document.createElement("h3");
-    title.textContent = "No contacts found";
-    const description = document.createElement("p");
-    description.textContent = "Try a different name or phone number.";
-    empty.append(title, description);
-    contactList.appendChild(empty);
+    list.innerHTML = '<div class="empty-state">No matching contacts.</div>';
     return;
   }
-  filtered.forEach(contact => {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "contact-item" +
-      (contact.id === selectedContact ? " active" : "");
-    button.setAttribute("aria-pressed", String(contact.id === selectedContact));
-    const avatar = document.createElement("div");
-    avatar.className = "avatar " + contact.color;
-    avatar.textContent = contact.initials;
-    const copy = document.createElement("div");
-    copy.className = "contact-copy";
-    const name = document.createElement("span");
-    name.className = "contact-name";
-    name.textContent = contact.name;
-    const number = document.createElement("span");
-    number.className = "contact-number";
-    number.textContent = contact.number;
-    const arrow = document.createElement("span");
-    arrow.className = "contact-arrow";
-    arrow.textContent = "›";
-    copy.append(name, number);
-    button.append(avatar, copy, arrow);
-    button.addEventListener("click", () => {
-      selectedContact = contact.id;
-      renderContacts(document.getElementById("contactSearch").value);
-      renderProfile();
-      renderConversation();
-      document.getElementById("contactsPanel").classList.remove("mobile-visible");
-      document.getElementById("profilePanel").classList.remove("mobile-visible");
-    });
-    contactList.appendChild(button);
+  list.innerHTML = filtered.map(({ contact, index }) => `
+    <button class="contact-item ${index === selectedContact ? "selected" : ""}"
+      style="width:100%;margin-bottom:5px"
+      onclick="selectContact(${index})">
+      <div class="mini-avatar">${contact.initials}</div>
+      <div style="flex:1;min-width:0">
+        <strong>${escapeHTML(contact.name)}</strong>
+        <small>${escapeHTML(contact.phone)}</small>
+      </div>
+      <span style="color:#91a0b8">›</span>
+    </button>
+  `).join("");
+}
+function renderActivity() {
+  const filtered = activityItems.filter(item =>
+    activityFilter === "all" || item.type === activityFilter
+  );
+  const list = document.getElementById("activity-list");
+  list.innerHTML = filtered.map(item => `
+    <div class="activity-item">
+      <div class="activity-dot"></div>
+      <div>
+        <strong>${escapeHTML(item.title)}</strong>
+        <p>${escapeHTML(item.description)}</p>
+      </div>
+    </div>
+  `).join("");
+}
+function filterActivity(type, button) {
+  activityFilter = type;
+  document.querySelectorAll(".activity-filter button").forEach(item => {
+    item.classList.remove("active");
   });
+  button.classList.add("active");
+  renderActivity();
 }
-function renderProfile() {
-  const contact = getSelectedContact();
-  document.getElementById("profileAvatar").textContent = contact.initials;
-  document.getElementById("profileName").textContent = contact.name;
-  document.getElementById("profileNumber").textContent = contact.number;
-  document.getElementById("infoName").textContent = contact.name;
-  document.getElementById("infoNumber").textContent = contact.number;
-  document.getElementById("infoCarrier").textContent = contact.carrier;
-  document.getElementById("selectedInboxInfo").textContent =
-    serviceNames[currentService];
-  document.getElementById("callLink").href = safePhoneHref(contact.number);
-  document.getElementById("chatCall").href = safePhoneHref(contact.number);
-  document.getElementById("chatAvatar").textContent = contact.initials;
-  document.getElementById("chatAvatar").className = "avatar " + contact.color;
-  document.getElementById("chatTitle").textContent = contact.name;
-  document.getElementById("chatSubtitle").textContent = serviceNames[currentService];
-}
-function renderConversation() {
-  const contact = getSelectedContact();
-  messagesContent.replaceChildren();
-  messagesContent.className = "messages-content " + currentService;
-  if (currentService === "calls") {
-    cautionOverlay.classList.add("hidden");
-    const empty = document.createElement("div");
-    empty.className = "empty-state";
-    const icon = document.createElement("div");
-    icon.className = "empty-icon";
-    icon.textContent = "☎";
-    const heading = document.createElement("h3");
-    heading.textContent = "Call Records";
-    const description = document.createElement("p");
-    description.textContent =
-      "Call history is not connected. Add authorized call records to view them here.";
-    empty.append(icon, heading, description);
-    messagesContent.appendChild(empty);
-    return;
+function copyNumber() {
+  const number = contacts[selectedContact].phone;
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(number).then(() => {
+      alert("Phone number copied.");
+    }).catch(() => fallbackCopy(number));
+  } else {
+    fallbackCopy(number);
   }
-  cautionOverlay.classList.remove("hidden");
-  const divider = document.createElement("div");
-  divider.className = "day-divider";
-  divider.textContent = "Conversation view";
-  messagesContent.appendChild(divider);
-  /*
-   * These muted shapes are visual placeholders only.
-   * No invented private messages are presented as real records.
-   */
-  const placeholderMessages = [
-    { outgoing: false, width: "68%" },
-    { outgoing: true, width: "49%" },
-    { outgoing: false, width: "76%" },
-    { outgoing: true, width: "61%" },
-    { outgoing: false, width: "56%" },
-    { outgoing: true, width: "43%" }
-  ];
-  placeholderMessages.forEach((item, index) => {
-    const row = document.createElement("div");
-    row.className = "message-row" + (item.outgoing ? " outgoing" : "");
-    const bubble = document.createElement("div");
-    bubble.className = "message";
-    bubble.style.width = item.width;
-    bubble.style.minHeight = index % 2 === 0 ? "49px" : "38px";
-    bubble.style.color = "transparent";
-    bubble.setAttribute("aria-hidden", "true");
-    const time = document.createElement("span");
-    time.className = "message-time";
-    time.textContent = " ";
-    bubble.appendChild(time);
-    row.appendChild(bubble);
-    messagesContent.appendChild(row);
-  });
-  document.getElementById("composeInput").placeholder =
-    "Conversation view restricted";
 }
-document.querySelectorAll(".service-tab").forEach(button => {
-  button.addEventListener("click", () => {
-    currentService = button.dataset.service;
-    document.querySelectorAll(".service-tab").forEach(tab => {
-      const active = tab === button;
-      tab.classList.toggle("active", active);
-      tab.setAttribute("aria-pressed", String(active));
-    });
-    renderProfile();
-    renderConversation();
-  });
-});
-document.getElementById("contactSearch").addEventListener("input", event => {
-  renderContacts(event.target.value);
-});
-document.getElementById("copyNumberBtn").addEventListener("click", () => {
-  copyText(getSelectedContact().number);
-});
-document.getElementById("copyChatNumber").addEventListener("click", () => {
-  copyText(getSelectedContact().number);
-});
-document.getElementById("viewContactBtn").addEventListener("click", () => {
-  const profile = document.getElementById("profilePanel");
-  profile.classList.toggle("mobile-visible");
-  document.getElementById("contactsPanel").classList.remove("mobile-visible");
-});
-document.getElementById("mobileContactsBtn").addEventListener("click", () => {
-  const contactsPanel = document.getElementById("contactsPanel");
-  const profilePanel = document.getElementById("profilePanel");
-  contactsPanel.classList.toggle("mobile-visible");
-  profilePanel.classList.remove("mobile-visible");
-});
-document.getElementById("composeForm").addEventListener("submit", event => {
-  event.preventDefault();
-  showToast("Messaging is disabled until an authorized messaging source is connected.");
-});
-/* Initial view */
+function fallbackCopy(text) {
+  const input = document.createElement("textarea");
+  input.value = text;
+  input.style.position = "fixed";
+  input.style.opacity = "0";
+  document.body.appendChild(input);
+  input.select();
+  try {
+    document.execCommand("copy");
+    alert("Phone number copied.");
+  } catch {
+    alert("Copy this number: " + text);
+  }
+  input.remove();
+}
+function escapeHTML(value) {
+  return String(value).replace(/[&<>"']/g, character => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  })[character]);
+}
+/* Esther is the first profile displayed on every fresh page load. */
 renderContacts();
-renderProfile();
-renderConversation();
+renderActivity();
+selectContact(0);
 </script>
 </body>
 </html>
