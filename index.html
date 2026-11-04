@@ -7,324 +7,928 @@
 <title>Casey Kevin Behan Nicole | Dashboard</title>
 <style>
 :root {
-  --bg:#080d18;--panel:#101929;--panel2:#151f32;
-  --line:#28364d;--text:#f1f5fc;--muted:#91a0b8;
-  --blue:#5795ff;--green:#48d6a0;
+  --bg:#080d18;
+  --panel:#101929;
+  --panel2:#151f32;
+  --line:#28364d;
+  --text:#f1f5fc;
+  --muted:#91a0b8;
+  --blue:#5795ff;
+  --green:#48d6a0;
 }
-*{box-sizing:border-box}
-body{
-  margin:0;background:radial-gradient(ellipse at top,#172748 0%,transparent 48%),var(--bg);
-  color:var(--text);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif
+* { box-sizing:border-box; }
+body {
+  margin:0;
+  background:radial-gradient(ellipse at top,#172748 0%,transparent 48%),var(--bg);
+  color:var(--text);
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
 }
-button,input{font:inherit}button{cursor:pointer}
-.app{min-height:100vh}
-.topbar{
- height:72px;padding:0 24px;display:flex;align-items:center;
- justify-content:space-between;border-bottom:1px solid var(--line);
- background:#0b1220ef;position:sticky;top:0;z-index:20
+button,input { font:inherit; }
+button { cursor:pointer; }
+.app { min-height:100vh; }
+.topbar {
+  height:72px;
+  padding:0 24px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-bottom:1px solid var(--line);
+  background:#0b1220ef;
+  position:sticky;
+  top:0;
+  z-index:20;
 }
-.brand{display:flex;align-items:center;gap:12px;font-weight:750;letter-spacing:.2px}
-.brand-icon{
- width:38px;height:38px;border-radius:12px;display:grid;place-items:center;
- color:white;background:linear-gradient(145deg,#478dff,#7358ee);font-size:20px
+.brand {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-weight:750;
+  letter-spacing:.2px;
 }
-.top-actions{display:flex;gap:8px}
-.icon-btn,.secondary-btn{
- color:var(--text);background:var(--panel2);border:1px solid var(--line);
- border-radius:11px;padding:10px 13px
+.brand-icon {
+  width:38px;
+  height:38px;
+  border-radius:12px;
+  display:grid;
+  place-items:center;
+  color:white;
+  background:linear-gradient(145deg,#478dff,#7358ee);
+  font-size:20px;
 }
-.icon-btn:hover,.secondary-btn:hover{border-color:var(--blue)}
-.layout{display:grid;grid-template-columns:225px minmax(0,1fr);min-height:calc(100vh - 72px)}
-.sidebar{border-right:1px solid var(--line);background:#0b1220;padding:22px 14px}
-.side-label{color:var(--muted);font-size:11px;font-weight:750;letter-spacing:1.5px;padding:12px 12px 9px}
-.nav-btn{
- width:100%;border:1px solid transparent;background:transparent;color:#aebbd0;
- padding:13px 12px;border-radius:11px;text-align:left;display:flex;
- align-items:center;gap:11px;margin:3px 0
+.top-actions { display:flex;gap:8px; }
+.icon-btn,.secondary-btn {
+  color:var(--text);
+  background:var(--panel2);
+  border:1px solid var(--line);
+  border-radius:11px;
+  padding:10px 13px;
 }
-.nav-btn .nav-icon{width:23px;text-align:center;font-size:17px}
-.nav-btn.active{color:white;background:#1b2b48;border-color:#2a4165}
-.nav-btn:hover{background:#15233a}
-.main{min-width:0;padding:28px}
-.page-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:24px}
-.eyebrow{color:var(--blue);font-size:11px;letter-spacing:1.8px;font-weight:800;margin-bottom:8px}
-h1{margin:0;font-size:clamp(25px,3vw,34px);letter-spacing:-.8px}
-.subtitle{color:var(--muted);margin-top:8px;font-size:14px}
-.profile-hero{
- background:radial-gradient(ellipse at 95% 0%,#244c8c66,transparent 48%),linear-gradient(130deg,#14233a,#101827 70%);
- border:1px solid #30425e;border-radius:20px;padding:26px;display:flex;
- align-items:center;gap:20px;margin-bottom:20px;position:relative;overflow:hidden
+.icon-btn:hover,.secondary-btn:hover { border-color:var(--blue); }
+.layout {
+  display:grid;
+  grid-template-columns:225px minmax(0,1fr);
+  min-height:calc(100vh - 72px);
 }
-.avatar{
- width:76px;height:76px;flex:0 0 auto;display:grid;place-items:center;
- border-radius:23px;color:white;font-size:25px;font-weight:800;
- background:linear-gradient(145deg,#478dff,#8060ed);box-shadow:0 8px 28px #0004
+.sidebar {
+  border-right:1px solid var(--line);
+  background:#0b1220;
+  padding:22px 14px;
 }
-.profile-name{font-size:25px;font-weight:750}
-.profile-number{color:#bac8dc;margin-top:7px;font-size:14px}
-.profile-badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-.pill{border:1px solid #344866;background:#172741;border-radius:999px;padding:6px 10px;color:#c8d8f1;font-size:11px}
-.pill.green{color:#7de6bd;background:#12352f;border-color:#245e4c}
-.profile-actions{display:flex;gap:8px;flex-wrap:wrap;margin-left:auto}
-.primary-btn{border:0;color:white;font-weight:650;border-radius:10px;padding:11px 15px;background:linear-gradient(120deg,#478dff,#655ff0)}
-.primary-btn:hover{filter:brightness(1.12)}
-.section-title{font-size:16px;font-weight:750;margin:26px 0 14px}
-.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
-.stat-card,.info-card,.activity-card{
- background:linear-gradient(145deg,#121e30,#0f1726);
- border:1px solid var(--line);border-radius:16px;padding:19px;min-width:0
+.side-label {
+  color:var(--muted);
+  font-size:11px;
+  font-weight:750;
+  letter-spacing:1.5px;
+  padding:12px 12px 9px;
 }
-.stat-top{display:flex;align-items:center;justify-content:space-between;gap:8px;color:var(--muted);font-size:12px}
-.stat-icon{width:35px;height:35px;border-radius:10px;background:#1d3456;display:grid;place-items:center;color:#8db9ff;font-size:17px}
-.stat-value{margin-top:15px;font-size:18px;font-weight:750;overflow-wrap:anywhere}
-.stat-caption{margin-top:7px;color:var(--muted);font-size:12px;line-height:1.5}
-.content-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-.info-card h3,.activity-card h3{font-size:15px;margin:0 0 18px}
-.info-row{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;padding:13px 0;border-bottom:1px solid #25334a}
-.info-row:last-child{border-bottom:0}
-.info-label{color:var(--muted);font-size:12px}
-.info-value{text-align:right;font-size:13px;font-weight:600;overflow-wrap:anywhere}
-.info-value.muted{color:var(--muted);font-weight:450}
-.activity-list{display:grid;gap:15px}
-.activity-item{display:flex;align-items:flex-start;gap:12px}
-.activity-dot{width:10px;height:10px;border-radius:50%;background:var(--blue);margin-top:4px;box-shadow:0 0 12px #5795ff55;flex-shrink:0}
-.activity-item strong{display:block;font-size:13px;margin-bottom:5px}
-.activity-item p{color:var(--muted);font-size:12px;line-height:1.5;margin:0}
-.view{display:none}.view.active{display:block}
-.contact-search{width:100%;margin:12px 0 16px;padding:12px 14px;border:1px solid var(--line);background:#0c1524;color:white;border-radius:10px;outline:none}
-.contact-search:focus{border-color:var(--blue)}
-.contact-item{width:100%;text-align:left;display:flex;align-items:center;gap:12px;background:transparent;border:1px solid transparent;color:var(--text);padding:12px 10px;border-radius:12px}
-.contact-item:hover,.contact-item.selected{background:#182740;border-color:#2b4263}
-.mini-avatar{width:40px;height:40px;flex-shrink:0;border-radius:13px;display:grid;place-items:center;background:#253e61;font-size:13px;font-weight:750}
-.contact-item strong{display:block;font-size:13px}
-.contact-item small{display:block;margin-top:5px;color:var(--muted);font-size:11px}
-.activity-filter{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
-.activity-filter button{border:1px solid var(--line);background:var(--panel);color:var(--muted);padding:9px 13px;border-radius:9px}
-.activity-filter button.active{background:#1b2b48;color:white;border-color:#35557f}
-.mobile-nav{display:none}
-.empty-state{padding:35px 20px;text-align:center;color:var(--muted);line-height:1.7;font-size:13px}
-.footer{padding:20px 0 6px;color:#70809a;font-size:11px}
-@media(max-width:1000px){
- .layout{grid-template-columns:190px minmax(0,1fr)}
- .main{padding:22px}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}
- .profile-actions{margin-left:0}.profile-hero{flex-wrap:wrap}
+.nav-btn {
+  width:100%;
+  border:1px solid transparent;
+  background:transparent;
+  color:#aebbd0;
+  padding:13px 12px;
+  border-radius:11px;
+  text-align:left;
+  display:flex;
+  align-items:center;
+  gap:11px;
+  margin:3px 0;
 }
-@media(max-width:680px){
- .topbar{height:62px;padding:0 14px}
- .brand{font-size:14px}.brand-icon{width:34px;height:34px}
- .top-actions .secondary-btn{padding:8px 10px}
- .layout{display:block}.sidebar{display:none}
- .main{padding:20px 14px 95px}
- .page-heading{align-items:flex-start;margin-bottom:18px}
- .page-heading .secondary-btn{display:none}
- .profile-hero{padding:20px 16px;gap:14px;border-radius:17px}
- .avatar{width:62px;height:62px;border-radius:19px;font-size:22px}
- .profile-name{font-size:21px}.profile-number{font-size:12px}
- .profile-actions{width:100%}.profile-actions button{flex:1}
- .stats{grid-template-columns:1fr;gap:10px}
- .stat-card{display:flex;align-items:center;gap:14px;padding:15px}
- .stat-top{display:contents}.stat-value{margin:0;font-size:15px}
- .stat-caption{margin:4px 0 0}.stat-text{flex:1;min-width:0}
- .content-grid{grid-template-columns:1fr}
- .info-card,.activity-card{padding:16px}
- .mobile-nav{
- display:grid;grid-template-columns:repeat(4,1fr);gap:4px;position:fixed;
- z-index:30;bottom:0;left:0;right:0;padding:9px 7px calc(9px + env(safe-area-inset-bottom));
- border-top:1px solid var(--line);background:#0b1220f5;backdrop-filter:blur(18px)
- }
- .mobile-nav .nav-btn{margin:0;padding:9px 3px;flex-direction:column;justify-content:center;gap:5px;text-align:center;font-size:10px}
- .mobile-nav .nav-icon{font-size:18px}.footer{padding-bottom:15px}
+.nav-btn .nav-icon {
+  width:23px;
+  text-align:center;
+  font-size:17px;
 }
-@media(max-width:360px){.main{padding-left:10px;padding-right:10px}.profile-name{font-size:19px}.top-actions .secondary-btn{font-size:11px}}
+.nav-btn.active {
+  color:white;
+  background:#1b2b48;
+  border-color:#2a4165;
+}
+.nav-btn:hover { background:#15233a; }
+.main { min-width:0;padding:28px; }
+.page-heading {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  margin-bottom:24px;
+}
+.eyebrow {
+  color:var(--blue);
+  font-size:11px;
+  letter-spacing:1.8px;
+  font-weight:800;
+  margin-bottom:8px;
+}
+h1 {
+  margin:0;
+  font-size:clamp(25px,3vw,34px);
+  letter-spacing:-.8px;
+}
+.subtitle {
+  color:var(--muted);
+  margin-top:8px;
+  font-size:14px;
+}
+.profile-hero {
+  background:
+    radial-gradient(ellipse at 95% 0%,#244c8c66,transparent 48%),
+    linear-gradient(130deg,#14233a,#101827 70%);
+  border:1px solid #30425e;
+  border-radius:20px;
+  padding:26px;
+  display:flex;
+  align-items:center;
+  gap:20px;
+  margin-bottom:20px;
+  position:relative;
+  overflow:hidden;
+}
+.avatar {
+  width:76px;
+  height:76px;
+  flex:0 0 auto;
+  display:grid;
+  place-items:center;
+  border-radius:23px;
+  color:white;
+  font-size:25px;
+  font-weight:800;
+  background:linear-gradient(145deg,#478dff,#8060ed);
+  box-shadow:0 8px 28px #0004;
+}
+.profile-name { font-size:25px;font-weight:750; }
+.profile-number {
+  color:#bac8dc;
+  margin-top:7px;
+  font-size:14px;
+}
+.profile-badges {
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:12px;
+}
+.pill {
+  border:1px solid #344866;
+  background:#172741;
+  border-radius:999px;
+  padding:6px 10px;
+  color:#c8d8f1;
+  font-size:11px;
+}
+.pill.green {
+  color:#7de6bd;
+  background:#12352f;
+  border-color:#245e4c;
+}
+.profile-actions {
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-left:auto;
+}
+.primary-btn {
+  border:0;
+  color:white;
+  font-weight:650;
+  border-radius:10px;
+  padding:11px 15px;
+  background:linear-gradient(120deg,#478dff,#655ff0);
+}
+.primary-btn:hover { filter:brightness(1.12); }
+.section-title {
+  font-size:16px;
+  font-weight:750;
+  margin:26px 0 14px;
+}
+.stats {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:14px;
+}
+.stat-card,.info-card,.activity-card {
+  background:linear-gradient(145deg,#121e30,#0f1726);
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:19px;
+  min-width:0;
+}
+.stat-top {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  color:var(--muted);
+  font-size:12px;
+}
+.stat-icon {
+  width:35px;
+  height:35px;
+  border-radius:10px;
+  background:#1d3456;
+  display:grid;
+  place-items:center;
+  color:#8db9ff;
+  font-size:17px;
+}
+.stat-value {
+  margin-top:15px;
+  font-size:18px;
+  font-weight:750;
+  overflow-wrap:anywhere;
+}
+.stat-caption {
+  margin-top:7px;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.5;
+}
+.content-grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:16px;
+}
+.info-card h3,.activity-card h3 {
+  font-size:15px;
+  margin:0 0 18px;
+}
+.info-row {
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:14px;
+  padding:13px 0;
+  border-bottom:1px solid #25334a;
+}
+.info-row:last-child { border-bottom:0; }
+.info-label { color:var(--muted);font-size:12px; }
+.info-value {
+  text-align:right;
+  font-size:13px;
+  font-weight:600;
+  overflow-wrap:anywhere;
+}
+.info-value.muted {
+  color:var(--muted);
+  font-weight:450;
+}
+.activity-list { display:grid;gap:15px; }
+.activity-item {
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+}
+.activity-dot {
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:var(--blue);
+  margin-top:4px;
+  box-shadow:0 0 12px #5795ff55;
+  flex-shrink:0;
+}
+.activity-item strong {
+  display:block;
+  font-size:13px;
+  margin-bottom:5px;
+}
+.activity-item p {
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.5;
+  margin:0;
+}
+.view { display:none; }
+.view.active { display:block; }
+.contact-search {
+  width:100%;
+  margin:12px 0 16px;
+  padding:12px 14px;
+  border:1px solid var(--line);
+  background:#0c1524;
+  color:white;
+  border-radius:10px;
+  outline:none;
+}
+.contact-search:focus { border-color:var(--blue); }
+.contact-item {
+  width:100%;
+  text-align:left;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  background:transparent;
+  border:1px solid transparent;
+  color:var(--text);
+  padding:12px 10px;
+  border-radius:12px;
+}
+.contact-item:hover,.contact-item.selected {
+  background:#182740;
+  border-color:#2b4263;
+}
+.mini-avatar {
+  width:40px;
+  height:40px;
+  flex-shrink:0;
+  border-radius:13px;
+  display:grid;
+  place-items:center;
+  background:#253e61;
+  font-size:13px;
+  font-weight:750;
+}
+.contact-item strong { display:block;font-size:13px; }
+.contact-item small {
+  display:block;
+  margin-top:5px;
+  color:var(--muted);
+  font-size:11px;
+}
+.activity-filter {
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-bottom:18px;
+}
+.activity-filter button {
+  border:1px solid var(--line);
+  background:var(--panel);
+  color:var(--muted);
+  padding:9px 13px;
+  border-radius:9px;
+}
+.activity-filter button.active {
+  background:#1b2b48;
+  color:white;
+  border-color:#35557f;
+}
+.mobile-nav { display:none; }
+.empty-state {
+  padding:35px 20px;
+  text-align:center;
+  color:var(--muted);
+  line-height:1.7;
+  font-size:13px;
+}
+.footer {
+  padding:20px 0 6px;
+  color:#70809a;
+  font-size:11px;
+}
+@media(max-width:1000px) {
+  .layout { grid-template-columns:190px minmax(0,1fr); }
+  .main { padding:22px; }
+  .stats { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .profile-actions { margin-left:0; }
+  .profile-hero { flex-wrap:wrap; }
+}
+@media(max-width:680px) {
+  .topbar { height:62px;padding:0 14px; }
+  .brand { font-size:14px; }
+  .brand-icon { width:34px;height:34px; }
+  .top-actions .secondary-btn { padding:8px 10px; }
+  .layout { display:block; }
+  .sidebar { display:none; }
+  .main { padding:20px 14px 95px; }
+  .page-heading {
+    align-items:flex-start;
+    margin-bottom:18px;
+  }
+  .page-heading .secondary-btn { display:none; }
+  .profile-hero {
+    padding:20px 16px;
+    gap:14px;
+    border-radius:17px;
+  }
+  .avatar {
+    width:62px;
+    height:62px;
+    border-radius:19px;
+    font-size:22px;
+  }
+  .profile-name { font-size:21px; }
+  .profile-number { font-size:12px; }
+  .profile-actions { width:100%; }
+  .profile-actions button { flex:1; }
+  .stats { grid-template-columns:1fr;gap:10px; }
+  .stat-card {
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:15px;
+  }
+  .stat-top { display:contents; }
+  .stat-value { margin:0;font-size:15px; }
+  .stat-caption { margin:4px 0 0; }
+  .stat-text { flex:1;min-width:0; }
+  .content-grid { grid-template-columns:1fr; }
+  .info-card,.activity-card { padding:16px; }
+  .mobile-nav {
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:4px;
+    position:fixed;
+    z-index:30;
+    bottom:0;
+    left:0;
+    right:0;
+    padding:9px 7px calc(9px + env(safe-area-inset-bottom));
+    border-top:1px solid var(--line);
+    background:#0b1220f5;
+    backdrop-filter:blur(18px);
+  }
+  .mobile-nav .nav-btn {
+    margin:0;
+    padding:9px 3px;
+    flex-direction:column;
+    justify-content:center;
+    gap:5px;
+    text-align:center;
+    font-size:10px;
+  }
+  .mobile-nav .nav-icon { font-size:18px; }
+  .footer { padding-bottom:15px; }
+}
+@media(max-width:360px) {
+  .main { padding-left:10px;padding-right:10px; }
+  .profile-name { font-size:19px; }
+  .top-actions .secondary-btn { font-size:11px; }
+}
 </style>
 </head>
 <body>
 <div class="app">
+
 <header class="topbar">
- <div class="brand"><div class="brand-icon">C</div><span>Contact Dashboard</span></div>
- <div class="top-actions">
-  <button class="secondary-btn" onclick="showView('overview')">Overview</button>
-  <button class="icon-btn" aria-label="Open contacts" onclick="showView('contacts')">☰</button>
- </div>
+  <div class="brand">
+    <div class="brand-icon">C</div>
+    <span>Contact Dashboard</span>
+  </div>
+  <div class="top-actions">
+    <button class="secondary-btn" onclick="showView('overview')">Overview</button>
+    <button class="icon-btn" aria-label="Open contacts" onclick="showView('contacts')">☰</button>
+  </div>
 </header>
+
 <div class="layout">
 <aside class="sidebar">
- <div class="side-label">DASHBOARD</div>
- <button class="nav-btn active" data-view="overview" onclick="showView('overview')"><span class="nav-icon">▦</span>Overview</button>
- <button class="nav-btn" data-view="contacts" onclick="showView('contacts')"><span class="nav-icon">♙</span>Contacts</button>
- <button class="nav-btn" data-view="activity" onclick="showView('activity')"><span class="nav-icon">◷</span>Activity</button>
- <button class="nav-btn" data-view="location" onclick="showView('location')"><span class="nav-icon">⌖</span>Location</button>
- <div class="side-label" style="margin-top:25px">SELECTED CONTACT</div>
- <button class="contact-item selected" onclick="selectContact(0)">
-  <div class="mini-avatar">CK</div>
-  <div><strong>Casey Kevin Behan Nicole</strong><small>Selected profile</small></div>
- </button>
+  <div class="side-label">DASHBOARD</div>
+  <button class="nav-btn active" data-view="overview" onclick="showView('overview')">
+    <span class="nav-icon">▦</span> Overview
+  </button>
+  <button class="nav-btn" data-view="contacts" onclick="showView('contacts')">
+    <span class="nav-icon">♙</span> Contacts
+  </button>
+  <button class="nav-btn" data-view="activity" onclick="showView('activity')">
+    <span class="nav-icon">◷</span> Activity
+  </button>
+  <button class="nav-btn" data-view="location" onclick="showView('location')">
+    <span class="nav-icon">⌖</span> Location
+  </button>
+
+  <div class="side-label" style="margin-top:25px">SELECTED CONTACT</div>
+  <button class="contact-item selected" onclick="selectContact(0)">
+    <div class="mini-avatar">CK</div>
+    <div>
+      <strong>Casey Kevin Behan Nicole</strong>
+      <small>Selected profile</small>
+    </div>
+  </button>
 </aside>
+
 <main class="main">
+
 <section class="view active" id="view-overview">
- <div class="page-heading">
-  <div><div class="eyebrow">CONTACT OVERVIEW</div><h1>Casey's Dashboard</h1><div class="subtitle">Contact information and profile details</div></div>
-  <button class="secondary-btn" onclick="showView('contacts')">Other contacts ↗</button>
- </div>
- <div class="profile-hero">
-  <div class="avatar" id="hero-avatar">CK</div>
-  <div>
-   <div class="profile-name" id="hero-name">Casey Kevin Behan Nicole</div>
-   <div class="profile-number" id="hero-phone">+1 (859) 640-1796</div>
-   <div class="profile-badges"><span class="pill green">Primary profile</span><span class="pill">United States number</span></div>
+  <div class="page-heading">
+    <div>
+      <div class="eyebrow">CONTACT OVERVIEW</div>
+      <h1>Casey's Dashboard</h1>
+      <div class="subtitle">Contact information and profile details</div>
+    </div>
+    <button class="secondary-btn" onclick="showView('contacts')">Other contacts ↗</button>
   </div>
-  <div class="profile-actions">
-   <button class="primary-btn" onclick="copyNumber()">Copy number</button>
-   <button class="secondary-btn" onclick="showView('location')">Location</button>
+
+  <div class="profile-hero">
+    <div class="avatar" id="hero-avatar">CK</div>
+    <div>
+      <div class="profile-name" id="hero-name">Casey Kevin Behan Nicole</div>
+      <div class="profile-number" id="hero-phone">+1 (859) 640-1796</div>
+      <div class="profile-badges">
+        <span class="pill green">Primary profile</span>
+        <span class="pill">United States number</span>
+      </div>
+    </div>
+    <div class="profile-actions">
+      <button class="primary-btn" onclick="copyNumber()">Copy number</button>
+      <button class="secondary-btn" onclick="showView('location')">Location</button>
+    </div>
   </div>
- </div>
- <div class="section-title">Profile summary</div>
- <div class="stats">
-  <div class="stat-card"><div class="stat-icon">☎</div><div class="stat-text"><div class="stat-top">Phone number</div><div class="stat-value" id="stat-phone">+1 (859) 640-1796</div><div class="stat-caption">Saved contact number</div></div></div>
-  <div class="stat-card"><div class="stat-icon">⌖</div><div class="stat-text"><div class="stat-top">Location</div><div class="stat-value">Not connected</div><div class="stat-caption">No live location source connected</div></div></div>
-  <div class="stat-card"><div class="stat-icon">▤</div><div class="stat-text"><div class="stat-top">Carrier</div><div class="stat-value" id="stat-carrier">Not provided</div><div class="stat-caption">Carrier not independently verified</div></div></div>
- </div>
- <div class="section-title">Contact details</div>
- <div class="content-grid">
-  <div class="info-card">
-   <h3>Personal information</h3>
-   <div class="info-row"><span class="info-label">Full name</span><span class="info-value" id="detail-name">Casey Kevin Behan Nicole</span></div>
-   <div class="info-row"><span class="info-label">Phone number</span><span class="info-value" id="detail-phone">+1 (859) 640-1796</span></div>
-   <div class="info-row"><span class="info-label">Country code</span><span class="info-value">+1 (US/Canada)</span></div>
-   <div class="info-row"><span class="info-label">Carrier</span><span class="info-value" id="detail-carrier">Not provided</span></div>
-   <div class="info-row"><span class="info-label">Location</span><span class="info-value muted">Not available</span></div>
+
+  <div class="section-title">Profile summary</div>
+  <div class="stats">
+    <div class="stat-card">
+      <div class="stat-icon">☎</div>
+      <div class="stat-text">
+        <div class="stat-top">Phone number</div>
+        <div class="stat-value" id="stat-phone">+1 (859) 640-1796</div>
+        <div class="stat-caption">Saved contact number</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">⌖</div>
+      <div class="stat-text">
+        <div class="stat-top">Location</div>
+        <div class="stat-value">Covington, Kentucky</div>
+        <div class="stat-caption">United States</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">▤</div>
+      <div class="stat-text">
+        <div class="stat-top">Carrier</div>
+        <div class="stat-value" id="stat-carrier">Celico Partnership DBA Verizon</div>
+        <div class="stat-caption">Carrier information</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">Contact details</div>
+  <div class="content-grid">
+    <div class="info-card">
+      <h3>Personal information</h3>
+      <div class="info-row">
+        <span class="info-label">Full name</span>
+        <span class="info-value" id="detail-name">Casey Kevin Behan Nicole</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Phone number</span>
+        <span class="info-value" id="detail-phone">+1 (859) 640-1796</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Country code</span>
+        <span class="info-value">+1 (US/Canada)</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Carrier</span>
+        <span class="info-value" id="detail-carrier">Celico Partnership DBA Verizon</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Location</span>
+        <span class="info-value" id="detail-location">United States, Kentucky, Covington</span>
+      </div>
+    </div>
+
+    <div class="activity-card">
+      <h3>Recent activity</h3>
+      <div class="activity-list">
+        <div class="activity-item">
+          <div class="activity-dot"></div>
+          <div>
+            <strong>Profile selected</strong>
+            <p>Casey Kevin Behan Nicole is the active contact in this dashboard.</p>
+          </div>
+        </div>
+        <div class="activity-item">
+          <div class="activity-dot"></div>
+          <div>
+            <strong>Contact details</strong>
+            <p>The saved phone number and carrier information are displayed above.</p>
+          </div>
+        </div>
+        <div class="activity-item">
+          <div class="activity-dot"></div>
+          <div>
+            <strong>Location information</strong>
+            <p>United States, Kentucky, Covington.</p>
+          </div>
+        </div>
+      </div>
+      <button class="secondary-btn" style="width:100%;margin-top:20px"
+        onclick="showView('activity')">View activity panel →</button>
+    </div>
+  </div>
+  <div class="footer">Contact dashboard</div>
+</section>
+
+<section class="view" id="view-contacts">
+  <div class="page-heading">
+    <div>
+      <div class="eyebrow">DIRECTORY</div>
+      <h1>Other Contacts</h1>
+      <div class="subtitle">Choose a contact to view the saved details.</div>
+    </div>
+  </div>
+  <input class="contact-search" id="contact-search"
+    placeholder="Search contacts..." oninput="renderContacts()">
+  <div class="info-card" id="contacts-list"></div>
+</section>
+
+<section class="view" id="view-activity">
+  <div class="page-heading">
+    <div>
+      <div class="eyebrow">RECORDS</div>
+      <h1>Activity</h1>
+      <div class="subtitle">Available dashboard actions and contact information.</div>
+    </div>
+  </div>
+  <div class="activity-filter">
+    <button class="active" onclick="filterActivity('all',this)">All</button>
+    <button onclick="filterActivity('profile',this)">Profile</button>
+    <button onclick="filterActivity('location',this)">Location</button>
+    <button onclick="filterActivity('contact',this)">Contacts</button>
   </div>
   <div class="activity-card">
-   <h3>Recent activity</h3>
-   <div class="activity-list">
-    <div class="activity-item"><div class="activity-dot"></div><div><strong>Profile selected</strong><p>Casey Kevin Behan Nicole is the active contact in this dashboard.</p></div></div>
-    <div class="activity-item"><div class="activity-dot"></div><div><strong>Contact details</strong><p>The supplied contact name and phone number are displayed above.</p></div></div>
-    <div class="activity-item"><div class="activity-dot"></div><div><strong>Location status</strong><p>No authorized location-sharing source is connected.</p></div></div>
-   </div>
-   <button class="secondary-btn" style="width:100%;margin-top:20px" onclick="showView('activity')">View activity panel →</button>
+    <div class="activity-list" id="activity-list"></div>
   </div>
- </div>
- <div class="footer">Contact dashboard</div>
 </section>
-<section class="view" id="view-contacts">
- <div class="page-heading"><div><div class="eyebrow">DIRECTORY</div><h1>Other Contacts</h1><div class="subtitle">Choose a contact to view the saved details.</div></div></div>
- <input class="contact-search" id="contact-search" placeholder="Search contacts..." oninput="renderContacts()">
- <div class="info-card" id="contacts-list"></div>
-</section>
-<section class="view" id="view-activity">
- <div class="page-heading"><div><div class="eyebrow">RECORDS</div><h1>Activity</h1><div class="subtitle">Available dashboard actions and contact information.</div></div></div>
- <div class="activity-filter">
-  <button class="active" onclick="filterActivity('all',this)">All</button>
-  <button onclick="filterActivity('profile',this)">Profile</button>
-  <button onclick="filterActivity('location',this)">Location</button>
-  <button onclick="filterActivity('contact',this)">Contacts</button>
- </div>
- <div class="activity-card"><div class="activity-list" id="activity-list"></div></div>
-</section>
+
 <section class="view" id="view-location">
- <div class="page-heading"><div><div class="eyebrow">LOCATION</div><h1>Location Details</h1><div class="subtitle" id="location-person">Casey Kevin Behan Nicole</div></div></div>
- <div class="info-card">
-  <div class="stat-icon" style="width:48px;height:48px;font-size:23px">⌖</div>
-  <h3 style="margin-top:20px">Location information</h3>
-  <div class="info-row"><span class="info-label">Contact</span><span class="info-value" id="location-name">Casey Kevin Behan Nicole</span></div>
-  <div class="info-row"><span class="info-label">Phone number</span><span class="info-value" id="location-phone">+1 (859) 640-1796</span></div>
-  <div class="info-row"><span class="info-label">Live location</span><span class="info-value muted">Unavailable</span></div>
-  <div class="info-row"><span class="info-label">Location source</span><span class="info-value muted">None connected</span></div>
-  <p class="subtitle" style="line-height:1.7;margin-top:20px">A phone number alone does not provide a person's live location. Location can be displayed when the person chooses to share it through an authorized location-sharing service.</p>
- </div>
+  <div class="page-heading">
+    <div>
+      <div class="eyebrow">LOCATION</div>
+      <h1>Location Details</h1>
+      <div class="subtitle" id="location-person">Casey Kevin Behan Nicole</div>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <div class="stat-icon" style="width:48px;height:48px;font-size:23px">⌖</div>
+    <h3 style="margin-top:20px">Location information</h3>
+
+    <div class="info-row">
+      <span class="info-label">Contact</span>
+      <span class="info-value" id="location-name">Casey Kevin Behan Nicole</span>
+    </div>
+
+    <div class="info-row">
+      <span class="info-label">Phone number</span>
+      <span class="info-value" id="location-phone">+1 (859) 640-1796</span>
+    </div>
+
+    <div class="info-row">
+      <span class="info-label">Carrier</span>
+      <span class="info-value" id="location-carrier">Celico Partnership DBA Verizon</span>
+    </div>
+
+    <div class="info-row">
+      <span class="info-label">Address</span>
+      <span class="info-value" id="location-address">United States, Kentucky, Covington</span>
+    </div>
+
+    <div class="info-row">
+      <span class="info-label">Live location</span>
+      <span class="info-value muted">Not connected</span>
+    </div>
+
+    <div class="info-row">
+      <span class="info-label">Location source</span>
+      <span class="info-value muted">No live source connected</span>
+    </div>
+  </div>
 </section>
+
 </main>
 </div>
+
 <nav class="mobile-nav" aria-label="Dashboard navigation">
- <button class="nav-btn active" data-view="overview" onclick="showView('overview')"><span class="nav-icon">▦</span>Overview</button>
- <button class="nav-btn" data-view="contacts" onclick="showView('contacts')"><span class="nav-icon">♙</span>Contacts</button>
- <button class="nav-btn" data-view="activity" onclick="showView('activity')"><span class="nav-icon">◷</span>Activity</button>
- <button class="nav-btn" data-view="location" onclick="showView('location')"><span class="nav-icon">⌖</span>Location</button>
+  <button class="nav-btn active" data-view="overview" onclick="showView('overview')">
+    <span class="nav-icon">▦</span>Overview
+  </button>
+  <button class="nav-btn" data-view="contacts" onclick="showView('contacts')">
+    <span class="nav-icon">♙</span>Contacts
+  </button>
+  <button class="nav-btn" data-view="activity" onclick="showView('activity')">
+    <span class="nav-icon">◷</span>Activity
+  </button>
+  <button class="nav-btn" data-view="location" onclick="showView('location')">
+    <span class="nav-icon">⌖</span>Location
+  </button>
 </nav>
 </div>
+
 <script>
 const contacts = [
- {name:"Casey Kevin Behan Nicole",phone:"+1 (859) 640-1796",carrier:"Not provided",initials:"CK"},
- {name:"Benjamin Merel",phone:"+1 718 645 5740",carrier:"Not provided",initials:"BM"},
- {name:"Abigail Merel Tamir",phone:"+1 561 409 4134",carrier:"Not provided",initials:"AT"},
- {name:"Abigail Merel-Tamir",phone:"+1 718 382 1404",carrier:"Not provided",initials:"AM"},
- {name:"Leah Scharf",phone:"+1 800 793 1111",carrier:"Not provided",initials:"LS"},
- {name:"Bryan Charles",phone:"+1 718 253 4941",carrier:"Not provided",initials:"BC"}
+  {
+    name:"Casey Kevin Behan Nicole",
+    phone:"+1 (859) 640-1796",
+    carrier:"Celico Partnership DBA Verizon",
+    location:"United States, Kentucky, Covington",
+    initials:"CK"
+  },
+  {
+    name:"Benjamin Merel",
+    phone:"+1 718 645 5740",
+    carrier:"Not provided",
+    location:"Not provided",
+    initials:"BM"
+  },
+  {
+    name:"Abigail Merel Tamir",
+    phone:"+1 561 409 4134",
+    carrier:"Not provided",
+    location:"Not provided",
+    initials:"AT"
+  },
+  {
+    name:"Abigail Merel-Tamir",
+    phone:"+1 718 382 1404",
+    carrier:"Not provided",
+    location:"Not provided",
+    initials:"AM"
+  },
+  {
+    name:"Leah Scharf",
+    phone:"+1 800 793 1111",
+    carrier:"Not provided",
+    location:"Not provided",
+    initials:"LS"
+  },
+  {
+    name:"Bryan Charles",
+    phone:"+1 718 253 4941",
+    carrier:"Not provided",
+    location:"Not provided",
+    initials:"BC"
+  }
 ];
+
 let selectedContact=0;
 let activityFilter="all";
+
 const activityItems=[
- {type:"profile",title:"Casey Kevin Behan Nicole profile",description:"The primary contact profile is displayed in the overview."},
- {type:"contact",title:"Contact directory",description:"The saved contact list is available from the Contacts menu."},
- {type:"location",title:"Location information",description:"No authorized live location source is connected."},
- {type:"profile",title:"Phone details",description:"The supplied phone number is displayed in the contact profile."}
+  {
+    type:"profile",
+    title:"Casey Kevin Behan Nicole profile",
+    description:"The primary contact profile is displayed in the overview."
+  },
+  {
+    type:"contact",
+    title:"Contact directory",
+    description:"The saved contact list is available from the Contacts menu."
+  },
+  {
+    type:"location",
+    title:"Location information",
+    description:"United States, Kentucky, Covington."
+  },
+  {
+    type:"profile",
+    title:"Phone details",
+    description:"The supplied phone number and carrier information are displayed."
+  }
 ];
-function showView(name){
- document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));
- const target=document.getElementById("view-"+name);
- if(target)target.classList.add("active");
- document.querySelectorAll(".nav-btn[data-view]").forEach(b=>b.classList.toggle("active",b.dataset.view===name));
- if(name==="contacts")renderContacts();
- if(name==="activity")renderActivity();
- window.scrollTo({top:0,behavior:"smooth"});
+
+function showView(name) {
+  document.querySelectorAll(".view").forEach(view=>{
+    view.classList.remove("active");
+  });
+
+  const target=document.getElementById("view-"+name);
+  if(target)target.classList.add("active");
+
+  document.querySelectorAll(".nav-btn[data-view]").forEach(button=>{
+    button.classList.toggle("active",button.dataset.view===name);
+  });
+
+  if(name==="contacts")renderContacts();
+  if(name==="activity")renderActivity();
+
+  window.scrollTo({top:0,behavior:"smooth"});
 }
-function selectContact(index){
- selectedContact=index;
- const c=contacts[index];
- document.getElementById("hero-avatar").textContent=c.initials;
- document.getElementById("hero-name").textContent=c.name;
- document.getElementById("hero-phone").textContent=c.phone;
- document.getElementById("stat-phone").textContent=c.phone;
- document.getElementById("stat-carrier").textContent=c.carrier;
- document.getElementById("detail-name").textContent=c.name;
- document.getElementById("detail-phone").textContent=c.phone;
- document.getElementById("detail-carrier").textContent=c.carrier;
- document.getElementById("location-person").textContent=c.name;
- document.getElementById("location-name").textContent=c.name;
- document.getElementById("location-phone").textContent=c.phone;
- document.querySelectorAll(".contact-item").forEach((item,i)=>item.classList.toggle("selected",i===index));
- showView("overview");
+
+function selectContact(index) {
+  selectedContact=index;
+  const contact=contacts[index];
+
+  document.getElementById("hero-avatar").textContent=contact.initials;
+  document.getElementById("hero-name").textContent=contact.name;
+  document.getElementById("hero-phone").textContent=contact.phone;
+
+  document.getElementById("stat-phone").textContent=contact.phone;
+  document.getElementById("stat-carrier").textContent=contact.carrier;
+
+  document.getElementById("detail-name").textContent=contact.name;
+  document.getElementById("detail-phone").textContent=contact.phone;
+  document.getElementById("detail-carrier").textContent=contact.carrier;
+  document.getElementById("detail-location").textContent=contact.location;
+
+  document.getElementById("location-person").textContent=contact.name;
+  document.getElementById("location-name").textContent=contact.name;
+  document.getElementById("location-phone").textContent=contact.phone;
+  document.getElementById("location-carrier").textContent=contact.carrier;
+  document.getElementById("location-address").textContent=contact.location;
+
+  document.querySelectorAll(".contact-item").forEach((item,i)=>{
+    item.classList.toggle("selected",i===index);
+  });
+
+  showView("overview");
 }
-function renderContacts(){
- const query=(document.getElementById("contact-search")?.value||"").toLowerCase();
- const list=document.getElementById("contacts-list");
- const filtered=contacts.map((contact,index)=>({contact,index})).filter(({contact})=>
- contact.name.toLowerCase().includes(query)||contact.phone.includes(query));
- if(!filtered.length){list.innerHTML='<div class="empty-state">No matching contacts.</div>';return}
- list.innerHTML=filtered.map(({contact,index})=>`
- <button class="contact-item ${index===selectedContact?"selected":""}" style="width:100%;margin-bottom:5px" onclick="selectContact(${index})">
- <div class="mini-avatar">${contact.initials}</div>
- <div style="flex:1;min-width:0"><strong>${escapeHTML(contact.name)}</strong><small>${escapeHTML(contact.phone)}</small></div>
- <span style="color:#91a0b8">›</span></button>`).join("");
+
+function renderContacts() {
+  const query=(
+    document.getElementById("contact-search")?.value||""
+  ).toLowerCase();
+
+  const list=document.getElementById("contacts-list");
+
+  const filtered=contacts
+    .map((contact,index)=>({contact,index}))
+    .filter(({contact})=>
+      contact.name.toLowerCase().includes(query)||
+      contact.phone.includes(query)
+    );
+
+  if(!filtered.length) {
+    list.innerHTML='<div class="empty-state">No matching contacts.</div>';
+    return;
+  }
+
+  list.innerHTML=filtered.map(({contact,index})=>`
+    <button class="contact-item ${index===selectedContact?"selected":""}"
+      style="width:100%;margin-bottom:5px"
+      onclick="selectContact(${index})">
+      <div class="mini-avatar">${escapeHTML(contact.initials)}</div>
+      <div style="flex:1;min-width:0">
+        <strong>${escapeHTML(contact.name)}</strong>
+        <small>${escapeHTML(contact.phone)}</small>
+      </div>
+      <span style="color:#91a0b8">›</span>
+    </button>
+  `).join("");
 }
-function renderActivity(){
- const filtered=activityItems.filter(item=>activityFilter==="all"||item.type===activityFilter);
- document.getElementById("activity-list").innerHTML=filtered.map(item=>`
- <div class="activity-item"><div class="activity-dot"></div><div><strong>${escapeHTML(item.title)}</strong><p>${escapeHTML(item.description)}</p></div></div>`).join("");
+
+function renderActivity() {
+  const filtered=activityItems.filter(item=>
+    activityFilter==="all"||item.type===activityFilter
+  );
+
+  const list=document.getElementById("activity-list");
+
+  list.innerHTML=filtered.map(item=>`
+    <div class="activity-item">
+      <div class="activity-dot"></div>
+      <div>
+        <strong>${escapeHTML(item.title)}</strong>
+        <p>${escapeHTML(item.description)}</p>
+      </div>
+    </div>
+  `).join("");
 }
-function filterActivity(type,button){
- activityFilter=type;
- document.querySelectorAll(".activity-filter button").forEach(b=>b.classList.remove("active"));
- button.classList.add("active");
- renderActivity();
+
+function filterActivity(type,button) {
+  activityFilter=type;
+
+  document.querySelectorAll(".activity-filter button").forEach(item=>{
+    item.classList.remove("active");
+  });
+
+  button.classList.add("active");
+  renderActivity();
 }
-function copyNumber(){
- const number=contacts[selectedContact].phone;
- if(navigator.clipboard&&window.isSecureContext){
-  navigator.clipboard.writeText(number).then(()=>alert("Phone number copied.")).catch(()=>fallbackCopy(number));
- }else fallbackCopy(number);
+
+function copyNumber() {
+  const number=contacts[selectedContact].phone;
+
+  if(navigator.clipboard&&window.isSecureContext) {
+    navigator.clipboard.writeText(number).then(()=>{
+      alert("Phone number copied.");
+    }).catch(()=>fallbackCopy(number));
+  } else {
+    fallbackCopy(number);
+  }
 }
-function fallbackCopy(value){
- const input=document.createElement("textarea");
- input.value=value;input.style.position="fixed";input.style.opacity="0";
- document.body.appendChild(input);input.select();
- try{document.execCommand("copy");alert("Phone number copied.");}
- catch{alert("Copy this number: "+value);}
- input.remove();
+
+function fallbackCopy(value) {
+  const input=document.createElement("textarea");
+  input.value=value;
+  input.style.position="fixed";
+  input.style.opacity="0";
+  document.body.appendChild(input);
+  input.select();
+
+  try {
+    document.execCommand("copy");
+    alert("Phone number copied.");
+  } catch {
+    alert("Copy this number: "+value);
+  }
+
+  input.remove();
 }
-function escapeHTML(value){
- return String(value).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+function escapeHTML(value) {
+  return String(value).replace(/[&<>"']/g,character=>({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#39;"
+  })[character]);
 }
+
 renderContacts();
 renderActivity();
 selectContact(0);
